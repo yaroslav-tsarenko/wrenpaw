@@ -4,67 +4,70 @@ import { POLICY_FACTS as F } from "@/lib/policy-facts";
 
 export const generateMetadata = policyMetadata(
   "complaints",
-  `How to complain to ${F.brand}: we acknowledge ${F.complaintsAck} and reply in full within ${F.complaintsDays} days.`,
+  `Raising a complaint with ${F.brand}: an acknowledgement ${F.complaintsAck} and a considered answer inside ${F.complaintsDays} days.`,
 );
 
 const sections: PolicySection[] = [
   {
     id: "how",
-    title: "How to complain",
+    title: "Getting a complaint to us",
     body: (
       <>
         <p>
-          Email {F.email} or use the <Link href="/contact">contact form</Link>. Please include:
+          Write to {F.email}, or send it through the <Link href="/contact">contact form</Link>. Four things make it quicker to deal with:
         </p>
         <ul>
-          <li>your name and the email address used for the order;</li>
-          <li>the order number, if the complaint is about an order;</li>
-          <li>what went wrong, and photographs if it concerns a damaged or faulty item;</li>
-          <li>what you would like us to do.</li>
+          <li>your name, and the email address the order was placed under;</li>
+          <li>the order number, where an order is involved;</li>
+          <li>an account of what happened, with photographs if an item arrived damaged or faulty;</li>
+          <li>the outcome you are after.</li>
         </ul>
-        <p>Our support hours are {F.supportHours}.</p>
+        <p>We are at the desk {F.supportHours}.</p>
       </>
     ),
   },
   {
     id: "timeline",
-    title: "What happens next",
+    title: "How we handle it",
     body: (
       <ol>
-        <li>We acknowledge your complaint {F.complaintsAck}, with the name of the person handling it.</li>
-        <li>We look into it, which may include checking with the warehouse or the carrier.</li>
+        <li>An acknowledgement reaches you {F.complaintsAck}, naming whoever has picked it up.</li>
+        <li>We investigate, which can mean going back to the warehouse or chasing the carrier.</li>
         <li>
-          We send you our full reply within {F.complaintsDays} days, explaining what we found and what we will do. If we need longer, for
-          example while a carrier investigates a lost parcel, we tell you why and when you will hear from us.
+          Our full answer follows inside {F.complaintsDays} days, setting out what we established and what we intend to do. Where more time
+          is genuinely needed — a carrier tracing a lost parcel, for instance — we say so and give you a date.
         </li>
       </ol>
     ),
   },
   {
     id: "escalate",
-    title: "If you are not satisfied",
+    title: "If our answer does not settle it",
     body: (
       <>
         <p>
-          Reply to our response and ask for the complaint to be reviewed. A different member of the team will look at it again and reply
-          within {F.complaintsDays} days.
+          Reply and ask for a review. Somebody else on the team takes the file from the beginning and comes back to you within{" "}
+          {F.complaintsDays} days.
         </p>
         <p>
-          If we still cannot agree, you can contact the consumer advice service where you live: Citizens Advice in England, Wales and
-          Scotland, Consumerline in Northern Ireland, or the European Consumer Centre in your EU country. You can also bring a claim in the
-          courts, as described in the governing law section of our <Link href="/policies/terms#law">Terms and conditions</Link>.
+          Where we still cannot reach agreement, the consumer advice body for your country can take it up: Citizens Advice in England, Wales
+          and Scotland, Consumerline in Northern Ireland, or the European Consumer Centre in your EU member state. Court action also remains
+          open to you, on the terms described in the governing law section of our <Link href="/policies/terms#law">Terms and conditions</Link>.
         </p>
-        <p>Complaints about how we use personal data can also go to a data protection authority, as described in our <Link href="/policies/privacy#rights">Privacy policy</Link>.</p>
+        <p>
+          Where the complaint concerns our handling of personal data, a data protection authority can also hear it — see the{" "}
+          <Link href="/policies/privacy#rights">Privacy policy</Link>.
+        </p>
       </>
     ),
   },
   {
     id: "records",
-    title: "Records",
+    title: "What we keep",
     body: (
       <p>
-        We keep a record of each complaint and our reply for {F.retention.supportMessagesMonths} months, so that we can follow up and improve
-        how we work.
+        Each complaint and our answer to it stay on file for {F.retention.supportMessagesMonths} months, both so we can pick the thread back
+        up and so patterns are visible to us.
       </p>
     ),
   },

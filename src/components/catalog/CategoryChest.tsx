@@ -22,12 +22,12 @@ export function CategoryChest({ label, drawers }: { label: string; drawers: Ches
                 <span className="text-ui-sm font-semibold leading-[1.3] text-ink group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">{drawer.name}</span>
                 <span className="tabular meta text-ink-muted">{drawer.countLabel}</span>
               </span>
-              <span aria-hidden="true" className="bevel-xs relative size-2.5 shrink-0 before:bg-shelf" />
+              <span aria-hidden="true" className="size-1.5 shrink-0 bg-brand-2" />
             </Link>
           </li>
         ))}
       </ul>
-      <span aria-hidden="true" className="shelf-rule" />
+      <span aria-hidden="true" className="rule" />
     </nav>
   );
 }

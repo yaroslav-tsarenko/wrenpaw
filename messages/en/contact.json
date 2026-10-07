@@ -5,13 +5,13 @@
   "promise": "We answer every message {replyTime}. Support hours: {supportHours}.",
   "tradingName": "{brand} is a trading name of {company}.",
   "orderQuestions": "Order questions? Have your order number ready.",
-  "orderLinks": "Delivery times and costs are in our <delivery>Delivery policy</delivery>; sending something back is covered in <returns>Returns and refunds</returns>.",
-  "faqLink": "Many questions are answered in <faq>Questions</faq>.",
+  "orderLinks": "Transit times and charges live in the <delivery>Delivery policy</delivery>; posting something back is covered under <returns>Returns and refunds</returns>.",
+  "faqLink": "A good many answers are already in <faq>Questions</faq>.",
   "formTitle": "Send a message",
   "name": "Name",
   "email": "Email",
   "orderNumber": "Order number",
-  "orderNumberHint": "Optional. You will find it in your order confirmation email.",
+  "orderNumberHint": "Optional. It is in the confirmation email for the order.",
   "subject": "Subject",
   "subjectPlaceholder": "Choose a subject",
   "subjects": {
@@ -22,12 +22,12 @@
     "other": "Other"
   },
   "message": "Message",
-  "messageHint": "Include what happened and, for a damaged item, mention that you have photos. We will ask for them in our reply.",
+  "messageHint": "Tell us what happened, and say if you have photographs of a damaged item. We will ask for them in our reply.",
   "send": "Send message",
   "required": "Required",
   "successTitle": "Message sent",
-  "success": "Thanks, we'll reply to {email} {replyTime}.",
+  "success": "Thank you — a reply goes to {email} {replyTime}.",
   "sendAnother": "Send another message",
-  "error": "Your message wasn't sent. Check your connection and try again; what you wrote is still here.",
-  "privacyNote": "We use these details only to answer your message. See our <privacy>Privacy policy</privacy>."
+  "error": "Your message wasn't sent. Check the connection and have another go — nothing you typed has been lost.",
+  "privacyNote": "These details are used for nothing but answering you. The <privacy>Privacy policy</privacy> has the detail."
 }

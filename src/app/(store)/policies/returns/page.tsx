@@ -4,135 +4,137 @@ import { POLICY_FACTS as F } from "@/lib/policy-facts";
 
 export const generateMetadata = policyMetadata(
   "returns",
-  `Cancel within ${F.withdrawalDays} days of delivery, return within ${F.returnShipDays} days, refund within ${F.refundDays} days to the card you paid with. Faulty items are returned at our cost.`,
+  `You have ${F.withdrawalDays} days from delivery to change your mind, ${F.returnShipDays} days to post the goods back, and we settle the refund to your original card inside ${F.refundDays} days. Anything faulty travels back at our expense.`,
 );
 
 const sections: PolicySection[] = [
   {
     id: "summary",
-    title: "In short",
+    title: "The short version",
     body: (
       <ul>
-        <li>You can cancel within {F.withdrawalDays} days of receiving your order, without giving a reason.</li>
-        <li>Send the items back within {F.returnShipDays} days of telling us.</li>
-        <li>You pay for the return unless the item is faulty, damaged or not what you ordered.</li>
-        <li>We refund within {F.refundDays} days of receiving the items, or of your proof of return if that comes first, to the card you paid with.</li>
+        <li>{F.withdrawalDays} days from the parcel arriving to change your mind, with no explanation required.</li>
+        <li>Once you have told us, the goods need to be posted back inside {F.returnShipDays} days.</li>
+        <li>Return postage is yours, except where the item is faulty, damaged or simply not what you ordered.</li>
+        <li>Refunds land on the card you paid with inside {F.refundDays} days of the goods reaching us — or of your proof of posting, whichever is sooner.</li>
       </ul>
     ),
   },
   {
     id: "right-to-cancel",
-    title: "Your right to cancel",
+    title: "The right to change your mind",
     body: (
       <>
         <p>
-          The Consumer Contracts Regulations 2013 (UK) and the Consumer Rights Directive (EU) give you {F.withdrawalDays} days to cancel an
-          online order. The period starts the day after you, or someone you name, receive the goods. If an order arrives in more than one
-          parcel, it starts the day after the last one arrives.
+          Your {F.withdrawalDays}-day cancellation window on an online order comes from the Consumer Contracts Regulations 2013 (UK) and the
+          Consumer Rights Directive (EU). Counting starts the day after the goods reach you or whoever you nominated. Split an order across
+          several parcels and the clock starts the day after the final one lands.
         </p>
         <p>
-          The right covers everything we sell. We do not make an exception for hygiene-sealed goods: none of our products is sold sealed for
-          health reasons.
+          Everything in the range is covered. Nothing we sell is supplied sealed for health or hygiene reasons, so there is no category of
+          product we carve out of this right.
         </p>
-        <p>You can also cancel an order before it is dispatched. If it has not left the warehouse, we cancel it and refund the full amount.</p>
+        <p>Catching an order before it leaves the warehouse is simpler still: tell us, we pull it, and the full amount goes back.</p>
       </>
     ),
   },
   {
     id: "how-to-return",
-    title: "How to return an item",
+    title: "Sending something back",
     body: (
       <ol>
         <li>
-          Email {F.email} or use the <Link href="/contact">contact form</Link> within {F.withdrawalDays} days of delivery. Give your order
-          number and the items you are returning. A reason is optional.
+          Write to {F.email}, or go through the <Link href="/contact">contact form</Link>, inside {F.withdrawalDays} days of delivery. We need
+          the order number and which items are coming back. Telling us why is up to you.
         </li>
-        <li>We reply {F.replyTime} with the return address and what to write on the parcel.</li>
+        <li>Expect an answer {F.replyTime}, giving you the return address and what to mark on the parcel.</li>
         <li>
-          Pack the items securely, in the original packaging if you still have it, and send them within {F.returnShipDays} days of your
-          message. Use a tracked service and keep the receipt: it is your proof of return.
+          Wrap the goods so they survive the journey — the original packaging if you still have it — and post them inside {F.returnShipDays}{" "}
+          days of writing to us. Choose a tracked service and hang on to the receipt; that receipt is your proof of return.
         </li>
-        <li>We inspect the items when they arrive and email you to confirm the refund.</li>
+        <li>We check the goods over on arrival and email you to confirm the refund.</li>
       </ol>
     ),
   },
   {
     id: "return-costs",
-    title: "Return costs",
+    title: "Who pays the postage",
     body: (
       <>
         <p>
-          If you change your mind, you pay the cost of sending the items back. Returns go to the address we give you, which may be in Spain,
-          so the cost depends on where you send from and the service you choose.
+          A change of mind means the return postage is on you. The address we send you may be in Spain, so what it costs depends on where
+          you are posting from and which service you pick.
         </p>
         <p>
-          If an item is faulty, damaged in transit or not what you ordered, we pay the return cost. Tell us first and we will arrange the
-          return or refund your postage.
+          Faulty goods, transit damage and wrong items are different: that return is at our expense. Contact us before you post anything and
+          we will either book the collection or put your postage back.
         </p>
       </>
     ),
   },
   {
     id: "condition",
-    title: "Condition of returned items",
+    title: "What condition goods come back in",
     body: (
       <>
         <p>
-          You may handle an item as you would in a shop to check what it is like. Please do not cook with, bake in, wash in a dishwasher or
-          store food in an item you might return.
+          Handle an item as freely as you would in a shop — unbox it, look it over, check the size against your animal. What we ask you not
+          to do, while you are still deciding, is feed from a bowl, let an animal chew or sleep on something, fill a litter tray, or fill a
+          tank or terrarium with water or substrate.
         </p>
         <p>
-          If an item comes back used, or damaged because it was handled more than necessary, we may reduce the refund by the loss in value.
-          We tell you the amount and the reason before we refund. We never reduce a refund for a faulty item.
+          Goods that arrive back visibly used, or damaged because they were handled more than checking required, may have the lost value
+          deducted. We will tell you the figure and our reasoning before any refund goes through. A faulty item is never subject to a
+          deduction.
         </p>
       </>
     ),
   },
   {
     id: "refunds",
-    title: "Refunds",
+    title: "How the money comes back",
     body: (
       <>
         <p>
-          We refund within {F.refundDays} days of the day we receive the items back or, if earlier, the day you send us proof that you have
-          returned them. For an order cancelled before dispatch, we refund within {F.refundDays} days of your cancellation.
+          The refund clock is {F.refundDays} days, running from the day the goods arrive back with us or, if sooner, the day you show us
+          proof that they are on their way. Cancel before dispatch and the same {F.refundDays} days run from your cancellation instead.
         </p>
         <p>
-          The refund includes the price of the items and the standard delivery charge you paid for them. If you return only part of an
-          order, the delivery charge is not refunded unless the whole order is returned.
+          We give back the price of the goods plus the standard delivery charge you paid on them. Keep part of an order and the delivery
+          charge stays with us; send the whole order back and it is refunded too.
         </p>
         <p>
-          Refunds go to the same card you paid with, in the same currency. We do not charge any fee. Your bank may take a few working days
-          to show the refund on your statement.
+          Money returns to the card that paid, in the currency it paid in, with no handling fee from us. How quickly it surfaces on your
+          statement is down to your bank, and a few working days is normal.
         </p>
       </>
     ),
   },
   {
     id: "faulty",
-    title: "Faulty, damaged or wrong items",
+    title: "Faulty, damaged or wrong goods",
     body: (
       <>
         <p>
-          If an item arrives damaged, has a fault, or is not what you ordered, email us with your order number and photographs of the item
-          and its packaging. Please do so as soon as you can after delivery.
+          Anything that turns up broken, develops a fault, or is not the item you ordered: email us the order number together with
+          photographs of the goods and the packaging, as soon after delivery as you can manage.
         </p>
         <p>
-          You can choose a replacement or a refund. We pay the return cost. These rights come from the law and are not limited by the{" "}
-          {F.withdrawalDays}-day period. Defects that show up later are covered by our{" "}
-          <Link href="/policies/warranty">{F.warrantyMonths}-month warranty</Link> and your statutory rights.
+          Replacement or refund is your choice, and the return costs you nothing. These are legal rights, so the {F.withdrawalDays}-day
+          window does not cap them. Faults that emerge later fall under our{" "}
+          <Link href="/policies/warranty">{F.warrantyMonths}-month warranty</Link> alongside your statutory rights.
         </p>
       </>
     ),
   },
   {
     id: "refused",
-    title: "Refused or undelivered parcels",
+    title: "Parcels refused or sent back",
     body: (
       <p>
-        If you refuse a delivery or a parcel comes back to us because it could not be delivered, we treat it as a cancellation once it reaches
-        the warehouse. We refund the items and the delivery charge, less the actual cost of the return shipment charged to us by the carrier.
-        See our <Link href="/policies/shipping">Delivery policy</Link>.
+        Turn a delivery away, or let a parcel find its way back to us undelivered, and we count it as a cancellation from the moment it
+        reaches the warehouse. Goods and delivery charge are refunded, minus whatever the carrier actually billed us for the return leg. The{" "}
+        <Link href="/policies/shipping">Delivery policy</Link> covers this in context.
       </p>
     ),
   },

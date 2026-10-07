@@ -3,22 +3,22 @@
 import { useEffect, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Plate } from "@/components/ui/Plate";
-import { Cubby, type ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import { Flag } from "@/components/ui/Flag";
+import { Stage, type EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 import { PriceDisplay } from "@/components/shared/PriceDisplay/PriceDisplay";
 import { MEGA_ZONES, navCategory } from "@/config/navigation";
 import { findCategory, subtreeCount, type CategoryNode } from "@/lib/hooks/useCategoryTree";
 import { cachedFetchJSON, readCached } from "@/lib/utils/reliable-fetch";
 
 function useFeaturedProduct(slug: string | null) {
-  const [product, setProduct] = useState<ShelfProduct | null>(null);
+  const [product, setProduct] = useState<EntryProduct | null>(null);
   useEffect(() => {
     if (!slug) return;
     const cacheKey = `mega:featured:${slug}`;
-    const cached = readCached<{ data: ShelfProduct[] }>({ cacheKey, storage: "session" });
+    const cached = readCached<{ data: EntryProduct[] }>({ cacheKey, storage: "session" });
     if (cached) setProduct(cached.data?.[0] ?? null);
     let cancelled = false;
-    cachedFetchJSON<{ data: ShelfProduct[] }>(`/api/products?category=${encodeURIComponent(slug)}&pageSize=1&inStock=true`, { cacheKey, storage: "session" })
+    cachedFetchJSON<{ data: EntryProduct[] }>(`/api/products?category=${encodeURIComponent(slug)}&pageSize=1&inStock=true`, { cacheKey, storage: "session" })
       .then((res) => {
         if (!cancelled) setProduct(res.data?.[0] ?? null);
       })
@@ -43,7 +43,7 @@ export interface MegaMenuProps {
 
 export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot = null, onClose, onPointerEnter, onPointerLeave }: MegaMenuProps) {
   const [pointed, setPointed] = useState<string | null>(null);
-  const hovered = pointed ?? activeRoot ?? "cookware";
+  const hovered = pointed ?? activeRoot ?? MEGA_ZONES[0].slugs[0];
   const featured = useFeaturedProduct(open ? hovered : null);
   const hoveredName = navCategory(hovered)?.name ?? findCategory(categories, hovered)?.name ?? "";
 
@@ -75,7 +75,7 @@ export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot =
   return (
     <div
       id={id}
-      data-drawer="mega"
+      data-mega=""
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}
       onKeyDown={onKeyDown}
@@ -84,12 +84,12 @@ export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot =
         if (next && (e.currentTarget.contains(next) || (next as HTMLElement).closest?.("[data-mega-trigger]"))) return;
         onClose(false);
       }}
-      className="animate-drawer-out absolute inset-x-0 top-full z-50 max-h-[70vh] overflow-y-auto bg-raised text-ink shadow-lg"
+      className="animate-drop-in absolute inset-x-0 top-full z-50 max-h-[70vh] overflow-y-auto bg-raised text-ink shadow-lg"
     >
       <div className="mx-auto grid max-w-container grid-cols-5 gap-8 px-gutter py-8">
         {MEGA_ZONES.map((zone) => (
           <div key={zone.title} data-mega-col="" className="min-w-0">
-            <Plate variant="brass">{zone.title}</Plate>
+            <Flag variant="accent">{zone.title}</Flag>
             <ul className="m-0 mt-5 flex list-none flex-col gap-6 p-0">
               {zone.slugs.map((slug) => {
                 const node = findCategory(categories, slug);
@@ -101,7 +101,7 @@ export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot =
                       aria-current={activeSlug === slug ? "page" : activeRoot === slug ? "true" : undefined}
                       onFocus={() => setPointed(slug)}
                       onClick={() => onClose(false)}
-                      className="flex items-baseline justify-between gap-3 text-step-0 font-semibold text-ink underline-offset-4 hover-device:hover:underline aria-[current]:underline aria-[current]:decoration-brass aria-[current]:decoration-2"
+                      className="flex items-baseline justify-between gap-3 text-step-0 font-semibold text-ink underline-offset-4 hover-device:hover:underline aria-[current]:underline aria-[current]:decoration-brand-2 aria-[current]:decoration-2"
                     >
                       <span>{label}</span>
                       {node ? <span className="tabular meta font-normal text-ink-subtle">{subtreeCount(node)}</span> : null}
@@ -133,7 +133,7 @@ export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot =
         <div data-mega-col="" className="min-w-0 border-l border-line pl-8">
           {featured ? (
             <div className="group relative">
-              <Cubby src={featured.images?.[0]?.url} alt="" lift sizes="220px" />
+              <Stage src={featured.images?.[0]?.url} alt="" hover="lift" sizes="220px" />
               <p className="mt-3 line-clamp-2 text-ui-sm font-medium text-ink">{featured.name}</p>
               <PriceDisplay price={Number(featured.price)} comparePrice={featured.comparePrice ? Number(featured.comparePrice) : null} size="sm" className="mt-1" />
               <Link href={`/product/${featured.slug}`} onClick={() => onClose(false)} className="absolute inset-0" aria-label={featured.name} />
@@ -141,7 +141,7 @@ export function MegaMenu({ id, open, categories, activeSlug = null, activeRoot =
           ) : (
             <div aria-hidden="true">
               <div className="aspect-square bg-surface-2" />
-              <span className="shelf-rule" />
+              <span className="rule" />
             </div>
           )}
           <Link

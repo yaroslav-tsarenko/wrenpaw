@@ -50,8 +50,8 @@ export function FaqIndex({ label, groups }: { label: string; groups: { id: strin
                   isActive ? "font-medium text-ink" : "text-ink-muted hover-device:hover:text-ink",
                 )}
               >
-                <span className={cn("transition-transform duration-[260ms] ease-[var(--ease-furniture)]", isActive && "lg:translate-x-1.5")}>{group.title}</span>
-                {isActive ? <span aria-hidden="true" className="shelf-rule absolute inset-x-0 -bottom-px" /> : null}
+                <span className={cn("transition-transform duration-[260ms] ease-[var(--ease-press)]", isActive && "lg:translate-x-1.5")}>{group.title}</span>
+                {isActive ? <span aria-hidden="true" className="rule absolute inset-x-0 -bottom-px" /> : null}
               </a>
             </li>
           );

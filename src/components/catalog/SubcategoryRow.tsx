@@ -26,7 +26,7 @@ export function SubcategoryRow({ label, links }: { label: string; links: Subcate
             >
               {link.label}
               <span className="tabular meta text-ink-subtle">{link.count}</span>
-              {link.active ? <span aria-hidden="true" className="shelf-rule-solid absolute inset-x-0 bottom-2" /> : null}
+              {link.active ? <span aria-hidden="true" className="rule-strong absolute inset-x-0 bottom-2" /> : null}
             </Link>
           </li>
         ))}

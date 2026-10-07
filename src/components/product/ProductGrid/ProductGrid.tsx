@@ -1,9 +1,9 @@
 "use client";
 
-import { ShelfGrid, ShelfTile, type ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import { EntryGrid, ProductEntry, type EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 
 interface ProductGridProps {
-  products: ShelfProduct[];
+  products: EntryProduct[];
   dense?: boolean;
   priorityCount?: number;
   className?: string;
@@ -11,10 +11,10 @@ interface ProductGridProps {
 
 export function ProductGrid({ products, dense = false, priorityCount = 0, className }: ProductGridProps) {
   return (
-    <ShelfGrid dense={dense} className={className}>
+    <EntryGrid dense={dense} className={className}>
       {products.map((product, index) => (
-        <ShelfTile key={product.id} product={product} priority={index < priorityCount} />
+        <ProductEntry key={product.id} product={product} priority={index < priorityCount} />
       ))}
-    </ShelfGrid>
+    </EntryGrid>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "siteDescription": "Cookware, bakeware, tableware, glassware and bar tools, delivered to the UK and EU.",
+  "siteDescription": "Food, bedding, walking kit, trays, cages, tanks and terrarium equipment for dogs, cats, small animals, birds, fish and reptiles, delivered across the UK and EU.",
   "ogFreeOver": "Free delivery from {amount}",
   "ogReturns": "{days}-day returns",
   "ogFrom": "From {price}",
@@ -7,5 +7,5 @@
   "ogShop": "Shop",
   "ogProductAlt": "{name} from {brand}",
   "ogCategoryAlt": "{name} at {brand}",
-  "catalogTitle": "Cookware, tableware and kitchen tools"
+  "catalogTitle": "Pet supplies for dogs, cats, small animals and aquariums"
 }

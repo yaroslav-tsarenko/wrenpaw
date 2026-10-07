@@ -6,25 +6,25 @@ export interface HomeCategory {
   name: string;
   slug: string;
   count: number;
+  description?: string | null;
 }
 
-export interface HomeDrawer extends HomeCategory {
+export interface IndexEntry extends HomeCategory {
   products: HomeProduct[];
+  subcategories: { name: string; slug: string }[];
 }
 
-export interface HomeHero {
-  shelves: { category: HomeCategory; products: HomeProduct[] }[];
-  cupboards: { category: HomeCategory; products: HomeProduct[] }[];
-  drawers: HomeCategory[];
+export interface AnimalBlock extends HomeCategory {
+  product: HomeProduct | null;
+  subcategories: { name: string; slug: string }[];
 }
 
 export interface HomeData {
-  hero: HomeHero;
-  drawers: HomeDrawer[];
-  topShelf: { ranked: boolean; products: HomeProduct[] };
-  rack: { category: HomeCategory | null; products: HomeProduct[] };
-  hooks: { categories: HomeCategory[]; products: HomeProduct[] };
-  reduced: HomeProduct[];
-  newest: HomeProduct[];
   totalProducts: number;
+  masthead: { lead: HomeProduct | null; categories: HomeCategory[] };
+  index: { major: IndexEntry[]; minor: IndexEntry[] };
+  feature: { ranked: boolean; lead: HomeProduct | null; runnersUp: HomeProduct[] };
+  reduced: HomeProduct[];
+  animals: AnimalBlock[];
+  newest: HomeProduct[];
 }

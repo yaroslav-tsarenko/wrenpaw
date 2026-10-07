@@ -67,7 +67,7 @@ export function ContactForm({ replyTime, prefilledOrder, prefilledTopic = "" }: 
             {t("sendAnother")}
           </Button>
         </div>
-        <span aria-hidden="true" className="shelf-rule -mx-6 -mb-6 mt-8 sm:-mx-8 sm:-mb-8" />
+        <span aria-hidden="true" className="rule -mx-6 -mb-6 mt-8 sm:-mx-8 sm:-mb-8" />
       </div>
     );
   }

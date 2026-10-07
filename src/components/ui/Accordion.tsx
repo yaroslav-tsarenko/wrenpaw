@@ -66,7 +66,7 @@ export function AccordionItem({
           <ChevronDown
             size={20}
             aria-hidden="true"
-            className={cn("shrink-0 transition-transform duration-[260ms] ease-[var(--ease-furniture)]", open && "rotate-180")}
+            className={cn("shrink-0 transition-transform duration-[260ms] ease-[var(--ease-press)]", open && "rotate-180")}
           />
         </button>
       </Heading>
@@ -76,13 +76,13 @@ export function AccordionItem({
         aria-labelledby={`${baseId}-trigger`}
         inert={!open}
         className={cn(
-          "grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-furniture)]",
+          "grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-press)]",
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
         <div className="min-h-0 overflow-hidden">
           <div className={cn(onPaint ? "pb-5" : "bg-raised p-5", panelClassName)}>{children}</div>
-          {!onPaint ? <span aria-hidden="true" className="shelf-rule" /> : null}
+          {!onPaint ? <span aria-hidden="true" className="rule" /> : null}
         </div>
       </div>
     </div>

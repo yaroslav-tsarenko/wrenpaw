@@ -5,32 +5,30 @@ export interface NavCategory {
 }
 
 export const NAV_CATEGORIES: NavCategory[] = [
-  { slug: "cookware", name: "Cookware", short: "Cookware" },
-  { slug: "bakeware", name: "Bakeware", short: "Bakeware" },
-  { slug: "utensils-gadgets", name: "Utensils & gadgets", short: "Utensils" },
-  { slug: "tableware", name: "Tableware", short: "Tableware" },
-  { slug: "cutlery", name: "Cutlery", short: "Cutlery" },
-  { slug: "glassware-drinkware", name: "Glassware & drinkware", short: "Glassware" },
-  { slug: "coffee-tea", name: "Coffee & tea", short: "Coffee & tea" },
-  { slug: "bar-wine", name: "Bar & wine", short: "Bar & wine" },
-  { slug: "storage-organisation", name: "Storage & organisation", short: "Storage" },
-  { slug: "kitchen-table-linen", name: "Kitchen & table linen", short: "Linen" },
+  { slug: "dogs", name: "Dogs", short: "Dogs" },
+  { slug: "dog-walking", name: "Dog walking", short: "Walking" },
+  { slug: "cats", name: "Cats", short: "Cats" },
+  { slug: "small-animals", name: "Small animals", short: "Small animals" },
+  { slug: "birds", name: "Birds", short: "Birds" },
+  { slug: "aquarium", name: "Aquarium", short: "Aquarium" },
+  { slug: "reptiles", name: "Reptiles", short: "Reptiles" },
+  { slug: "travel", name: "Travel & carriers", short: "Travel" },
 ];
 
-export const CORNICE_LINKS = ["cookware", "bakeware", "tableware", "glassware-drinkware", "coffee-tea", "bar-wine"];
+export const CORNICE_LINKS = ["dogs", "dog-walking", "cats", "small-animals", "birds", "aquarium"];
 
 export const MEGA_ZONES: { title: string; slugs: string[] }[] = [
-  { title: "Cook & bake", slugs: ["cookware", "bakeware"] },
-  { title: "Prep & serve", slugs: ["utensils-gadgets", "cutlery", "tableware"] },
-  { title: "Drink", slugs: ["glassware-drinkware", "coffee-tea", "bar-wine"] },
-  { title: "Store & linen", slugs: ["storage-organisation", "kitchen-table-linen"] },
+  { title: "Dogs", slugs: ["dogs", "dog-walking"] },
+  { title: "Cats", slugs: ["cats"] },
+  { title: "Small animals & birds", slugs: ["small-animals", "birds"] },
+  { title: "Tanks & terrariums", slugs: ["aquarium", "reptiles", "travel"] },
 ];
 
-export const FURNITURE_ZONES: Record<"shelves" | "drawers" | "cupboards" | "hooks", string[]> = {
-  shelves: ["tableware", "glassware-drinkware"],
-  drawers: ["utensils-gadgets", "cutlery", "kitchen-table-linen"],
-  cupboards: ["cookware", "bakeware", "storage-organisation"],
-  hooks: ["coffee-tea", "bar-wine"],
+export const FURNITURE_ZONES: Record<"lead" | "index" | "animals" | "secondary", string[]> = {
+  lead: ["dogs", "dog-walking"],
+  index: ["dogs", "dog-walking", "cats", "small-animals", "birds", "aquarium", "reptiles", "travel"],
+  animals: ["cats", "small-animals", "birds"],
+  secondary: ["aquarium", "reptiles", "travel"],
 };
 
 export function navCategory(slug: string): NavCategory | undefined {

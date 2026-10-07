@@ -73,7 +73,7 @@ export function Pagination({ page, totalPages, onPageChange, hrefForPage, classN
           typeof token === "number" ? (
             <li key={token}>
               {token === page ? (
-                <span aria-current="page" className="bevel-sm tabular flex size-10 items-center justify-center text-ui-sm font-semibold text-on-brand before:bg-brand">
+                <span aria-current="page" className="tabular flex size-10 items-center justify-center bg-brand text-ui-sm font-semibold text-on-brand">
                   {token}
                 </span>
               ) : (

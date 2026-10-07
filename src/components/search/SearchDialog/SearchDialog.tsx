@@ -5,16 +5,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { Sheet } from "@/components/ui/Dialog";
-import { Cubby, type ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import { Stage, type EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 import { PriceDisplay } from "@/components/shared/PriceDisplay/PriceDisplay";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
+import { TrailLoader } from "@/components/ui/TrailLoader";
 import { subtreeCount, type CategoryNode } from "@/lib/hooks/useCategoryTree";
 import { cn } from "@/lib/utils/cn";
+import { productTitle } from "@/lib/product-name";
 
 const SUGGESTED = [
-  { slug: "cookware", name: "Cookware" },
-  { slug: "tableware", name: "Tableware" },
-  { slug: "glassware-drinkware", name: "Glassware & drinkware" },
+  { slug: "dogs", name: "Dogs" },
+  { slug: "cats", name: "Cats" },
+  { slug: "harnesses", name: "Harnesses" },
 ];
 
 function flatten(categories: CategoryNode[]): CategoryNode[] {
@@ -22,7 +23,7 @@ function flatten(categories: CategoryNode[]): CategoryNode[] {
 }
 
 type Option =
-  | { kind: "product"; id: string; href: string; product: ShelfProduct }
+  | { kind: "product"; id: string; href: string; product: EntryProduct }
   | { kind: "category"; id: string; href: string; category: CategoryNode }
   | { kind: "all"; id: string; href: string; total: number };
 
@@ -31,7 +32,7 @@ export function SearchDialog({ open, onClose, categories }: { open: boolean; onC
   const baseId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<{ q: string; products: ShelfProduct[]; total: number } | null>(null);
+  const [results, setResults] = useState<{ q: string; products: EntryProduct[]; total: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const trimmed = query.trim();
@@ -48,7 +49,7 @@ export function SearchDialog({ open, onClose, categories }: { open: boolean; onC
     const timer = window.setTimeout(() => {
       fetch(`/api/products?search=${encodeURIComponent(trimmed)}&pageSize=6`, { signal: controller.signal })
         .then((r) => r.json())
-        .then((data: { data?: ShelfProduct[]; total?: number }) => {
+        .then((data: { data?: EntryProduct[]; total?: number }) => {
           setResults({ q: trimmed, products: data.data ?? [], total: data.total ?? 0 });
           setActiveIndex(-1);
         })
@@ -113,9 +114,9 @@ export function SearchDialog({ open, onClose, categories }: { open: boolean; onC
   const optionCls = (id: string) => cn("block w-full cursor-pointer", options[activeIndex]?.id === id && "bg-brand-soft");
 
   return (
-    <Sheet open={open} onClose={close} side="top" label="Search" initialFocus={inputRef} motion="drawer-down">
+    <Sheet open={open} onClose={close} side="top" label="Search" initialFocus={inputRef}>
       <div className="mx-auto flex max-h-[80vh] max-w-container flex-col px-gutter pb-6 pt-5">
-        <div className="flex items-center gap-3 border-b-2 border-shelf pb-3">
+        <div className="flex items-center gap-3 border-b-2 border-rule pb-3">
           <Search size={24} aria-hidden="true" className="shrink-0 text-ink-muted" />
           <input
             ref={inputRef}
@@ -132,7 +133,7 @@ export function SearchDialog({ open, onClose, categories }: { open: boolean; onC
             onKeyDown={onKeyDown}
             className="h-14 min-w-0 flex-1 bg-transparent text-step-2 text-ink placeholder:text-ink-subtle focus-visible:outline-none [&::-webkit-search-cancel-button]:hidden"
           />
-          {loading ? <ShelfLoader label="Searching" /> : null}
+          {loading ? <TrailLoader label="Searching" /> : null}
           <button type="button" onClick={close} className="min-h-11 shrink-0 cursor-pointer text-ui-sm font-semibold text-ink underline decoration-1 underline-offset-4">
             Close
           </button>
@@ -154,8 +155,8 @@ export function SearchDialog({ open, onClose, categories }: { open: boolean; onC
                       onPointerEnter={() => setActiveIndex(options.indexOf(o))}
                       className={cn(optionCls(o.id), "flex items-center gap-4 border-b border-line py-2.5 pr-2")}
                     >
-                      <Cubby src={o.product.images?.[0]?.url} alt="" size="thumb" sizes="48px" className="w-12 shrink-0" />
-                      <span className="line-clamp-2 min-w-0 flex-1 text-ui-sm font-medium text-ink">{o.product.name}</span>
+                      <Stage src={o.product.images?.[0]?.url} alt="" size="mini" sizes="48px" className="w-12 shrink-0" />
+                      <span className="line-clamp-2 min-w-0 flex-1 text-ui-sm font-medium text-ink">{productTitle(o.product.name)}</span>
                       <PriceDisplay price={Number(o.product.price)} comparePrice={o.product.comparePrice ? Number(o.product.comparePrice) : null} size="sm" className="shrink-0" />
                     </div>
                   ))}

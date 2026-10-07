@@ -69,7 +69,7 @@ function SmallPrintLinks() {
   );
 }
 
-export function CredentialPlaque({ stacked = false }: { stacked?: boolean } = {}) {
+export function CredentialPlaque({ stacked = false, tone = "on-paint" }: { stacked?: boolean; tone?: "ink" | "on-paint" } = {}) {
   const rows: { label: string; value: React.ReactNode }[] = [
     { label: "Company number", value: COMPANY.companyNumber },
     ...(COMPANY.vatRegistered ? [{ label: "VAT number", value: COMPANY.vatNumber }] : []),
@@ -98,15 +98,15 @@ export function CredentialPlaque({ stacked = false }: { stacked?: boolean } = {}
   ];
 
   return (
-    <section aria-label="Company details" data-plaque="credentials" className="bevel-lg px-6 py-6 text-on-brass before:bg-brass sm:px-8">
+    <section aria-label="Company details" data-plaque="credentials" className={cn("border-y px-0 py-7 sm:py-8", tone === "on-paint" ? "border-on-paint-line text-on-paint" : "border-line text-ink")}>
       <p className="font-display text-step-2 leading-[1.2]">{COMPANY.name}</p>
-      <p className="mt-1 text-ui-sm">
+      <p className={cn("mt-1 text-ui-sm", tone === "on-paint" ? "text-on-paint-muted" : "text-ink-muted")}>
         {BRAND.name} is a trading name of {COMPANY.name}.
       </p>
       <dl className={cn("m-0 mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2", !stacked && "lg:grid-cols-4")}>
         {rows.map((row) => (
           <div key={row.label} className="min-w-0">
-            <dt className="eyebrow text-[0.75rem] opacity-80">{row.label}</dt>
+            <dt className={cn("eyebrow text-[0.75rem]", tone === "on-paint" ? "text-on-paint-muted" : "text-ink-subtle")}>{row.label}</dt>
             <dd className="m-0 mt-1.5 text-ui-sm">{row.value}</dd>
           </div>
         ))}
@@ -120,7 +120,7 @@ function StoreFooter() {
 
   return (
     <footer data-print-hide="" data-plinth="" className="on-paint mt-auto">
-      <span aria-hidden="true" className="block h-[2px] bg-shelf" />
+      <span aria-hidden="true" className="block h-[2px] bg-rule" />
       <div className="bg-plinth text-on-paint">
         <div className="mx-auto max-w-wide px-gutter pt-12 lg:pt-16">
           <nav aria-label="Footer" className="hidden grid-cols-[1.4fr_1fr_1fr] lg:grid">

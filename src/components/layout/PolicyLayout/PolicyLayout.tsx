@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs/Breadcrumbs";
 import { Accordion, AccordionItem } from "@/components/ui/Accordion";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { COMPANY } from "@/lib/company";
 import { BRAND } from "@/lib/brand";
 import { POLICY_FACTS } from "@/lib/policy-facts";
@@ -84,8 +84,8 @@ export async function PolicyLayout({ slug, title: titleProp, lastUpdated = POLIC
                         aria-current={active ? "page" : undefined}
                         className={cn(sideLinkCls, active && "font-medium text-ink")}
                       >
-                        <span className={cn("block transition-transform duration-[260ms] ease-[var(--ease-furniture)]", active && "translate-x-1.5")}>{entry.title}</span>
-                        {active ? <span aria-hidden="true" className="shelf-rule absolute inset-x-0 -bottom-px" /> : null}
+                        <span className={cn("block transition-transform duration-[260ms] ease-[var(--ease-press)]", active && "translate-x-1.5")}>{entry.title}</span>
+                        {active ? <span aria-hidden="true" className="rule absolute inset-x-0 -bottom-px" /> : null}
                       </Link>
                     </li>
                   );
@@ -126,9 +126,9 @@ export async function PolicyLayout({ slug, title: titleProp, lastUpdated = POLIC
             <h1 className="m-0 font-display text-step-5 leading-[1.02] tracking-[-0.01em] text-ink">{title}</h1>
             {lastUpdated ? (
               <div className="mt-5">
-                <Plate variant="neutral">
+                <Flag variant="neutral">
                   <time dateTime={lastUpdated === POLICY_FACTS.lastUpdated ? POLICY_FACTS.lastUpdatedIso : undefined}>{t("lastUpdated", { date: lastUpdated })}</time>
-                </Plate>
+                </Flag>
               </div>
             ) : null}
             {intro ? <div className={cn(policyProse, "mt-8 text-step-1 leading-[1.55] text-ink-muted")}>{intro}</div> : null}

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Heart, Lock, RotateCcw, ShieldCheck, Truck } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { Button } from "@/components/ui/Button";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { PriceDisplay, discountPercent } from "@/components/shared/PriceDisplay/PriceDisplay";
 import { QuantitySelector } from "@/components/shared/QuantitySelector/QuantitySelector";
 import { PaymentLogos } from "@/components/shared/PaymentLogos/PaymentLogos";
@@ -15,6 +15,7 @@ import { useCurrency } from "@/providers/CurrencyProvider";
 import { useWishlist } from "@/providers/WishlistProvider";
 import { formatPrice } from "@/lib/utils/format-price";
 import { STORE_POLICY } from "@/config/store-policy";
+import { productDisplay, productStandfirst } from "@/lib/product-name";
 import { VariantSelector, matchVariant, variantAxes, type ProductVariantOption } from "@/components/product/VariantSelector/VariantSelector";
 
 export interface ProductInfoProps {
@@ -118,9 +119,11 @@ export function ProductInfo({
       variantName: variant?.name,
       maxQuantity: max,
     });
-    window.dispatchEvent(new CustomEvent("brasmora:bag-add", { detail: { productId: id, source: source ?? document.querySelector("[data-gallery]") } }));
+    window.dispatchEvent(new CustomEvent("wrenpaw:bag-add", { detail: { productId: id, source: source ?? document.querySelector("[data-gallery]") } }));
   };
 
+  const display = productDisplay(name);
+  const standfirst = productStandfirst(summary);
   const availability = soldOut ? t("soldOut") : !tracked ? t("available") : lowStock ? t("onlyLeft", { count: stock }) : t("inStock");
   const addLabel = soldOut ? t("soldOut") : needsChoice ? t("chooseOption", { option: (firstMissing ?? "").toLowerCase() }) : t("addToBag");
   const money = (n: number) => formatPrice(convert(n), currency);
@@ -131,17 +134,18 @@ export function ProductInfo({
       {breadcrumbs}
       {categoryName ? (
         <div className="mb-4 flex">
-          <Plate>{categoryName}</Plate>
+          <Flag>{categoryName}</Flag>
         </div>
       ) : null}
-      <h1 className="text-step-4 leading-[1.06] text-ink [overflow-wrap:anywhere]">{name}</h1>
+      <h1 className="text-step-4 leading-[1.06] text-ink [overflow-wrap:anywhere]">{display.title}</h1>
+      {display.size ? <p className="meta mt-2 text-ink-subtle">{display.size}</p> : null}
 
       <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
         <PriceDisplay price={unitPrice} comparePrice={comparePrice} size="lg" />
-        {pct > 0 ? <Plate>{t("reducedBy", { percent: pct })}</Plate> : null}
+        {pct > 0 ? <Flag>{t("reducedBy", { percent: pct })}</Flag> : null}
       </div>
 
-      {summary ? <p className="measure mt-5 text-step-0 leading-[1.65] text-ink-muted">{summary}</p> : null}
+      {standfirst ? <p className="measure mt-5 text-step-0 leading-[1.65] text-ink-muted">{standfirst}</p> : null}
 
       {hasVariants ? (
         <div className="mt-6">
@@ -223,7 +227,7 @@ export function ProductInfo({
           aria-hidden={!barVisible}
           inert={!barVisible}
           className={cn(
-            "fixed inset-x-0 bottom-0 z-40 flex h-16 items-center justify-between gap-4 border-t border-line bg-raised px-gutter transition-transform duration-[260ms] ease-[var(--ease-furniture)] lg:hidden",
+            "fixed inset-x-0 bottom-0 z-40 flex h-16 items-center justify-between gap-4 border-t border-line bg-raised px-gutter transition-transform duration-[260ms] ease-[var(--ease-press)] lg:hidden",
             barVisible ? "translate-y-0" : "translate-y-full",
           )}
         >

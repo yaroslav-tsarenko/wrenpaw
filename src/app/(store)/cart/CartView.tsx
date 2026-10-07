@@ -9,8 +9,8 @@ import { PaymentLogos } from "@/components/shared/PaymentLogos/PaymentLogos";
 import { TotalsList } from "@/components/checkout/TotalsList";
 import { MerchantInfo } from "@/components/checkout/MerchantInfo";
 import { Button } from "@/components/ui/Button";
-import { Plate } from "@/components/ui/Plate";
-import { SkeletonBar } from "@/components/ui/ShelfLoader";
+import { Flag } from "@/components/ui/Flag";
+import { SkeletonBar } from "@/components/ui/TrailLoader";
 import { useCart } from "@/providers/CartProvider";
 import { useCurrency } from "@/providers/CurrencyProvider";
 import { useWishlist } from "@/providers/WishlistProvider";
@@ -19,9 +19,9 @@ import { formatPrice } from "@/lib/utils/format-price";
 import { STORE_POLICY } from "@/config/store-policy";
 
 const EMPTY_LINKS = [
-  { href: "/catalog/cookware", key: "cookware" },
-  { href: "/catalog/tableware", key: "tableware" },
-  { href: "/catalog/glassware-drinkware", key: "glassware" },
+  { href: "/catalog/dogs", key: "dogs" },
+  { href: "/catalog/cats", key: "cats" },
+  { href: "/catalog/small-animals", key: "smallAnimals" },
 ] as const;
 
 export function CartView() {
@@ -44,9 +44,9 @@ export function CartView() {
       <div className="flex flex-wrap items-center gap-4 pb-8 pt-2">
         <h1 className="m-0 text-step-4 leading-[1.05] text-ink">{t("title")}</h1>
         {isHydrated && count > 0 ? (
-          <Plate variant="neutral" aria-label={t("itemCount", { count })}>
+          <Flag variant="neutral" aria-label={t("itemCount", { count })}>
             {count}
-          </Plate>
+          </Flag>
         ) : null}
       </div>
 
@@ -108,7 +108,7 @@ export function CartView() {
                 />
               ))}
             </ul>
-            <span aria-hidden="true" className="shelf-rule" />
+            <span aria-hidden="true" className="rule" />
             {displayTotals.amountToFreeShipping > 0 ? (
               <p className="meta m-0 mt-5 text-ink-muted">
                 {t("freeDeliveryRemaining", {

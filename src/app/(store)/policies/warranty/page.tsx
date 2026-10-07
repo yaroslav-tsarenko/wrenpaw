@@ -4,89 +4,103 @@ import { POLICY_FACTS as F } from "@/lib/policy-facts";
 
 export const generateMetadata = policyMetadata(
   "warranty",
-  `Every ${F.brand} product carries a ${F.warrantyMonths}-month warranty against manufacturing defects, in addition to your statutory rights in the UK and EU.`,
+  `${F.warrantyMonths} months of cover against manufacturing defects on everything ${F.brand} sells, sitting on top of the statutory rights you already hold in the UK and the EU.`,
 );
 
 const sections: PolicySection[] = [
   {
     id: "two-kinds",
-    title: "Your legal rights and our warranty",
+    title: "Two layers of protection",
     body: (
       <>
         <p>
-          You have two kinds of protection when you buy from {F.brand}. The first is your statutory rights, which come from the law and which
-          our warranty does not replace or limit. The second is our own {F.warrantyMonths}-month warranty, which we add on top.
+          Buying from {F.brand} leaves you with two separate things to fall back on. One is the set of rights the law already gives you,
+          which nothing in this warranty narrows or substitutes. The other is the {F.warrantyMonths}-month warranty we add ourselves.
         </p>
         <h3>Statutory rights</h3>
         <ul>
           <li>
-            <strong>United Kingdom:</strong> under the Consumer Rights Act 2015, goods must be as described, of satisfactory quality and fit
-            for purpose. If they are not, you can reject them for a full refund within 30 days of delivery. After that, you can ask for a
-            repair or replacement, and if that does not fix the problem, a price reduction or refund. You can claim for up to six years
-            (five in Scotland).
+            <strong>United Kingdom:</strong> the Consumer Rights Act 2015 requires goods to match their description, to be of satisfactory
+            quality and to be fit for purpose. Where they fall short, the first 30 days after delivery give you a short-term right to reject
+            for a full refund. Beyond that you can ask for repair or replacement, and where that fails to resolve matters, a price reduction
+            or refund. Claims remain open for up to six years, or five in Scotland.
           </li>
           <li>
-            <strong>European Union:</strong> the legal guarantee of conformity lasts at least two years from delivery. A lack of conformity that
-            appears within the first year is presumed to have existed at delivery.
+            <strong>European Union:</strong> the legal guarantee of conformity runs for a minimum of two years from delivery, and any lack
+            of conformity appearing inside the first year is presumed to have been there when the goods arrived.
           </li>
         </ul>
-        <h3>Our warranty</h3>
+        <h3>What we add</h3>
         <p>
-          For {F.warrantyMonths} months from delivery, we replace or refund any product that develops a manufacturing defect in its materials
-          or workmanship during normal domestic use, following the care instructions.
+          For {F.warrantyMonths} months from the delivery date we will replace or refund a product whose materials or workmanship fail,
+          provided it has been used normally in a household and in line with the care instructions.
         </p>
       </>
     ),
   },
   {
     id: "covered",
-    title: "What the warranty covers",
+    title: "Inside the warranty",
     body: (
       <ul>
-        <li>Handles, knobs or rivets that come loose or break without misuse.</li>
-        <li>Non-stick or enamel coatings that blister, flake or peel through a manufacturing fault.</li>
-        <li>Pans or bakeware that warp under the heat and hob types the product page says they are suitable for.</li>
-        <li>Glaze crazing, cracks or seams in ceramics and glassware that were not caused by impact or sudden temperature change.</li>
-        <li>Lids, seals and closures on storage containers that do not fit or close as they should.</li>
-        <li>Stitching or hems on kitchen and table linen that come apart under normal washing.</li>
+        <li>Buckles, clips, D-rings and stitching on collars, harnesses and leads that give way without being misused.</li>
+        <li>Welds, bars, catches and door hinges on cages, hutches and carriers that fail or come apart.</li>
+        <li>Seams, zips and covers on beds, mats and blankets that open up under normal washing.</li>
+        <li>Pumps, filters, heaters and lighting units that stop working inside the warranty period through a manufacturing fault.</li>
+        <li>Water bottles, drinkers, fountains and bowls that leak, or whose valves stick from the outset.</li>
+        <li>Terrarium thermostats and controllers that read or switch incorrectly out of the box.</li>
+        <li>Tanks and terrariums with seams or joints that seep when filled as the product page describes.</li>
       </ul>
     ),
   },
   {
     id: "not-covered",
-    title: "What it does not cover",
+    title: "Outside the warranty",
     body: (
       <>
         <ul>
-          <li>Normal wear: scratches, dulling of finishes, gradual wear of non-stick coatings, and colour changes on stainless steel or copper from heat.</li>
-          <li>Damage from dropping, knocking or chipping, or from sudden temperature changes such as putting hot glass into cold water.</li>
-          <li>Damage from use outside the care instructions, for example a hand-wash-only item put in the dishwasher, metal utensils on non-stick surfaces, or overheating an empty pan.</li>
-          <li>Rust on cast iron or carbon steel that has not been dried and oiled as instructed. Re-seasoning restores it.</li>
-          <li>Commercial or professional use.</li>
+          <li>Ordinary wear: chewed toys, frayed webbing, scratched posts, faded fabric, flattened bedding and consumed bedding or substrate.</li>
+          <li>Damage an animal has done — chewing, clawing, digging or soiling — which is use rather than a defect.</li>
+          <li>Breakage from dropping or knocking, and glass or acrylic cracked by a sudden change of temperature.</li>
+          <li>Anything used outside the care instructions: a hand-wash cover put through a hot machine wash, a heat mat run without a thermostat, a cage loaded past its stated weight.</li>
+          <li>Lamps, bulbs and filter media, which are consumables with a stated service life rather than warranted parts.</li>
+          <li>Rust on metal cages, bars or bowls left standing in wet, and mould on wooden hides that were not allowed to dry.</li>
+          <li>Breeding, rescue, kennel, cattery or any other commercial and professional use.</li>
         </ul>
-        <p>These exclusions apply to our warranty only. They do not reduce your statutory rights where a product was faulty when delivered.</p>
+        <p>
+          These limits bind our own warranty and nothing else. Where a product was already faulty when it reached you, your statutory rights
+          are untouched by this list.
+        </p>
       </>
     ),
   },
   {
     id: "claim",
-    title: "How to make a claim",
+    title: "Making a claim",
     body: (
       <ol>
-        <li>Email {F.email} or use the <Link href="/contact">contact form</Link>, with your order number.</li>
-        <li>Describe the problem and attach photographs that show it, including any marking on the base of the item.</li>
-        <li>We reply {F.replyTime}. If we need the item back to look at it, we tell you how to send it and pay the return cost.</li>
-        <li>If the claim is accepted, we send a replacement of the same product, or a comparable one if it is no longer available, or refund the price you paid.</li>
+        <li>
+          Email {F.email}, or use the <Link href="/contact">contact form</Link>, quoting your order number.
+        </li>
+        <li>Tell us what has gone wrong and attach photographs showing it, including any batch or model marking on the product itself.</li>
+        <li>
+          We answer {F.replyTime}. Where we need the item in our hands to assess it, we will explain how to send it and cover the postage.
+        </li>
+        <li>
+          An accepted claim is settled with the same product again, the nearest equivalent where it has been discontinued, or a refund of
+          what you paid.
+        </li>
       </ol>
     ),
   },
   {
     id: "who",
-    title: "Who gives the warranty",
+    title: "Who stands behind it",
     body: (
       <p>
-        The warranty is given by {F.company}, trading as {F.brand}, to the person who bought the product from us. It applies to products
-        delivered to the United Kingdom and the European Union. A replacement item is covered for the rest of the original warranty period.
+        {F.company}, trading as {F.brand}, gives this warranty to the person who bought the product from us, on goods delivered into the
+        United Kingdom and the European Union. Where we replace an item, the replacement runs out the remainder of the original warranty
+        period.
       </p>
     ),
   },

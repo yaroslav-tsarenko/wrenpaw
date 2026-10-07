@@ -21,7 +21,7 @@ export function PaymentLogos({ height = 28, withPci = true, plaque = false, clas
       aria-label="Accepted payments"
       className={cn(
         "m-0 flex list-none flex-wrap items-center gap-2.5 p-0",
-        plaque && "bevel-sm px-3.5 py-2 before:bg-stage",
+        plaque && "border border-line bg-stage px-3.5 py-2",
         className,
       )}
     >

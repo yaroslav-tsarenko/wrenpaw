@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
+import { Trail } from "@/components/layout/BrandMark";
 import { cn } from "@/lib/utils/cn";
 
 interface EmptyStateProps {
@@ -20,13 +21,12 @@ interface EmptyStateProps {
   className?: string;
 }
 
-export function EmptyShelf({ className }: { className?: string }) {
+export function EmptyPlate({ className }: { className?: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 120 28" className={cn("h-7 w-[120px] text-shelf", className)} fill="none">
-      <path d="M8 4v16M112 4v16" stroke="var(--color-text-secondary)" strokeWidth="1" />
-      <rect x="0" y="20" width="120" height="2" fill="currentColor" />
-      <rect x="0" y="25" width="120" height="1" fill="var(--color-shelf-hairline)" />
-    </svg>
+    <span aria-hidden="true" className={cn("flex w-[120px] flex-col gap-3", className)}>
+      <Trail className="block text-brand-2" style={{ width: 24, height: 24 }} />
+      <span className="block h-px w-full bg-rule" />
+    </span>
   );
 }
 
@@ -47,7 +47,7 @@ export function EmptyState({
   const centered = align === "center";
   return (
     <div className={cn("flex flex-col gap-4 px-4 py-16", centered ? "items-center text-center" : "items-start", className)}>
-      <EmptyShelf />
+      <EmptyPlate />
       <Heading className="text-step-2 leading-[1.2] text-ink">{title}</Heading>
       {subtitle ? <p className={cn("max-w-[48ch] text-ink-muted", centered && "mx-auto")}>{subtitle}</p> : null}
       {children}

@@ -1,4 +1,4 @@
-export type CareType = "cookware" | "bakeware" | "utensils" | "tableware" | "cutlery" | "glassware" | "coffee-tea" | "bar" | "storage" | "linen";
+export type CareType = "dogs" | "walking" | "cats" | "small-animals" | "birds" | "aquarium" | "reptiles" | "travel";
 
 export interface CareGuide {
   title: string;
@@ -6,104 +6,87 @@ export interface CareGuide {
 }
 
 export const CARE_BY_CATEGORY: Record<string, CareType> = {
-  cookware: "cookware",
-  bakeware: "bakeware",
-  "utensils-gadgets": "utensils",
-  tableware: "tableware",
-  cutlery: "cutlery",
-  "glassware-drinkware": "glassware",
-  "coffee-tea": "coffee-tea",
-  "bar-wine": "bar",
-  "storage-organisation": "storage",
-  "kitchen-table-linen": "linen",
+  dogs: "dogs",
+  "dog-walking": "walking",
+  cats: "cats",
+  "small-animals": "small-animals",
+  birds: "birds",
+  aquarium: "aquarium",
+  reptiles: "reptiles",
+  travel: "travel",
 };
 
 export const CARE_GUIDES: Record<CareType, CareGuide> = {
-  cookware: {
-    title: "Pans and pots",
+  dogs: {
+    title: "Using and cleaning dog kit",
     steps: [
-      "Let a hot pan cool before washing it. Plunging hot metal into cold water can warp the base.",
-      "Heat gradually on a burner that matches the size of the base, and never leave an empty pan on a high heat.",
-      "Use wooden, silicone or nylon tools on coated surfaces.",
-      "Check the product details for dishwasher and oven limits, and follow the lower figure if the pan and its lid differ.",
+      "Check the measurements in the product details against your dog before you buy. Breed names on a label are a guide, not a fit.",
+      "Introduce anything new while your dog is calm and unhurried, and keep the first sessions short.",
+      "Wash bedding and fabric toys at the temperature shown on the label, and let them dry fully before they go back down.",
+      "Replace chew toys once pieces can be bitten off, and bowls once the surface is scratched enough to hold residue.",
     ],
   },
-  bakeware: {
-    title: "Tins, trays and oven dishes",
+  walking: {
+    title: "Collars, harnesses and leads",
     steps: [
-      "Let bakeware cool before washing. A sudden change of temperature can crack ceramic and glass or warp thin metal.",
-      "Soak baked-on food in warm soapy water rather than scraping with metal.",
-      "Grease or line tins as the recipe asks, even on non-stick surfaces.",
-      "Dry metal tins completely before storing to prevent rust spots.",
+      "Measure the neck or chest with a soft tape and compare it with the size range in the product details before choosing a size.",
+      "Fit so that two fingers slide flat under the strap. A harness that rides up into the armpit is too loose, not too small.",
+      "Check stitching, buckles and clips before each walk, and retire anything with a deformed clip or a frayed strap.",
+      "Rinse salt, mud and sand off webbing after use and dry it away from direct heat.",
     ],
   },
-  utensils: {
-    title: "Utensils and prep tools",
+  cats: {
+    title: "Living with cats",
     steps: [
-      "Wash tools soon after use so food does not dry on.",
-      "Dry metal tools fully before putting them away.",
-      "Keep wooden and silicone tools away from direct heat sources such as hob rings and grill elements.",
+      "Keep food, water and the litter tray apart. Most cats will not drink next to where they eat.",
+      "Scoop the tray daily and wash it out with hot water and unscented detergent when you change the litter.",
+      "Put scratching posts where your cat already scratches rather than where it suits the room, or they will be ignored.",
+      "Wash fabric beds on a gentle cycle and keep the cat's own scent in the rotation by washing one item at a time.",
     ],
   },
-  tableware: {
-    title: "Plates, bowls and serveware",
+  "small-animals": {
+    title: "Cages, hutches and bedding",
     steps: [
-      "Avoid sudden temperature changes, such as moving a dish from the fridge straight into a hot oven.",
-      "Stack plates with care and avoid sliding them against each other, which can mark the glaze.",
-      "Pieces with metallic rims or hand-painted decoration should be hand washed and kept out of the microwave.",
-      "Check the product details for dishwasher, microwave and oven suitability.",
+      "Spot-clean the soiled corner every day and do a full bedding change weekly, keeping a handful of old nesting material so the smell stays familiar.",
+      "Wash the base and accessories with hot water and a rinse-off animal-safe cleaner, then dry everything before refilling.",
+      "Check water bottles every day. Ball valves stick, and a stuck bottle looks full.",
+      "Keep wooden chews and tunnels dry, and replace them once they are chewed through or soiled.",
     ],
   },
-  cutlery: {
-    title: "Cutlery",
+  birds: {
+    title: "Cages, perches and feeders",
     steps: [
-      "Rinse cutlery soon after use, especially after salty, acidic or egg-based food.",
-      "Dry by hand straight after washing to avoid water marks.",
-      "In a dishwasher, keep stainless steel apart from silver-plated pieces and use a mild detergent.",
+      "Change the water daily and wash the drinker properly. Seed husks and droppings in water are the usual cause of illness.",
+      "Clean the cage tray every day and scrub perches weekly, giving wooden perches time to dry completely.",
+      "Offer perches of different diameters so feet are not held in one position all day.",
+      "Store seed sealed, cool and dry, and check it for mould or insects before refilling.",
     ],
   },
-  glassware: {
-    title: "Glasses and drinkware",
+  aquarium: {
+    title: "Tanks, filters and water",
     steps: [
-      "Avoid sudden temperature changes, such as pouring boiling water into a cold glass.",
-      "Hold stemmed glasses by the bowl when washing and drying, not by the stem or foot.",
-      "Dry with a lint-free cloth to prevent water marks.",
-      "Check the product details for dishwasher suitability. Hand wash anything with a printed or metallic finish.",
+      "Let a new tank cycle before adding fish, and add livestock a few at a time.",
+      "Change part of the water on a regular schedule rather than emptying the tank. Treat tap water for chlorine first.",
+      "Rinse filter media in water taken out of the tank, never under the tap, so the bacteria in it survive.",
+      "Keep the heater and light on a timer and check the temperature with a separate thermometer.",
     ],
   },
-  "coffee-tea": {
-    title: "Coffee and tea equipment",
+  reptiles: {
+    title: "Terrariums, heating and lighting",
     steps: [
-      "Rinse after each use so coffee oils and tea tannins do not build up.",
-      "Take apart filters, plungers and infusers to clean them, and let every part dry before reassembling.",
-      "Descale regularly if you live in a hard-water area.",
-      "Let glass and ceramic cool before washing to avoid cracking.",
+      "Check the temperature gradient at both ends of the terrarium with thermometers, not by the controller's own reading.",
+      "Keep every heat source on a thermostat and out of direct contact with the animal.",
+      "Replace UVB lamps on the schedule in the product details. Output falls long before the lamp stops lighting.",
+      "Spot-clean substrate daily and replace it fully on the interval the species needs.",
     ],
   },
-  bar: {
-    title: "Bar and wine tools",
+  travel: {
+    title: "Carriers and travelling",
     steps: [
-      "Rinse tools straight after use, especially after citrus, sugar syrups or salt.",
-      "Dry metal tools fully before storing them.",
-      "Clean ice buckets and wine coolers with mild soap and leave them open to dry.",
-    ],
-  },
-  storage: {
-    title: "Storage and organisation",
-    steps: [
-      "Wash new containers before first use.",
-      "Let containers and lids dry fully before closing them, so no moisture is sealed in.",
-      "Check the product details before using a container in the microwave, freezer or dishwasher. Remove lids before microwaving.",
-      "Keep plastic and silicone away from direct heat sources.",
-    ],
-  },
-  linen: {
-    title: "Kitchen and table linen",
-    steps: [
-      "Wash before first use. Natural fibres can shrink slightly on the first wash.",
-      "Wash dark and bright colours separately for the first few washes.",
-      "Avoid fabric softener on tea towels, as it reduces how well they absorb.",
-      "Follow the temperature on the care label, and treat stains while they are fresh.",
+      "Leave the carrier open at home with bedding inside for a few days before the first journey.",
+      "Check the internal measurements in the product details against your animal standing and turning, and check your airline's own limits before flying.",
+      "Secure the carrier in the car so it cannot slide, and never put it in the boot of a hatchback without ventilation.",
+      "Wipe the carrier out and air it after each trip, and wash removable liners.",
     ],
   },
 };
@@ -118,56 +101,110 @@ export interface MaterialCare {
 
 export const MATERIAL_CARE: MaterialCare[] = [
   {
-    id: "cast-iron",
-    match: /\bcast[\s-]iron\b/i,
-    title: "Cast iron",
+    id: "stainless-steel",
+    match: /\bstainless[\s-]steel\b|\binox\b/i,
+    title: "Stainless steel",
     steps: [
-      "Wash by hand with hot water and a brush. Do not soak.",
-      "Dry straight away, then rub a thin layer of cooking oil over the surface while it is still warm.",
+      "Wash in hot soapy water and dry straight away to avoid water marks.",
+      "Stainless bowls are the easiest surface to keep hygienic, which is why they suit dogs that eat fast and messily.",
     ],
   },
   {
-    id: "carbon-steel",
-    match: /\bcarbon[\s-]steel\b/i,
-    title: "Carbon steel",
+    id: "ceramic",
+    match: /\bceramic\b|\bstoneware\b|\bporcelain\b/i,
+    title: "Ceramic",
     steps: [
-      "Wash by hand and dry straight away. Carbon steel rusts if left wet.",
-      "Wipe with a thin layer of oil after drying. The surface darkens with use, which is normal.",
+      "Check for chips and hairline cracks each time you wash it. A cracked glaze holds bacteria and should be retired.",
+      "Avoid sudden temperature changes, and do not use a ceramic bowl that has been dropped even if it looks intact.",
     ],
   },
   {
-    id: "enamel",
-    match: /\benamel(?:led|ed)?\b/i,
-    title: "Enamel",
-    steps: ["Avoid metal scourers and harsh abrasives, which scratch the enamel.", "Heat on low to medium. Do not heat an empty enamelled pan."],
+    id: "nylon-webbing",
+    match: /\bnylon\b|\bwebbing\b|\bpolyester\b/i,
+    title: "Webbing and nylon",
+    steps: [
+      "Hand wash in warm water with mild detergent and air dry. A tumble dryer weakens the weave and the stitching.",
+      "Check the stitched loops at both ends and the clip before each use.",
+    ],
   },
   {
-    id: "non-stick",
-    match: /\bnon[\s-]stick\b|\bceramic[\s-]coated\b/i,
-    title: "Non-stick coatings",
-    steps: ["Cook on a low to medium heat.", "Use wooden or silicone tools and a soft sponge. Metal tools and scourers wear the coating."],
+    id: "leather",
+    match: /\bleather\b/i,
+    title: "Leather",
+    steps: [
+      "Wipe clean and let it dry at room temperature, away from radiators.",
+      "Feed with a leather conditioner now and then so it stays supple, and keep it out of prolonged wet.",
+    ],
   },
   {
     id: "wood",
-    match: /\b(?:wood|wooden|acacia|oak|beech|olive[\s-]wood|walnut|bamboo|teak)\b/i,
+    match: /\b(?:wood|wooden|pine|birch|bamboo|willow)\b/i,
     nameOnly: true,
     title: "Wood",
-    steps: ["Hand wash and dry upright. Do not soak or put wood in the dishwasher.", "Rub with food-safe mineral oil now and then to stop the wood drying out."],
+    steps: [
+      "Keep it dry. Wooden hides, perches and tunnels soak up urine and should be replaced rather than scrubbed once they do.",
+      "Brush off debris and let it dry fully in the air after any wet clean.",
+    ],
   },
   {
-    id: "copper",
-    match: /\bcopper\b/i,
-    title: "Copper",
-    steps: ["Hand wash and dry straight away.", "Polish with a copper cleaner when the colour dulls."],
+    id: "plush",
+    match: /\bplush\b|\bfleece\b|\bcotton\b|\bcushion\b/i,
+    title: "Plush and fabric",
+    steps: [
+      "Wash at the temperature on the label and air dry. Check seams and squeakers afterwards.",
+      "Retire a plush toy once the stuffing is exposed. Loose filling is a swallowing risk.",
+    ],
+  },
+  {
+    id: "glass-tank",
+    match: /\bglass\b|\bacrylic\b/i,
+    title: "Glass and acrylic",
+    steps: [
+      "Clean with an algae pad kept only for the tank, never with household cleaners.",
+      "Acrylic scratches far more easily than glass, so use a soft pad and no grit.",
+    ],
   },
 ];
 
-const MATERIAL_TYPES: CareType[] = ["cookware", "bakeware", "utensils", "tableware", "coffee-tea", "bar", "storage"];
+const MATERIAL_TYPES: CareType[] = ["dogs", "walking", "cats", "small-animals", "birds", "aquarium", "reptiles", "travel"];
 
 export function careFor(rootCategorySlug: string | null | undefined, name: string, details: string): { guide: CareGuide | null; materials: MaterialCare[] } {
   const type = rootCategorySlug ? CARE_BY_CATEGORY[rootCategorySlug] : undefined;
   if (!type) return { guide: null, materials: [] };
   const found = MATERIAL_TYPES.includes(type) ? MATERIAL_CARE.filter((m) => m.match.test(m.nameOnly ? name : `${name} ${details}`)) : [];
-  const enamelled = found.some((m) => m.id === "enamel");
-  return { guide: CARE_GUIDES[type], materials: enamelled ? found.filter((m) => m.id !== "cast-iron") : found };
+  return { guide: CARE_GUIDES[type], materials: found.slice(0, 2) };
 }
+
+export interface KeepingNote {
+  title: string;
+  body: string;
+  linkLabel: string;
+  href: string;
+}
+
+export const KEEPING_NOTES: KeepingNote[] = [
+  {
+    title: "Measure before you order a harness",
+    body: "A harness is sized by chest girth, not by breed or by weight. Run a soft tape around the deepest part of the chest just behind the front legs, keep it snug, and read the number against the size range in the product details. Two sizes overlap on most ranges, and the smaller one is usually the better fit.",
+    linkLabel: "Harnesses",
+    href: "/catalog/harnesses",
+  },
+  {
+    title: "Food, water and litter belong apart",
+    body: "Cats avoid drinking where they eat and will not reliably use a tray within sight of either. Three separate places, each with an exit route, solves more litter-tray problems than any change of litter.",
+    linkLabel: "Litter trays & litter",
+    href: "/catalog/cat-litter",
+  },
+  {
+    title: "Rinse filter media in tank water",
+    body: "Filter sponges hold the bacteria that keep a tank stable. Rinsing them under the tap kills that colony with chlorine and restarts the cycle. Squeeze them out in a bucket of water you have just taken from the tank instead.",
+    linkLabel: "Tanks, filters & lighting",
+    href: "/catalog/aqua-equipment",
+  },
+  {
+    title: "UVB stops working before the lamp does",
+    body: "A reptile UVB lamp carries on giving visible light long after its ultraviolet output has fallen too low to be useful. Note the fitting date and replace it on the interval the manufacturer states, whether or not it still lights.",
+    linkLabel: "Heating, lighting & climate",
+    href: "/catalog/rept-climate",
+  },
+];

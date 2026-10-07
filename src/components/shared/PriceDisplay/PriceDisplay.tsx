@@ -28,7 +28,7 @@ export function PriceDisplay({ price, comparePrice, size = "md", tone = "default
         className={cn(
           "tabular font-display",
           PRICE_SIZE[size],
-          isOnSale ? (tone === "on-paint" ? "text-brass-on-paint" : "text-sale") : tone === "on-paint" ? "text-on-paint" : "text-ink",
+          isOnSale ? (tone === "on-paint" ? "text-brand-on-paint" : "text-sale") : tone === "on-paint" ? "text-on-paint" : "text-ink",
         )}
       >
         {isOnSale ? <span className="sr-only">Now </span> : null}

@@ -4,17 +4,17 @@ import { POLICY_FACTS as F } from "@/lib/policy-facts";
 
 export const generateMetadata = policyMetadata(
   "acceptable-use",
-  `Rules for using ${F.domain} and a ${F.brand} account, and what happens if they are broken.`,
+  `The conditions on which you may use ${F.domain} and hold a ${F.brand} account, and the consequences of ignoring them.`,
 );
 
 const sections: PolicySection[] = [
   {
     id: "scope",
-    title: "Who this applies to",
+    title: "Who is covered",
     body: (
       <p>
-        This policy applies to everyone who visits {F.domain} or creates an account. It forms part of our{" "}
-        <Link href="/policies/terms">Terms and conditions</Link>.
+        Everyone who opens {F.domain}, whether or not they register, is covered by this policy, and it sits inside our{" "}
+        <Link href="/policies/terms">Terms and conditions</Link> rather than alongside them.
       </p>
     ),
   },
@@ -23,40 +23,46 @@ const sections: PolicySection[] = [
     title: "Accounts",
     body: (
       <ul>
-        <li>You must be {F.minAge} or over to hold an account.</li>
-        <li>One account per person, registered in your own name with accurate details.</li>
-        <li>Keep your password private. Do not share your account or use someone else&rsquo;s.</li>
+        <li>An account holder has to be at least {F.minAge}.</li>
+        <li>Register once, under your own name, with details that are actually correct.</li>
+        <li>Your password is yours alone — do not lend the account out and do not sign in to anyone else&rsquo;s.</li>
         <li>
-          Accounts may not be opened from, or used to order for delivery to, {F.restrictedCountries} or {F.restrictedTerritories}. Do not
-          use a VPN, proxy or false address to get around this.
+          Neither registration from, nor delivery to, {F.restrictedCountries} or {F.restrictedTerritories} is permitted. Routing round that
+          with a VPN, a proxy or an address that is not yours is a breach in itself.
         </li>
       </ul>
     ),
   },
   {
     id: "not-allowed",
-    title: "What is not allowed",
+    title: "What you must not do",
     body: (
       <ul>
-        <li>Using stolen or unauthorised payment cards, or placing orders you do not intend to pay for.</li>
-        <li>Buying in order to resell, or getting around the quantity limits of {F.maxQtyPerItem} per product and {F.maxItemsPerOrder} items per order.</li>
-        <li>Creating several accounts to reuse a one-time discount.</li>
-        <li>Automated access that puts load on the site, such as scraping, bulk account creation or repeated checkout attempts.</li>
-        <li>Trying to access other customers&rsquo; data, our admin area or systems you are not authorised to use, or testing for security weaknesses without our written permission.</li>
-        <li>Uploading or sending malware, spam or anything unlawful.</li>
+        <li>Pay with a card that is stolen or that you have no authority to use, or order goods you have no intention of paying for.</li>
+        <li>
+          Order for resale, or work round the per-order limits of {F.maxQtyPerItem} of any one product and {F.maxItemsPerOrder} items in
+          total.
+        </li>
+        <li>Register more than once in order to claim a single-use discount again.</li>
+        <li>Run automated traffic that loads the site — scrapers, bulk sign-ups, checkout hammering.</li>
+        <li>
+          Go looking at other customers&rsquo; data, at the admin area, or at any system you have no right to, and do not probe for security
+          holes unless we have agreed to it in writing.
+        </li>
+        <li>Send or upload malware, spam, or anything the law prohibits.</li>
       </ul>
     ),
   },
   {
     id: "breach",
-    title: "If these rules are broken",
+    title: "What follows a breach",
     body: (
       <>
         <p>
-          We may cancel an order and refund it, or suspend or close the account. Where the law requires it, for example in a
-          case of card fraud, we report the matter to the relevant authority.
+          Our response may be to void and refund an order, to suspend the account, or to close it altogether. Where reporting is a legal
+          obligation — card fraud being the obvious case — the matter goes to the appropriate authority.
         </p>
-        <p>If you think we have made a mistake, email {F.email} and we will review the decision.</p>
+        <p>Believe we have got it wrong? Write to {F.email} and a person will look at the decision again.</p>
       </>
     ),
   },

@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { ProductGrid } from "@/components/product/ProductGrid/ProductGrid";
-import type { ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import type { EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 
-export async function RelatedProducts({ products }: { products: ShelfProduct[] }) {
+export async function RelatedProducts({ products }: { products: EntryProduct[] }) {
   if (products.length === 0) return null;
   const t = await getTranslations("product");
   return (

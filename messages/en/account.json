@@ -6,7 +6,7 @@
     "saved": "Saved items",
     "addresses": "Your addresses",
     "profile": "Your details",
-    "description": "Your Brasmora account: orders, saved items, addresses and details."
+    "description": "Your Wrenpaw account: order history, saved items, addresses and sign-in details."
   },
   "nav": {
     "label": "Account",
@@ -36,20 +36,32 @@
     "titleNoName": "Hello",
     "signedInAs": "Signed in as {email}",
     "welcomeTitle": "Your account is ready",
-    "welcomeBody": "We've saved your address for checkout and sent a welcome email.",
+    "welcomeBody": "Address stored for next time, and a welcome email is on its way.",
     "latestTitle": "Latest order",
     "placed": "{date} · {count, plural, one {# item} other {# items}}",
     "view": "View",
     "allOrders": "See all {count} orders",
     "noOrdersTitle": "No orders yet",
-    "noOrdersBody": "When you place an order, you can follow it here.",
+    "noOrdersBody": "Place an order and you will be able to follow it from here.",
     "browse": "Browse the shop",
     "linksTitle": "Your account",
     "links": {
-      "addresses": { "title": "Addresses", "body": "Delivery addresses for checkout" },
-      "profile": { "title": "Profile", "body": "Name, phone, date of birth and password" },
-      "saved": { "title": "Saved", "body": "Pieces you saved for later" },
-      "orders": { "title": "Orders", "body": "Every order and its status" }
+      "addresses": {
+        "title": "Addresses",
+        "body": "Delivery addresses for checkout"
+      },
+      "profile": {
+        "title": "Profile",
+        "body": "Name, phone, date of birth and password"
+      },
+      "saved": {
+        "title": "Saved",
+        "body": "Pieces you saved for later"
+      },
+      "orders": {
+        "title": "Orders",
+        "body": "Every order and its status"
+      }
     }
   },
   "orders": {
@@ -66,7 +78,7 @@
     "view": "View",
     "mobileMeta": "{date} · {count, plural, one {# item} other {# items}}",
     "emptyTitle": "No orders yet",
-    "emptyBody": "When you place an order, you can follow it here.",
+    "emptyBody": "Place an order and you will be able to follow it from here.",
     "browse": "Browse the shop"
   },
   "order": {
@@ -90,25 +102,25 @@
     "lineQty": "{count} × {unit}",
     "deliveryTitle": "Delivery address",
     "billingTitle": "Billing address",
-    "paymentMethod": "Paid by card on our payment provider's secure page.",
+    "paymentMethod": "Paid by card on the secure page our provider hosts.",
     "totalsTitle": "Totals",
     "invoiceDownload": "Download invoice (PDF)",
     "helpTitle": "Need help with this order?",
-    "helpBody": "Questions about delivery, returns or anything else. Your order number will be filled in for you.",
+    "helpBody": "Anything at all — delivery, returns, or a question about an animal. We put the order number in for you.",
     "helpAction": "Contact us about this order",
     "notFoundTitle": "Order not found",
-    "notFoundBody": "This order isn't in your account. It may have been placed with a different email address.",
+    "notFoundBody": "This order isn't in your account. It may be sitting under a different email address.",
     "backToOrders": "Back to your orders"
   },
   "saved": {
     "title": "Saved",
     "emptyTitle": "Nothing saved yet",
-    "emptyBody": "Tap Save on any product to keep it here.",
+    "emptyBody": "Bookmark a product anywhere in the shop and it lands here.",
     "browse": "Browse the shop"
   },
   "addresses": {
     "title": "Addresses",
-    "lead": "The default address is filled in at checkout. You can still change it for each order.",
+    "lead": "Whichever address is marked default is the one checkout starts with. You can still change it for each order.",
     "add": "Add an address",
     "addTitle": "New address",
     "editTitle": "Edit address",
@@ -126,16 +138,16 @@
     "defaultSet": "Default address updated",
     "saveFailed": "We couldn't save this. Please try again.",
     "removeTitle": "Remove this address?",
-    "removeBody": "{address} will be removed from your address book. Past orders keep their delivery address.",
+    "removeBody": "{address} comes out of your address book. Orders already placed hold on to the address they were sent to.",
     "emptyTitle": "No saved addresses",
-    "emptyBody": "Add an address to fill in checkout faster."
+    "emptyBody": "Store an address and the checkout fills itself in next time."
   },
   "profile": {
     "title": "Profile",
     "loading": "Loading your details",
     "personalTitle": "Personal details",
     "passwordTitle": "Password",
-    "emailHint": "To change the email on your account, contact us.",
+    "emailHint": "Changing the email on an account is something we have to do for you — get in touch.",
     "savePersonal": "Save details",
     "savePassword": "Change password",
     "saved": "Your details are saved",

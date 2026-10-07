@@ -13,7 +13,7 @@ import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { ProductGrid } from "@/components/product/ProductGrid/ProductGrid";
 import { ProductSort, CATALOG_SORTS } from "@/components/product/ProductSort/ProductSort";
 import { FilterSummary, ProductFilters, ProductFiltersDrawer, useDisplayPrice, type FilterSelection } from "@/components/product/ProductFilters/ProductFilters";
-import type { ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import type { EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 import { CATALOG_PAGE_SIZE, buildCatalogHref, clearedParams, hasActiveFilters, type CatalogFacets, type CatalogParams, type SortKey } from "./catalog-url";
 
 export interface CatalogBrowserProps {
@@ -22,7 +22,7 @@ export interface CatalogBrowserProps {
   defaultSort?: SortKey;
   sortOptions?: SortKey[];
   params: CatalogParams;
-  products: ShelfProduct[];
+  products: EntryProduct[];
   total: number;
   page: number;
   totalPages: number;
@@ -119,7 +119,7 @@ export function CatalogBrowser({
         </h2>
         <div
           data-catalog-toolbar=""
-          className="sticky top-[var(--header-height-mobile)] z-30 -mx-gutter flex items-center justify-between gap-3 border-b border-line bg-surface px-gutter py-2 transition-[top] duration-[320ms] ease-[var(--ease-furniture)] lg:hidden [body:has([data-header-state=hidden])_&]:top-0"
+          className="sticky top-[var(--header-height-mobile)] z-30 -mx-gutter flex items-center justify-between gap-3 border-b border-line bg-surface px-gutter py-2 transition-[top] duration-[320ms] ease-[var(--ease-press)] lg:hidden [body:has([data-header-state=hidden])_&]:top-0"
         >
           <Button variant="outline" size="sm" onPress={() => setDrawerOpen(true)} startContent={<SlidersHorizontal size={16} aria-hidden="true" />}>
             {filterCount > 0 ? t("filterCount", { count: filterCount }) : t("filter")}

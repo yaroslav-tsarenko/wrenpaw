@@ -1,51 +1,59 @@
 {
   "metaTitle": "About {brand}",
-  "metaDescription": "What {brand} sells, what it doesn't, and how ordering, dispatch from {dispatchFrom}, delivery and returns work.",
+  "metaDescription": "What {brand} stocks, what it leaves out, and how ordering, dispatch from {dispatchFrom}, delivery and returns work.",
   "breadcrumbHome": "Home",
   "breadcrumb": "About",
   "hero": {
-    "title": "A dresser full of good kitchen things",
-    "lead": "{brand} is an online shop for cookware, bakeware, tableware, glassware, cutlery, coffee and bar tools, storage and kitchen linen, sent to the {countries}."
+    "title": "One shop for every animal in the house",
+    "lead": "{brand} stocks food, bedding, walking kit, trays, grooming tools, cages, tanks and terrarium equipment for dogs, cats, rabbits and other small animals, birds, fish and reptiles, delivered to the {countries}.",
+    "factsLabel": "In short",
+    "factDispatch": "Dispatched from",
+    "factDelivery": "Delivered to",
+    "factReturns": "Change of mind",
+    "factWarranty": "Warranty",
+    "factCurrencies": "Prices shown in",
+    "days": "{count} days",
+    "months": "{count} months"
   },
   "shelves": {
-    "title": "What goes on our shelves",
-    "rangeTitle": "Kitchen things, and only those",
-    "rangeBody": "Everything we list is for cooking, serving, drinking or keeping a kitchen in order. The shop is sorted into the same categories you see in the menu:",
-    "listingTitle": "What every listing has",
+    "title": "What we stock",
+    "rangeTitle": "Sorted by animal, not by brand",
+    "rangeBody": "Every product belongs to the animal it is made for, so you can start from the creature rather than from a manufacturer. These are the eight sections:",
+    "listingTitle": "What you get on every listing",
     "listing": {
-      "new": "New stock only. Nothing used, refurbished or ex-display.",
-      "photo": "At least one photograph of the product and a written description.",
-      "stock": "Its stock status. A piece that has run out is marked “Sold out”.",
-      "prices": "A price you can view in {currencies}."
+      "new": "New stock only. We list nothing second-hand, refurbished or ex-display.",
+      "photo": "A photograph of the product and a written description of what it is.",
+      "stock": "Live stock status. Anything that has run out is labelled “Sold out”.",
+      "prices": "A price you can read in {currencies}."
     }
   },
   "notSold": {
-    "title": "What we don't sell",
-    "lead": "Some things are left out of the range on purpose.",
+    "title": "What we leave out",
+    "lead": "A few categories are kept out of the range deliberately.",
     "items": {
-      "electric": "Electrical appliances, or anything that runs on a plug or a battery",
-      "knives": "Kitchen knives, cleavers or other blades",
-      "food": "Food or drink",
-      "used": "Used, refurbished or outlet stock"
+      "animals": "Live animals, of any kind",
+      "medicines": "Prescription-only veterinary medicines",
+      "coldChain": "Raw or frozen food that needs a cold chain",
+      "used": "Second-hand, refurbished or outlet stock"
     }
   },
   "ordering": {
-    "title": "How ordering works",
+    "title": "How an order works",
     "order": {
       "label": "Order",
-      "body": "Add pieces to your bag and pay by card ({cardMethods}). Prices can be shown in {currencies}.",
+      "body": "Put what you need in the bag and pay by card ({cardMethods}). You can read prices in {currencies}.",
       "link": "Payment policy"
     },
     "dispatch": {
       "label": "Dispatch",
-      "body": "Orders are packed at {dispatchFrom} and are typically processed within {processingDays} of payment.",
+      "body": "We pack at {dispatchFrom} and normally get an order out within {processingDays} of the payment clearing.",
       "link": "Shipping policy"
     },
     "delivery": {
       "label": "Delivery & returns",
-      "delivery": "Delivery to the United Kingdom takes {uk}, and to EU member states {eu}. Standard delivery costs {cost}, and is free on orders of {threshold} or more.",
-      "returns": "You can cancel within {days} days of receiving your order, without giving a reason.",
-      "warranty": "Faults are covered by our {months}-month warranty.",
+      "delivery": "Parcels reach the United Kingdom in {uk} and EU member states in {eu}. Standard delivery is {cost}, and nothing at all on orders of {threshold} or more.",
+      "returns": "You have {days} days from the day the parcel arrives to change your mind, and you do not have to say why.",
+      "warranty": "Anything faulty is covered for {months} months under our warranty.",
       "deliveryLink": "Shipping policy",
       "returnsLink": "Returns & refunds",
       "warrantyLink": "Warranty"

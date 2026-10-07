@@ -9,9 +9,9 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Field";
 import { Checkbox } from "@/components/ui/Choice";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { Alert } from "@/components/ui/Alert";
-import { SkeletonBar } from "@/components/ui/ShelfLoader";
+import { SkeletonBar } from "@/components/ui/TrailLoader";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog/ConfirmDialog";
 import { AddressFields } from "@/components/account/fields/AddressFields";
@@ -123,7 +123,7 @@ function AddressForm({ editing, onDone, onCancel }: { editing: Exclude<Editing, 
           </Button>
         </div>
       </form>
-      <span aria-hidden="true" className="shelf-rule" />
+      <span aria-hidden="true" className="rule" />
     </div>
   );
 }
@@ -212,7 +212,7 @@ export function AddressBook() {
               <li key={address.id} className={cn("flex flex-col gap-4 border bg-raised p-5", address.isDefault ? "border-control" : "border-line")}>
                 <div className="flex items-start justify-between gap-3">
                   <p className="m-0 text-step-0 font-medium text-ink">{`${address.firstName} ${address.lastName}`}</p>
-                  {address.isDefault ? <Plate variant="brass">{t("default")}</Plate> : null}
+                  {address.isDefault ? <Flag variant="accent">{t("default")}</Flag> : null}
                 </div>
                 <address className="text-ui-sm not-italic leading-[1.6] text-ink-muted">
                   {addressLines({ ...address, firstName: "", lastName: "" }).map((line) => (

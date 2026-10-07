@@ -3,14 +3,15 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Handbag, Menu, Search } from "lucide-react";
+import { ChevronDown, Menu, Search, ShoppingBasket } from "lucide-react";
 import { Wordmark } from "@/components/layout/BrandMark";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { useCart } from "@/providers/CartProvider";
 import { useAuth } from "@/providers/AuthProvider";
 import { catalogSlugFromPath, findRootSlug, useCategoryTree } from "@/lib/hooks/useCategoryTree";
 import { CORNICE_LINKS, navCategory } from "@/config/navigation";
 import { SHIPPING } from "@/config/shipping";
+import { BRAND } from "@/lib/brand";
 import { cn } from "@/lib/utils/cn";
 import { ThemeToggle } from "./ThemeToggle";
 import { CurrencySelect } from "./CurrencySelect";
@@ -24,7 +25,7 @@ type HeaderState = "top" | "compact" | "hidden";
 
 const corniceLink = cn(
   "relative inline-flex h-full items-center whitespace-nowrap text-ui-md font-medium text-on-paint",
-  "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-[calc(50%-17px)] after:h-[2px] after:origin-left after:scale-x-0 after:bg-brass-on-paint after:transition-transform after:duration-[160ms] after:ease-[var(--ease-furniture)]",
+  "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-[calc(50%-17px)] after:h-[2px] after:origin-left after:scale-x-0 after:bg-brand-on-paint after:transition-transform after:duration-[160ms] after:ease-[var(--ease-press)]",
   "hover-device:hover:after:scale-x-100 aria-[current=page]:after:scale-x-100 aria-[current=true]:after:scale-x-100 aria-expanded:after:scale-x-100",
 );
 
@@ -97,11 +98,11 @@ function StoreHeader() {
   const triggerActive = pathname === "/catalog" || (activeRoot !== null && !CORNICE_LINKS.includes(activeRoot)) ? "all" : activeRoot ? "link" : undefined;
   const isAdmin = Boolean(user && (role === "ADMIN" || role === "SUPER_ADMIN"));
 
-  const bagPlate =
+  const bagCount =
     itemCount > 0 ? (
-      <Plate key={cartBounce} variant="on-paint" size="sm" data-bag-count="" className={cn("min-w-5 justify-center px-1.5", cartBounce > 0 && "animate-plate-in")}>
+      <Flag key={cartBounce} variant="on-paint" size="sm" data-bag-count="" className={cn("min-w-5 justify-center px-1.5", cartBounce > 0 && "animate-plate-in")}>
         {itemCount > 99 ? "99+" : itemCount}
-      </Plate>
+      </Flag>
     ) : null;
 
   return (
@@ -115,7 +116,7 @@ function StoreHeader() {
           if (megaOpen) closeMega(250);
         }}
         className={cn(
-          "fixed inset-x-0 top-0 z-40 transition-transform duration-[320ms] ease-[var(--ease-furniture)]",
+          "fixed inset-x-0 top-0 z-40 transition-transform duration-[320ms] ease-[var(--ease-press)]",
           state === "hidden" && "-translate-y-full",
           state === "compact" && "lg:-translate-y-[var(--utility-height)]",
         )}
@@ -142,7 +143,7 @@ function StoreHeader() {
           data-cornice=""
           data-depth="3"
           className={cn(
-            "on-paint relative bg-paint text-on-paint transition-[height] duration-[320ms] ease-[var(--ease-furniture)]",
+            "on-paint relative bg-paint text-on-paint transition-[height] duration-[320ms] ease-[var(--ease-press)]",
             "h-[var(--header-height-mobile)]",
             compact ? "lg:h-[var(--header-height-compact)]" : "lg:h-[var(--header-height)]",
           )}
@@ -158,8 +159,8 @@ function StoreHeader() {
               <span className="text-ui-md font-medium max-[389px]:sr-only">Menu</span>
             </button>
 
-            <Link href="/" aria-label="Brasmora, home" className="flex shrink-0 items-center justify-self-center text-on-paint">
-              <Wordmark className={cn("w-auto transition-[height] duration-[320ms] ease-[var(--ease-furniture)]", "h-[25px]", compact ? "lg:h-[25px]" : "lg:h-[33px]")} />
+            <Link href="/" aria-label={`${BRAND.name}, home`} className="flex shrink-0 items-center justify-self-center text-on-paint">
+              <Wordmark tone="on-paint" className={cn("transition-[font-size] duration-[320ms] ease-[var(--ease-press)]", "text-[1.5rem]", compact ? "lg:text-[1.5rem]" : "lg:text-[1.875rem]")} />
             </Link>
 
             <nav aria-label="Main" className="hidden h-full items-center gap-7 lg:flex">
@@ -213,13 +214,13 @@ function StoreHeader() {
                 data-bag-target=""
                 className={cn(corniceAction, "-mr-2 min-w-11 justify-center px-2 lg:mr-0 lg:px-0")}
               >
-                <Handbag size={20} aria-hidden="true" className="lg:hidden" />
+                <ShoppingBasket size={20} aria-hidden="true" className="lg:hidden" />
                 <span className="hidden lg:inline">Bag</span>
-                {bagPlate}
+                {bagCount}
               </button>
             </div>
           </div>
-          <span aria-hidden="true" className={cn("absolute inset-x-0 top-full h-[2px] bg-shelf transition-opacity duration-[160ms]", compact ? "opacity-100" : "opacity-0")} />
+          <span aria-hidden="true" className={cn("absolute inset-x-0 top-full h-[2px] bg-rule transition-opacity duration-[160ms]", compact ? "opacity-100" : "opacity-0")} />
           <div className="hidden lg:block">
             <MegaMenu
               id={megaId}

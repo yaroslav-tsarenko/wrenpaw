@@ -40,7 +40,7 @@ export default async function PoliciesIndexPage() {
                 <ArrowRight
                   size={20}
                   aria-hidden="true"
-                  className="row-span-2 text-ink-muted transition-transform duration-[160ms] ease-[var(--ease-furniture)] hover-device:group-hover:translate-x-1 hover-device:group-hover:text-ink"
+                  className="row-span-2 text-ink-muted transition-transform duration-[160ms] ease-[var(--ease-press)] hover-device:group-hover:translate-x-1 hover-device:group-hover:text-ink"
                 />
                 <span className="text-ui-sm leading-[1.5] text-ink-muted">{t(`items.${slug}.scope`, values)}</span>
               </Link>

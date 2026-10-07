@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/providers/AuthProvider";
 import { AccountSidebar } from "@/components/account/AccountSidebar/AccountSidebar";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
+import { TrailLoader } from "@/components/ui/TrailLoader";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs/Breadcrumbs";
 
 const CRUMB: Record<string, string> = {
@@ -27,7 +27,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
     }
   }, [loading, user, pathname]);
 
-  if (loading || !user) return <ShelfLoader block label={t("loading")} />;
+  if (loading || !user) return <TrailLoader block label={t("loading")} />;
 
   const section = Object.keys(CRUMB).find((href) => pathname === href || pathname.startsWith(`${href}/`));
   const crumbs = [

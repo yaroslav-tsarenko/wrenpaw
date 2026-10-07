@@ -3,8 +3,8 @@
 import { useId, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
-import { Plate } from "@/components/ui/Plate";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
+import { Flag } from "@/components/ui/Flag";
 import { Input } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { formatPrice } from "@/lib/utils/format-price";
@@ -59,7 +59,7 @@ export function CheckoutCounter({ items, totals, currency, quote, deliveryPendin
           const lineTotal = line?.total ?? totals.lines[index]?.total ?? 0;
           return (
             <li key={item.id} className="flex items-start gap-3 py-3 first:pt-0">
-              <Cubby src={item.imageUrl} alt="" size="compact" sizes="56px" className="w-14 shrink-0" />
+              <Stage src={item.imageUrl} alt="" size="mini" sizes="56px" className="w-14 shrink-0" />
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <p className="m-0 line-clamp-2 text-ui-sm font-medium leading-[1.4] text-ink">{item.name}</p>
                 {item.variantName ? <p className="meta m-0 text-ink-muted">{item.variantName}</p> : null}
@@ -75,7 +75,7 @@ export function CheckoutCounter({ items, totals, currency, quote, deliveryPendin
         {appliedCode ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="flex items-center gap-2">
-              <Plate variant="brass">{appliedCode}</Plate>
+              <Flag variant="accent">{appliedCode}</Flag>
               <span className="meta text-ink-muted">{t("codeApplied", { percent: quote?.discount?.percent ?? 0 })}</span>
             </span>
             <Button variant="ghost" size="sm" onPress={() => onApplyCode(null)}>

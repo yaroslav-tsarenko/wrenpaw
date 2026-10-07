@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
+import { TrailLoader } from "@/components/ui/TrailLoader";
 import { ConfirmedView } from "./ConfirmedView";
 import { noindexMetadata } from "@/lib/seo/metadata";
 
@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function OrderConfirmedPage() {
   return (
-    <Suspense fallback={<ShelfLoader block />}>
+    <Suspense fallback={<TrailLoader block />}>
       <ConfirmedView />
     </Suspense>
   );

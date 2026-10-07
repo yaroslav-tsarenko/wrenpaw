@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { preload } from "react-dom";
-import "@fontsource-variable/commissioner/wght.css";
 import "./fonts.css";
 import "@/styles/globals.css";
 import { BRAND, SITE_URL } from "@/lib/brand";
@@ -46,8 +45,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#3B2620" },
-    { media: "(prefers-color-scheme: dark)", color: "#120D0B" },
+    { media: "(prefers-color-scheme: light)", color: "#211B1C" },
+    { media: "(prefers-color-scheme: dark)", color: "#0F0D0B" },
   ],
 };
 
@@ -57,7 +56,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  preload("/fonts/gloock-latin-400-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  preload("/fonts/piazzolla-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  preload("/fonts/schibsted-grotesk-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
 
   return (
     <html

@@ -1,8 +1,6 @@
 import { readMotionEnv, type MotionEnv } from "./env";
-import { mountDresser } from "./scenes/dresser";
-import { mountDrawers } from "./scenes/drawers";
-import { mountHooks } from "./scenes/hooks";
-import { mountRack } from "./scenes/rack";
+import { mountReveal } from "./scenes/reveal";
+import { mountRule } from "./scenes/rule";
 
 interface Scene {
   selector: string;
@@ -10,10 +8,8 @@ interface Scene {
 }
 
 const SCENES: Scene[] = [
-  { selector: "[data-scene=dresser]", mount: mountDresser },
-  { selector: "[data-scene=drawers]", mount: mountDrawers },
-  { selector: "[data-pin=rack]", mount: mountRack },
-  { selector: "[data-scene=hooks]", mount: mountHooks },
+  { selector: "[data-reveal]", mount: mountReveal },
+  { selector: "[data-draw]", mount: mountRule },
 ];
 
 const yieldToMain = () => new Promise<void>((resolve) => window.setTimeout(resolve, 0));

@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { useNativeDialog } from "@/components/ui/Dialog";
-import { Plate } from "@/components/ui/Plate";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { Flag } from "@/components/ui/Flag";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 
 export interface GalleryImage {
   id: string;
@@ -68,9 +68,9 @@ function ZoomDialog({ open, onClose, images, index, onIndex, productName }: { op
         <div className="relative flex h-full flex-col">
           <div className="flex h-16 shrink-0 items-center justify-between gap-4 px-4 sm:px-6">
             {many ? (
-              <Plate variant="neutral" className="tabular">
+              <Flag variant="neutral" className="tabular">
                 {t("imageCount", { current: index + 1, total: images.length })}
-              </Plate>
+              </Flag>
             ) : (
               <span />
             )}
@@ -105,7 +105,7 @@ function ZoomDialog({ open, onClose, images, index, onIndex, productName }: { op
           >
             {image ? (
               <div
-                className="absolute inset-4 transition-transform duration-[260ms] ease-[var(--ease-furniture)] sm:inset-10"
+                className="absolute inset-4 transition-transform duration-[260ms] ease-[var(--ease-press)] sm:inset-10"
                 style={{ transform: magnified ? "scale(2.25)" : "scale(1)", transformOrigin: `${origin.x}% ${origin.y}%` }}
               >
                 <Image src={image.url} alt={image.alt || productName} fill sizes="100vw" className="object-contain mix-blend-multiply dark:mix-blend-normal" />
@@ -172,14 +172,14 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <div data-gallery="" data-shelf-item="">
-        <Cubby src={null} alt={productName} size="tile" />
+      <div data-gallery="" data-entry="">
+        <Stage src={null} alt={productName} size="wide" />
       </div>
     );
   }
 
   return (
-    <div data-gallery="" data-shelf-item="" className="min-w-0">
+    <div data-gallery="" data-entry="" className="min-w-0">
       <div className="relative">
         <div
           ref={trackRef}
@@ -199,19 +199,19 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 aria-label={t("openZoom", { name: image.alt || productName })}
                 className="group block w-full cursor-zoom-in"
               >
-                <Cubby src={image.url} alt={image.alt || productName} size="tile" priority={i === 0} sizes="(min-width: 1024px) 720px, 100vw" stageClassName="group-focus-visible:outline-2 group-focus-visible:-outline-offset-2 group-focus-visible:outline-focus">
+                <Stage src={image.url} alt={image.alt || productName} size="wide" priority={i === 0} sizes="(min-width: 1024px) 720px, 100vw" stageClassName="group-focus-visible:outline-2 group-focus-visible:-outline-offset-2 group-focus-visible:outline-focus">
                   <span aria-hidden="true" className="absolute right-3 top-3 z-[2] hidden text-on-stage opacity-0 transition-opacity duration-[160ms] group-hover:opacity-100 hover-device:block">
                     <ZoomIn size={20} />
                   </span>
-                </Cubby>
+                </Stage>
               </button>
             </div>
           ))}
         </div>
         {many ? (
-          <Plate variant="neutral" className="tabular absolute bottom-6 right-3 z-[2] lg:hidden" aria-hidden="true">
+          <Flag variant="neutral" className="tabular absolute bottom-6 right-3 z-[2] lg:hidden" aria-hidden="true">
             {t("imageCount", { current: index + 1, total: images.length })}
-          </Plate>
+          </Flag>
         ) : null}
       </div>
 
@@ -227,12 +227,12 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   aria-current={i === index ? "true" : undefined}
                   className={cn("block w-[72px] cursor-pointer outline-offset-2", i === index ? "outline-2 outline-brand" : "outline-0")}
                 >
-                  <Cubby src={image.url} alt="" size="thumb" shelf={false} />
+                  <Stage src={image.url} alt="" size="mini" />
                 </button>
               </li>
             ))}
           </ul>
-          <span aria-hidden="true" className="shelf-rule mt-px w-full" />
+          <span aria-hidden="true" className="rule mt-px w-full" />
         </div>
       ) : null}
 

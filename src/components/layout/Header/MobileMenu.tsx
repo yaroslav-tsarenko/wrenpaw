@@ -12,7 +12,7 @@ import { CurrencySelect } from "./CurrencySelect";
 import { ThemeToggle } from "./ThemeToggle";
 
 const rowCls = "flex min-h-14 w-full cursor-pointer items-center justify-between gap-4 border-b border-line text-left text-step-0 text-ink";
-const activeRowCls = "aria-[current]:font-semibold aria-[current]:shadow-[inset_3px_0_0_var(--color-brass)] aria-[current]:pl-3";
+const activeRowCls = "aria-[current]:font-semibold aria-[current]:shadow-[inset_3px_0_0_var(--color-accent-2)] aria-[current]:pl-3";
 
 interface MobileMenuProps {
   open: boolean;
@@ -34,10 +34,10 @@ export function MobileMenu({ open, onClose, categories, activeSlug = null, activ
   };
 
   return (
-    <Sheet open={open} onClose={close} side="left" label="Menu" motion="drawer-left">
+    <Sheet open={open} onClose={close} side="left" label="Menu">
       <div className="flex h-full flex-col">
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-line pl-4 pr-2">
-          <Wordmark className="h-[25px] w-auto text-ink" />
+          <Wordmark className="text-[1.5rem]" />
           <button type="button" onClick={close} aria-label="Close menu" className="flex size-11 cursor-pointer items-center justify-center text-ink">
             <X size={20} aria-hidden="true" />
           </button>

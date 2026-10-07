@@ -1,6 +1,5 @@
 "use client";
 
-import "@fontsource-variable/commissioner/wght.css";
 import "./fonts.css";
 import "@/styles/globals.css";
 import { useEffect } from "react";
@@ -10,7 +9,7 @@ import { COMPANY } from "@/lib/company";
 import messages from "../../messages/en/errors.json";
 import common from "../../messages/en/common.json";
 
-const THEME_INIT = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.setAttribute("data-theme",t);d.classList.toggle("dark",t==="dark")}catch(e){}})();`;
+const THEME_INIT = `(function(){try{var t=localStorage.getItem("wrenpaw-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.setAttribute("data-theme",t);d.classList.toggle("dark",t==="dark")}catch(e){}})();`;
 
 export default function GlobalError({
   error,
@@ -38,7 +37,7 @@ export default function GlobalError({
               {BRAND.name}
             </a>
           </div>
-          <span aria-hidden="true" className="block h-[2px] bg-shelf" />
+          <span aria-hidden="true" className="block h-[2px] bg-rule" />
         </header>
         <main className="mx-auto w-full max-w-container flex-1 px-gutter pb-24 pt-16">
           <div className="measure">

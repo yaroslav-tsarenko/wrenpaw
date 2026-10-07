@@ -1,7 +1,7 @@
 {
   "indexTitle": "Policies",
-  "indexLead": "The terms {brand} trades on, written for how the store actually works: goods are packed in Spain and delivered to the UK and EU.",
-  "indexMetaDescription": "Terms, privacy, cookies, returns, delivery, payment, warranty, complaints and acceptable use for {brand}.",
+  "indexLead": "The basis {brand} trades on, set out as the shop actually runs: packed in Spain, delivered across the UK and the EU.",
+  "indexMetaDescription": "{brand}'s terms, privacy, cookies, returns, delivery, payment, warranty, complaints and acceptable-use policies in one place.",
   "lastUpdated": "Last updated {date}",
   "onThisPage": "On this page",
   "policiesNav": "Policies",
@@ -13,39 +13,39 @@
   "items": {
     "terms": {
       "title": "Terms and conditions",
-      "scope": "The agreement between you and {company} when you buy from {brand}."
+      "scope": "What you and {company} agree to when an order goes through {brand}."
     },
     "privacy": {
       "title": "Privacy policy",
-      "scope": "What personal data we collect, why we use it, who processes it and your rights."
+      "scope": "The personal data we hold, our grounds for holding it, who else handles it and what you can ask for."
     },
     "cookies": {
       "title": "Cookie policy",
-      "scope": "Every cookie and browser storage key the store uses, and how to change your choice."
+      "scope": "Every cookie and browser-storage key the shop sets, and where to change your mind."
     },
     "returns": {
       "title": "Returns and refunds",
-      "scope": "Your {days}-day right to cancel, how to send items back and when the money reaches you."
+      "scope": "The {days}-day cancellation right, how to post goods back and when the money lands."
     },
     "shipping": {
       "title": "Delivery",
-      "scope": "Where we deliver, dispatch from Spain, delivery times, costs, duties and tracking."
+      "scope": "Destinations, dispatch from Spain, transit times, charges, import duties and tracking."
     },
     "payment": {
       "title": "Payment",
-      "scope": "Accepted cards, currencies, card security and when your card is charged."
+      "scope": "Which cards work, the currencies, how card data is protected and the moment you are charged."
     },
     "warranty": {
       "title": "Warranty",
-      "scope": "Our {months}-month warranty against defects and how it sits alongside your legal rights."
+      "scope": "Our {months}-month cover against defects, and how it sits on top of your legal rights."
     },
     "complaints": {
       "title": "Complaints",
-      "scope": "How to raise a complaint, how quickly we reply and where you can take it next."
+      "scope": "Getting a complaint to us, how fast we answer and where it can go afterwards."
     },
     "acceptable-use": {
       "title": "Acceptable use",
-      "scope": "Rules for using the website and your account."
+      "scope": "The conditions attached to using the site and holding an account."
     }
   }
 }

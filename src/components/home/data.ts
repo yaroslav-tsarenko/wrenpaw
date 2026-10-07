@@ -16,20 +16,20 @@ import {
   type HomepageCategory,
   type HomepageProduct,
 } from "@/lib/homepage-products";
-import type { HomeCategory, HomeData, HomeProduct } from "./types";
+import type { AnimalBlock, HomeCategory, HomeData, HomeProduct, IndexEntry } from "./types";
 
 const PREFER: Record<string, string[]> = {
-  "hero:tableware": ["bowls", "serveware", "dinner-sets"],
-  "hero:glassware-drinkware": ["wine-champagne-glasses", "drinking-glasses", "jugs-carafes"],
-  "hero:cookware": ["casseroles", "saucepans-stockpots", "frying-pans"],
-  "hero:bakeware": ["oven-dishes", "cake-tins-moulds"],
-  "drawer:tableware": ["serveware", "dinner-sets"],
-  "drawer:coffee-tea": ["coffee-accessories", "teapots-infusers"],
-  "drawer:bar-wine": ["ice-serving", "wine-accessories"],
-  rack: ["plates", "bowls", "dinner-sets", "serveware"],
-  "hooks:coffee-tea": ["mugs-cups", "cafetieres-pour-over", "moka-pots", "teapots-infusers"],
-  "hooks:bar-wine": ["cocktail-tools", "wine-accessories"],
+  dogs: ["dog-beds", "dog-toys", "dog-bowls", "dog-clothing"],
+  "dog-walking": ["harnesses", "leads", "collars", "id-tags"],
+  cats: ["cat-trees", "cat-beds", "cat-toys", "cat-bowls"],
+  "small-animals": ["small-cages", "small-habitat", "small-beds", "small-toys"],
+  birds: ["bird-cages", "bird-feeders", "bird-food"],
+  aquarium: ["aqua-equipment", "aqua-decor"],
+  reptiles: ["rept-terrarium", "rept-climate"],
+  travel: ["dog-carriers", "cat-carriers", "small-carriers"],
 };
+
+const MAJOR_SLOTS = 2;
 
 const productSelect = {
   id: true,
@@ -42,19 +42,18 @@ const productSelect = {
   isFeatured: true,
   shortDescription: true,
   createdAt: true,
-  images: { orderBy: { sortOrder: "asc" as const }, take: 1, select: { url: true, alt: true } },
+  images: { orderBy: { sortOrder: "asc" as const }, take: 2, select: { url: true, alt: true } },
   categories: { select: { category: { select: { name: true, slug: true } } } },
 };
 
 const EMPTY: HomeData = {
-  hero: { shelves: [], cupboards: [], drawers: [] },
-  drawers: [],
-  topShelf: { ranked: false, products: [] },
-  rack: { category: null, products: [] },
-  hooks: { categories: [], products: [] },
-  reduced: [],
-  newest: [],
   totalProducts: 0,
+  masthead: { lead: null, categories: [] },
+  index: { major: [], minor: [] },
+  feature: { ranked: false, lead: null, runnersUp: [] },
+  reduced: [],
+  animals: [],
+  newest: [],
 };
 
 function serialize<T>(data: T): T {
@@ -87,7 +86,8 @@ export async function getHomeData(): Promise<HomeData> {
           id: true,
           name: true,
           slug: true,
-          children: { where: { isActive: true }, select: { slug: true } },
+          description: true,
+          children: { where: { isActive: true }, orderBy: { sortOrder: "asc" }, select: { name: true, slug: true } },
         },
       }),
       unitsSoldRecently(),
@@ -104,78 +104,78 @@ export async function getHomeData(): Promise<HomeData> {
     const totalProducts = await prisma.product.count({ where: { status: "ACTIVE" } });
 
     const products = (serialize(rawProducts) as unknown as HomepageProduct[]).map((p) => ({ ...p, isNew: isNewArrival(p.createdAt, newSince) }));
-    const categories: (HomepageCategory & { count: number })[] = rawCategories.map((c, i) => ({ ...c, count: counts[i] }));
+    const categories = rawCategories.map((c, i) => ({ ...c, count: counts[i] }));
     const bySlug = new Map(categories.map((c) => [c.slug, c]));
-    const toHomeCategory = (c: HomepageCategory & { count: number }): HomeCategory => ({ name: c.name, slug: c.slug, count: c.count });
+    const toHomeCategory = (c: (typeof categories)[number]): HomeCategory => ({
+      name: c.name,
+      slug: c.slug,
+      count: c.count,
+      description: c.description,
+    });
 
-    const shelfReady = featuredFirst(products.filter((p) => isInStock(p) && hasImage(p)));
+    const ready = featuredFirst(products.filter((p) => isInStock(p) && hasImage(p)));
     const claimed = new Set<string>();
-    const unclaimed = () => shelfReady.filter((p) => !claimed.has(p.id));
-    const claim = (picked: HomeProduct[]) => {
+    const unclaimed = () => ready.filter((p) => !claimed.has(p.id));
+    const claim = <T extends HomeProduct>(picked: T[]) => {
       picked.forEach((p) => claimed.add(p.id));
       return picked;
     };
-    const fromCategory = (slug: string, key: string, limit: number) => {
+    const fromCategory = (slug: string, limit: number) => {
       const category = bySlug.get(slug);
       if (!category) return [];
-      return claim(preferSubcategories(getProductsByCategory(unclaimed(), category), PREFER[key] ?? []).slice(0, limit));
+      return claim(preferSubcategories(getProductsByCategory(unclaimed(), category as HomepageCategory), PREFER[slug] ?? []).slice(0, limit));
     };
 
-    const heroShelfLimits: Record<string, number> = { tableware: 4, "glassware-drinkware": 5 };
-    const heroShelves = FURNITURE_ZONES.shelves
-      .map((slug) => {
-        const category = bySlug.get(slug);
-        return category ? { category: toHomeCategory(category), products: fromCategory(slug, `hero:${slug}`, heroShelfLimits[slug] ?? 4) } : null;
-      })
-      .filter((s): s is NonNullable<typeof s> => Boolean(s && s.products.length > 0));
-
-    const heroCupboards = ["cookware", "bakeware"]
-      .map((slug) => {
-        const category = bySlug.get(slug);
-        return category ? { category: toHomeCategory(category), products: fromCategory(slug, `hero:${slug}`, 2) } : null;
-      })
-      .filter((s): s is NonNullable<typeof s> => Boolean(s && s.products.length > 0));
-
-    const heroDrawers = FURNITURE_ZONES.drawers
+    const mastheadLead = claim(fromCategory(FURNITURE_ZONES.lead[0], 1))[0] ?? claim(unclaimed().slice(0, 1))[0] ?? null;
+    const mastheadCategories = FURNITURE_ZONES.index
       .map((slug) => bySlug.get(slug))
-      .filter((c): c is NonNullable<typeof c> => Boolean(c && c.count > 0))
+      .filter((c): c is (typeof categories)[number] => Boolean(c && c.count > 0))
       .map(toHomeCategory);
 
-    const drawers = categories
-      .filter((c) => c.count > 0)
-      .map((c) => ({ ...toHomeCategory(c), products: fromCategory(c.slug, `drawer:${c.slug}`, 3) }));
+    const stocked = categories.filter((c) => c.count > 0).sort((a, b) => b.count - a.count);
+    const toEntry = (c: (typeof categories)[number], plates: number): IndexEntry => ({
+      ...toHomeCategory(c),
+      products: plates > 0 ? fromCategory(c.slug, plates) : [],
+      subcategories: c.children.slice(0, 4),
+    });
+    const major = stocked.slice(0, MAJOR_SLOTS).map((c) => toEntry(c, 3));
+    const minor = stocked.slice(MAJOR_SLOTS).map((c) => toEntry(c, 0));
 
-    const ranked = rankByOrders(unclaimed(), unitsSold, 5);
-    const picked = getFeaturedProducts(unclaimed(), 5);
-    const topShelfProducts = ranked.length > 0 ? ranked : [...picked, ...unclaimed().filter((p) => !picked.includes(p)).slice(0, 5 - picked.length)];
-    const topShelf = { ranked: ranked.length > 0, products: claim(topShelfProducts) };
-
-    const tableware = bySlug.get("tableware");
-    const rack = {
-      category: tableware ? toHomeCategory(tableware) : null,
-      products: tableware ? claim(preferSubcategories(getProductsByCategory(unclaimed(), tableware), PREFER.rack).slice(0, 8)) : [],
-    };
-
-    const hookSlugs = FURNITURE_ZONES.hooks.filter((slug) => bySlug.has(slug));
-    const hookProducts = hookSlugs.flatMap((slug) => fromCategory(slug, `hooks:${slug}`, 4));
-    const hooks = {
-      categories: hookSlugs.map((slug) => toHomeCategory(bySlug.get(slug)!)).filter((c) => c.count > 0),
-      products: hookProducts,
+    const ranked = rankByOrders(unclaimed(), unitsSold, 3);
+    const featured = getFeaturedProducts(unclaimed(), 3);
+    const pool = ranked.length > 0 ? ranked : featured.length > 0 ? featured : unclaimed().slice(0, 3);
+    const featureRow = claim(pool.slice(0, 3));
+    const feature = {
+      ranked: ranked.length > 0,
+      lead: featureRow[0] ?? null,
+      runnersUp: featureRow.slice(1),
     };
 
     const reduced = claim(getSaleProducts(unclaimed(), 4));
-    const newestPool = getNewProducts(unclaimed().filter((p) => p.isNew), 8);
-    const newest = claim(newestPool.slice(0, newestPool.length >= 8 ? 8 : newestPool.length >= 4 ? 4 : 0));
+
+    const animals: AnimalBlock[] = FURNITURE_ZONES.animals
+      .map((slug) => bySlug.get(slug))
+      .filter((c): c is (typeof categories)[number] => Boolean(c && c.count > 0))
+      .map((c) => ({
+        ...toHomeCategory(c),
+        product: fromCategory(c.slug, 1)[0] ?? null,
+        subcategories: c.children.slice(0, 6),
+      }));
+
+    const newPool = getNewProducts(
+      unclaimed().filter((p) => p.isNew),
+      6,
+    );
+    const newest = claim(newPool.length >= 4 ? newPool : []);
 
     return {
-      hero: { shelves: heroShelves, cupboards: heroCupboards, drawers: heroDrawers },
-      drawers,
-      topShelf,
-      rack,
-      hooks,
-      reduced,
-      newest,
       totalProducts,
+      masthead: { lead: mastheadLead, categories: mastheadCategories },
+      index: { major, minor },
+      feature,
+      reduced,
+      animals,
+      newest,
     };
   } catch (error) {
     console.error("Homepage data fetch error:", error);

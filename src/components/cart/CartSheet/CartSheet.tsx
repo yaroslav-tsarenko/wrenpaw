@@ -6,9 +6,9 @@ import Link from "next/link";
 import { X } from "lucide-react";
 import { Sheet } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { CartItem } from "@/components/cart/CartItem/CartItem";
-import { EmptyShelf } from "@/components/shared/EmptyState/EmptyState";
+import { EmptyPlate } from "@/components/shared/EmptyState/EmptyState";
 import { PaymentLogos } from "@/components/shared/PaymentLogos/PaymentLogos";
 import { useCart } from "@/providers/CartProvider";
 import { useCurrency } from "@/providers/CurrencyProvider";
@@ -16,9 +16,9 @@ import { formatPrice } from "@/lib/utils/format-price";
 import { COMPANY } from "@/lib/company";
 
 const EMPTY_LINKS = [
-  { href: "/catalog/cookware", label: "Cookware" },
-  { href: "/catalog/tableware", label: "Tableware" },
-  { href: "/catalog/glassware-drinkware", label: "Glassware & drinkware" },
+  { href: "/catalog/dogs", label: "Dogs" },
+  { href: "/catalog/cats", label: "Cats" },
+  { href: "/catalog/small-animals", label: "Small animals" },
 ];
 
 export function CartSheet() {
@@ -29,17 +29,17 @@ export function CartSheet() {
   const count = cart.itemCount;
 
   return (
-    <Sheet open={isSheetOpen} onClose={closeSheet} side="right" labelledBy={titleId} motion="cupboard-door">
-      <div data-door="cart" className="flex h-full flex-col">
+    <Sheet open={isSheetOpen} onClose={closeSheet} side="right" labelledBy={titleId}>
+      <div className="flex h-full flex-col">
         <div className="flex h-16 shrink-0 items-center justify-between gap-4 border-b border-line pl-6 pr-3">
           <div className="flex items-center gap-3">
             <h2 id={titleId} className="text-step-2 leading-none text-ink">
               Your bag
             </h2>
             {count > 0 ? (
-              <Plate variant="neutral" aria-label={`${count} ${count === 1 ? "item" : "items"}`}>
+              <Flag variant="neutral" aria-label={`${count} ${count === 1 ? "item" : "items"}`}>
                 {count}
-              </Plate>
+              </Flag>
             ) : null}
           </div>
           <button type="button" onClick={closeSheet} aria-label="Close bag" className="flex size-11 cursor-pointer items-center justify-center text-ink hover-device:hover:bg-brand-soft">
@@ -49,7 +49,7 @@ export function CartSheet() {
 
         {cart.items.length === 0 ? (
           <div className="flex flex-1 flex-col items-start gap-4 px-6 py-12">
-            <EmptyShelf />
+            <EmptyPlate />
             <p className="font-display text-step-2 leading-[1.2] text-ink">Your bag is empty</p>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {EMPTY_LINKS.map((link) => (

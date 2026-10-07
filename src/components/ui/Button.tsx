@@ -63,35 +63,21 @@ function resolveKind(variant: Variant, color?: ButtonProps["color"]): Kind {
 }
 
 function kindClasses(kind: Kind, size: "sm" | "md" | "lg", disabled: boolean) {
-  const bevel = size === "sm" ? "bevel-sm" : "bevel";
   if (kind === "paint" || kind === "danger") {
-    if (disabled) return cn(bevel, "before:bg-surface-1 text-ink-subtle");
-    if (kind === "danger") {
-      return cn(bevel, "before:bg-danger text-on-danger hover-device:hover:brightness-[0.92] active:translate-y-px");
-    }
-    return cn(
-      bevel,
-      "before:bg-brand text-on-brand",
-      "after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-[6px] after:h-[2px] after:bg-shelf after:opacity-0 after:transition-opacity after:duration-[160ms]",
-      "hover-device:hover:before:bg-brand-hover hover-device:hover:-translate-y-px hover-device:hover:after:opacity-100",
-      "active:translate-y-0 active:after:opacity-0",
-    );
+    if (disabled) return "bg-surface-1 text-ink-subtle";
+    if (kind === "danger") return "bg-danger text-on-danger hover-device:hover:brightness-[0.92] active:translate-y-px";
+    return "bg-brand text-on-brand hover-device:hover:bg-brand-hover active:translate-y-px";
   }
   if (kind === "outline") {
-    if (disabled) return cn("bevel-outline", size === "sm" && "bevel-sm", "before:bg-line text-ink-subtle");
-    return cn(
-      "bevel-outline",
-      size === "sm" && "bevel-sm",
-      "before:bg-brand text-brand",
-      "hover-device:hover:after:bg-brand-soft active:after:bg-brand-soft active:translate-y-px",
-    );
+    if (disabled) return "border border-line text-ink-subtle";
+    return "border border-control text-ink hover-device:hover:border-brand hover-device:hover:bg-brand-soft active:translate-y-px";
   }
   if (kind === "danger-text") {
     if (disabled) return "text-ink-subtle";
     return "text-danger underline decoration-1 underline-offset-4 hover-device:hover:decoration-2";
   }
   if (disabled) return "text-ink-subtle";
-  return "text-ink underline decoration-1 underline-offset-4 hover-device:hover:decoration-2 active:decoration-brand";
+  return "text-ink underline decoration-1 underline-offset-4 decoration-line-hover hover-device:hover:decoration-2 hover-device:hover:decoration-brand-2 active:decoration-brand-2";
 }
 
 export function ButtonLoader({ className }: { className?: string }) {
@@ -100,8 +86,8 @@ export function ButtonLoader({ className }: { className?: string }) {
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className="size-1.5 border border-current [animation:shelf-loader_480ms_steps(1,end)_infinite] motion-reduce:animate-none"
-          style={{ animationDelay: `${i * 160}ms`, ["--color-accent" as string]: "currentColor" }}
+          className="size-1.5 bg-current [animation:trail-step_640ms_linear_infinite] motion-reduce:animate-none"
+          style={{ animationDelay: `${i * 140}ms` }}
         />
       ))}
     </span>
@@ -128,7 +114,7 @@ export function buttonClasses({
   const kind = resolveKind(variant, color);
   if (isIconOnly) {
     return cn(
-      "relative inline-flex shrink-0 items-center justify-center size-10 touch-device:size-11 transition-colors duration-[160ms]",
+      "relative inline-flex shrink-0 items-center justify-center size-10 touch-device:size-11 transition-colors duration-[200ms]",
       disabled
         ? "text-ink-subtle cursor-not-allowed"
         : cn(kind === "danger" || kind === "danger-text" ? "text-danger" : "text-ink", "cursor-pointer hover-device:hover:bg-brand-soft active:bg-brand-soft"),
@@ -138,7 +124,7 @@ export function buttonClasses({
   const isText = kind === "text" || kind === "danger-text";
   return cn(
     "relative inline-flex items-center justify-center gap-2 font-sans font-semibold leading-none tracking-[0.01em] whitespace-nowrap select-none",
-    "transition-[transform,color,filter,text-decoration-thickness] duration-[160ms] ease-[var(--ease-std)]",
+    "transition-[transform,color,background-color,border-color,filter,text-decoration-thickness,text-decoration-color] duration-[200ms] ease-[var(--ease-press)]",
     "focus-visible:outline-offset-[3px]",
     isText ? TEXT_SIZE[size] : SIZE[size],
     kindClasses(kind, size, disabled),

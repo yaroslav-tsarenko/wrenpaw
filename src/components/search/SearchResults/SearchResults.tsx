@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Search } from "lucide-react";
-import { EmptyShelf } from "@/components/shared/EmptyState/EmptyState";
+import { EmptyPlate } from "@/components/shared/EmptyState/EmptyState";
 import { Button } from "@/components/ui/Button";
 
 export function SearchForm({ query, label, placeholder, submit }: { query: string; label: string; placeholder: string; submit: string }) {
@@ -35,7 +35,7 @@ export async function SearchNoResults({ query, categories }: { query: string; ca
   return (
     <section aria-labelledby="no-results-title" className="grid gap-x-16 gap-y-10 py-6 lg:grid-cols-12">
       <div className="lg:col-span-5">
-        <EmptyShelf />
+        <EmptyPlate />
         <h2 id="no-results-title" className="mt-5 text-step-3 leading-[1.12] text-ink">
           {query ? t("noResultsTitle", { query }) : t("emptyQueryTitle")}
         </h2>

@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 import { Button } from "./Button";
-import { Plate } from "./Plate";
+import { Flag } from "./Flag";
 import { Alert } from "./Alert";
 
 export interface StepperStep {
@@ -107,9 +107,9 @@ export function DrawerStepper({
                 {state === "complete" ? (
                   <span className="flex min-w-0 max-w-full items-center gap-4 pl-11 sm:pl-0">
                     {step.summary ? (
-                      <Plate variant="brass" className="max-w-[min(60vw,320px)]">
+                      <Flag variant="accent" className="max-w-[min(60vw,320px)]">
                         {step.summary}
-                      </Plate>
+                      </Flag>
                     ) : null}
                     {onEdit ? (
                       <button
@@ -122,14 +122,14 @@ export function DrawerStepper({
                     ) : null}
                   </span>
                 ) : null}
-                {state === "upcoming" ? <Plate variant="neutral">Next</Plate> : null}
+                {state === "upcoming" ? <Flag variant="neutral">Next</Flag> : null}
               </div>
               <div
                 inert={!open}
                 aria-labelledby={`${baseId}-${step.id}-title`}
                 role="group"
                 className={cn(
-                  "grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-furniture)]",
+                  "grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-press)]",
                   open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
               >
@@ -173,7 +173,7 @@ export function DrawerStepper({
                       </div>
                     ) : null}
                   </div>
-                  <span aria-hidden="true" className="shelf-rule" />
+                  <span aria-hidden="true" className="rule" />
                 </div>
               </div>
             </li>

@@ -199,7 +199,7 @@ export function Switch({ checked, onChange, label, description, disabled, locked
           <span
             aria-hidden="true"
             className={cn(
-              "absolute left-[3px] top-[3px] size-4 transition-transform duration-[260ms] ease-[var(--ease-furniture)]",
+              "absolute left-[3px] top-[3px] size-4 transition-transform duration-[260ms] ease-[var(--ease-press)]",
               checked ? "translate-x-5 bg-on-brand" : "translate-x-0 bg-control",
             )}
           />

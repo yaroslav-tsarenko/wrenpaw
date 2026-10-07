@@ -18,7 +18,7 @@ export function CheckoutHeader() {
       <div data-cornice="" className="bg-paint text-on-paint">
         <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-narrow items-center justify-between gap-4 px-gutter lg:h-[var(--header-height-compact)]">
           <Link href="/" aria-label={t("home", { brand: BRAND.name })} className="flex shrink-0 items-center text-on-paint">
-            <Wordmark className="h-[22px] w-auto lg:h-[25px]" />
+            <Wordmark tone="on-paint" className="text-[1.375rem] lg:text-[1.5rem]" />
           </Link>
           <p className="m-0 flex items-center gap-2 text-ui-sm font-medium text-on-paint">
             <Lock size={16} aria-hidden="true" />
@@ -26,7 +26,7 @@ export function CheckoutHeader() {
           </p>
         </div>
       </div>
-      <span aria-hidden="true" className="shelf-rule" />
+      <span aria-hidden="true" className="rule" />
       <div className="mx-auto flex h-11 max-w-narrow items-center justify-between gap-4 px-gutter">
         <Link href="/cart" className="inline-flex min-h-11 items-center gap-1.5 text-ui-sm font-semibold text-ink underline decoration-1 underline-offset-4 hover-device:hover:decoration-2">
           <ArrowLeft size={16} aria-hidden="true" />
@@ -44,7 +44,7 @@ export function CheckoutFooter() {
   const year = new Date().getFullYear();
   return (
     <footer data-print-hide="" className="mt-auto">
-      <span aria-hidden="true" className="shelf-rule" />
+      <span aria-hidden="true" className="rule" />
       <div className="on-paint bg-plinth text-on-paint">
         <div className="mx-auto flex max-w-narrow flex-col gap-5 px-gutter py-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-3">

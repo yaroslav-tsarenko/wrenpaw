@@ -6,7 +6,7 @@ import pg from "pg";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const ENV_FILE = path.join(ROOT, ".env");
-const DB_NAME = process.env.LOCAL_DB_NAME || "brasmora";
+const DB_NAME = process.env.LOCAL_DB_NAME || "wrenpaw";
 
 function readEnv() {
   if (!fs.existsSync(ENV_FILE)) return {};

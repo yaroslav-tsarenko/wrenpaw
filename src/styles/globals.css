@@ -32,17 +32,14 @@
   --color-brand: var(--color-accent);
   --color-brand-hover: var(--color-accent-hover);
   --color-brand-soft: var(--color-accent-light);
-  --color-brand-2: var(--color-accent-2);
   --color-on-brand: var(--color-on-accent);
+  --color-brand-2: var(--color-accent-2);
+  --color-brand-2-hover: var(--color-accent-2-hover);
+  --color-on-brand-2: var(--color-on-accent-2);
+  --color-brand-on-paint: var(--color-accent-on-paint);
   --color-sale: var(--color-accent-3);
 
-  --color-brass: var(--color-brass);
-  --color-on-brass: var(--color-on-brass);
-  --color-brass-tint: var(--color-brass-tint);
-  --color-brass-on-paint: var(--color-brass-on-paint);
-
-  --color-shelf: var(--color-shelf);
-  --color-shelf-hairline: var(--color-shelf-hairline);
+  --color-rule: var(--color-rule);
 
   --color-success: var(--color-success);
   --color-warning: var(--color-warning);
@@ -61,19 +58,19 @@
   --color-focus-on-paint: var(--color-focus-on-paint);
   --color-scrim: var(--color-scrim);
 
-  --font-sans: var(--font-commissioner), "Commissioner Variable", "Commissioner Fallback", "Segoe UI", sans-serif;
-  --font-display: var(--font-gloock), "Gloock", "Gloock Fallback", Georgia, serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 
-  --text-step--1: 0.75rem;
+  --text-step--1: 0.8125rem;
   --text-step-0: 1rem;
-  --text-step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.333rem);
-  --text-step-2: clamp(1.375rem, 1.2rem + 0.8vw, 1.777rem);
-  --text-step-3: clamp(1.625rem, 1.3rem + 1.5vw, 2.369rem);
-  --text-step-4: clamp(2rem, 1.5rem + 2.4vw, 3.157rem);
-  --text-step-5: clamp(2.5rem, 1.7rem + 3.8vw, 4.209rem);
-  --text-step-6: clamp(3rem, 1.8rem + 5.6vw, 5.61rem);
-  --text-display-xl: clamp(4rem, 1rem + 12vw, 12rem);
+  --text-step-1: clamp(1.125rem, 1.06rem + 0.3vw, 1.25rem);
+  --text-step-2: clamp(1.3rem, 1.17rem + 0.6vw, 1.5625rem);
+  --text-step-3: clamp(1.55rem, 1.3rem + 1.1vw, 1.953rem);
+  --text-step-4: clamp(1.9rem, 1.4rem + 2.2vw, 2.441rem);
+  --text-step-5: clamp(2.3rem, 1.4rem + 3.8vw, 3.052rem);
+  --text-step-6: clamp(2.8rem, 1.2rem + 6.4vw, 3.815rem);
+  --text-display-xl: clamp(4.5rem, 2rem + 13vw, 11rem);
   --text-ui-md: 0.9375rem;
   --text-ui-sm: 0.875rem;
   --text-ui-xs: 0.8125rem;
@@ -84,8 +81,8 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
-  --radius-3xl: 0;
-  --radius-4xl: 0;
+  --radius-3xl: var(--radius-2xl);
+  --radius-4xl: var(--radius-2xl);
   --radius-pill: var(--radius-pill);
 
   --shadow-card: var(--shadow-card);
@@ -98,17 +95,16 @@
 
   --spacing-gutter: var(--gutter);
 
-  --container-read: 720px;
-  --container-narrow: 1120px;
-  --container-container: 1320px;
-  --container-shop: 1320px;
+  --container-read: 680px;
+  --container-narrow: 1080px;
+  --container-container: 1280px;
+  --container-shop: 1280px;
   --container-wide: 1440px;
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-furniture: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.2, 0.75, 0.25, 1);
   --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
@@ -140,15 +136,17 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-synthesis: none;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
     text-wrap: balance;
   }
 
   .font-display {
-    font-weight: 400;
+    font-weight: 500;
     font-synthesis: none;
+    letter-spacing: -0.015em;
   }
 
   p {
@@ -189,7 +187,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-border-hover);
+    background: var(--color-border-control);
     border-radius: 0;
   }
 
@@ -208,130 +206,65 @@
       animation-duration: 1ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: var(--dur-reduced) !important;
-      transition-property: opacity, color, background-color, border-color !important;
+      transition-property: opacity, color, background-color, border-color, text-decoration-color !important;
     }
   }
 }
 
 @layer components {
-  :is(.bevel, .bevel-xs, .bevel-sm, .bevel-lg, .bevel-outline) {
-    --b: var(--bevel-md);
-    --bw: 1.5px;
+  .ruled-label {
     position: relative;
-    isolation: isolate;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
   }
 
-  .bevel-xs {
-    --b: var(--bevel-xs);
-  }
-
-  .bevel-sm {
-    --b: var(--bevel-sm);
-  }
-
-  .bevel-lg {
-    --b: var(--bevel-lg);
-  }
-
-  :is(.bevel, .bevel-xs, .bevel-sm, .bevel-lg, .bevel-outline)::before {
+  .ruled-label::after {
     content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-color: var(--bevel-fill, currentColor);
-    transition: background-color var(--dur-micro) var(--ease-std);
-    clip-path: polygon(
-      var(--b) 0,
-      calc(100% - var(--b)) 0,
-      100% var(--b),
-      100% calc(100% - var(--b)),
-      calc(100% - var(--b)) 100%,
-      var(--b) 100%,
-      0 calc(100% - var(--b)),
-      0 var(--b)
-    );
+    flex: 1 1 auto;
+    height: var(--rule-weight);
+    background-color: var(--color-rule);
+    transform-origin: left center;
   }
 
-  .bevel-outline {
-    --i: calc(var(--b) + var(--bw) * 0.4142);
-  }
-
-  .bevel-outline::before {
-    background-color: var(--bevel-line, currentColor);
-    clip-path: polygon(
-      evenodd,
-      var(--b) 0,
-      calc(100% - var(--b)) 0,
-      100% var(--b),
-      100% calc(100% - var(--b)),
-      calc(100% - var(--b)) 100%,
-      var(--b) 100%,
-      0 calc(100% - var(--b)),
-      0 var(--b),
-      var(--b) 0,
-      var(--i) var(--bw),
-      var(--bw) var(--i),
-      var(--bw) calc(100% - var(--i)),
-      var(--i) calc(100% - var(--bw)),
-      calc(100% - var(--i)) calc(100% - var(--bw)),
-      calc(100% - var(--bw)) calc(100% - var(--i)),
-      calc(100% - var(--bw)) var(--i),
-      calc(100% - var(--i)) var(--bw),
-      var(--i) var(--bw)
-    );
-  }
-
-  .bevel-outline::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-color: var(--bevel-fill, transparent);
-    transition: background-color var(--dur-micro) var(--ease-std);
-    clip-path: polygon(
-      var(--i) var(--bw),
-      calc(100% - var(--i)) var(--bw),
-      calc(100% - var(--bw)) var(--i),
-      calc(100% - var(--bw)) calc(100% - var(--i)),
-      calc(100% - var(--i)) calc(100% - var(--bw)),
-      var(--i) calc(100% - var(--bw)),
-      var(--bw) calc(100% - var(--i)),
-      var(--bw) var(--i)
-    );
-  }
-
-  .shelf-rule {
+  .rule {
     display: block;
-    height: calc(var(--shelf-weight) + var(--shelf-gap) + var(--shelf-hairline-weight));
-    background-image: linear-gradient(
-      to bottom,
-      var(--color-shelf) 0 var(--shelf-weight),
-      transparent var(--shelf-weight) calc(var(--shelf-weight) + var(--shelf-gap)),
-      var(--color-shelf-hairline) calc(var(--shelf-weight) + var(--shelf-gap)) 100%
-    );
+    height: var(--rule-weight);
+    background-color: var(--color-rule);
+    transform-origin: left center;
   }
 
-  .shelf-rule-solid {
+  .rule-strong {
     display: block;
-    height: var(--shelf-weight);
-    background-color: var(--color-shelf);
+    height: var(--rule-weight-strong);
+    background-color: var(--color-rule);
+    transform-origin: left center;
   }
 
-  .contact-shadow {
-    position: absolute;
-    left: 15%;
-    right: 15%;
-    bottom: calc(6% - 4px);
-    height: 12px;
-    z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(closest-side, var(--shadow-contact), transparent);
-    transform-origin: center;
-    transition:
-      transform var(--dur-micro) var(--ease-furniture),
-      opacity var(--dur-micro) var(--ease-std);
+  .index-numeral {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 0.82;
+    color: var(--color-text);
+    opacity: 0.16;
+  }
+
+  .on-paint .index-numeral {
+    color: var(--color-on-paint);
+    opacity: 0.22;
+  }
+
+  .plate {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: var(--color-stage);
+  }
+
+  .plate-empty {
+    background-color: var(--color-bg-tertiary);
   }
 }
 
@@ -340,22 +273,33 @@
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 @utility tabular {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "ss01" off;
 }
 
 @utility measure {
   max-width: 68ch;
 }
 
+@utility standfirst {
+  max-width: 42ch;
+  font-size: var(--text-step-1);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
 @utility meta {
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.5;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility no-scrollbar {

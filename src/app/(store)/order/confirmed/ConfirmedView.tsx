@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
-import { Plate, StatusPlate } from "@/components/ui/Plate";
+import { Flag, StatusFlag } from "@/components/ui/Flag";
 import { Alert } from "@/components/ui/Alert";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { TrailLoader } from "@/components/ui/TrailLoader";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 import { TotalsList } from "@/components/checkout/TotalsList";
 import { useCart } from "@/providers/CartProvider";
 import { useAuth } from "@/providers/AuthProvider";
@@ -23,10 +23,10 @@ type ViewState = "checking" | Verification | "missing" | "notFound" | "error";
 const MAX_ATTEMPTS = 10;
 const INTERVAL_MS = 3000;
 
-function Doors({ number }: { number: string }) {
+function OrderStamp({ number }: { number: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    const key = `brasmora-doors-${number}`;
+    const key = `wrenpaw-confirmed-${number}`;
     try {
       if (window.sessionStorage.getItem(key)) return;
       window.sessionStorage.setItem(key, "1");
@@ -36,21 +36,21 @@ function Doors({ number }: { number: string }) {
     ref.current?.setAttribute("data-play", "");
   }, [number]);
   return (
-    <div ref={ref} data-scene="doors-close" className="relative mx-auto w-full max-w-[320px]" aria-hidden="true">
-      <div className="grid grid-cols-2 border-x border-t border-shelf">
-        <div data-door="left" className="relative h-20 border-r border-shelf bg-raised">
-          <span className="bevel-xs absolute right-3 top-1/2 size-2.5 -translate-y-1/2 before:bg-shelf" />
-        </div>
-        <div data-door="right" className="relative h-20 bg-raised">
-          <span className="bevel-xs absolute left-3 top-1/2 size-2.5 -translate-y-1/2 before:bg-shelf" />
-        </div>
+    <div ref={ref} data-stamp="" className="mx-auto w-full max-w-[340px]">
+      <span aria-hidden="true" className="rule-strong" />
+      <div className="flex items-end justify-between gap-4 pt-4">
+        <span aria-hidden="true" className="flex items-end gap-1.5">
+          {[0, 1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className="block bg-brand-2 [[data-stamp][data-play]_&]:animate-drop-in"
+              style={{ width: 10, height: 10, marginBottom: i * 5, animationDelay: `${i * 90}ms` }}
+            />
+          ))}
+        </span>
+        <span className="tabular text-right text-step-2 leading-none text-ink">{number}</span>
       </div>
-      <span className="shelf-rule" />
-      <div data-plaque="" className="mt-4 flex justify-center">
-        <Plate variant="brass" size="lg" className="font-mono">
-          {number}
-        </Plate>
-      </div>
+      <span aria-hidden="true" className="rule mt-4" />
     </div>
   );
 }
@@ -67,7 +67,7 @@ function OrderSummary({ order }: { order: OrderView }) {
         <ul className="m-0 flex list-none flex-col divide-y divide-line p-0">
           {order.lines.map((line) => (
             <li key={line.id} className="flex items-center gap-4 py-3">
-              <Cubby src={line.imageUrl} alt="" size="compact" sizes="64px" className="w-16 shrink-0" />
+              <Stage src={line.imageUrl} alt="" size="mini" sizes="64px" className="w-16 shrink-0" />
               <div className="min-w-0 flex-1">
                 <p className="m-0 line-clamp-2 text-ui-sm font-medium text-ink">{line.name}</p>
                 <p className="meta tabular m-0 text-ink-muted">{t("lineQty", { count: line.quantity, unit: formatPrice(line.unit, order.currency) })}</p>
@@ -76,7 +76,7 @@ function OrderSummary({ order }: { order: OrderView }) {
             </li>
           ))}
         </ul>
-        <span aria-hidden="true" className="shelf-rule" />
+        <span aria-hidden="true" className="rule" />
         <TotalsList totals={order.totals} currency={order.currency} showCurrencyCode totalSize="md" className="mt-5" />
       </section>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -153,7 +153,7 @@ export function ConfirmedView() {
       cleared.current = true;
       clearCart();
       try {
-        sessionStorage.removeItem("brasmora-checkout-draft");
+        sessionStorage.removeItem("wrenpaw-checkout-draft");
       } catch {}
     }
     if (state !== "checking") headingRef.current?.focus();
@@ -171,7 +171,7 @@ export function ConfirmedView() {
   if (state === "checking") {
     return frame(
       <div className="flex min-h-[40vh] flex-col items-center justify-center gap-5 text-center" aria-live="polite">
-        <ShelfLoader label={t("checking.title")} />
+        <TrailLoader label={t("checking.title")} />
         <h1 className="m-0 text-step-3 leading-[1.1] text-ink">{t("checking.title")}</h1>
         <p className="measure m-0 text-ink-muted">{t("checking.body")}</p>
       </div>,
@@ -187,7 +187,7 @@ export function ConfirmedView() {
   if (state === "confirmed" && order) {
     return frame(
       <>
-        <Doors number={order.number} />
+        <OrderStamp number={order.number} />
         <div className="flex flex-col items-center gap-4 text-center">
           {heading(order.firstName ? t("confirmedState.title", { name: order.firstName }) : t("confirmedState.titleNoName"))}
           <p className="measure m-0 text-step-1 text-ink-muted">{t("confirmedState.email", { email: order.email })}</p>
@@ -212,7 +212,7 @@ export function ConfirmedView() {
     return frame(
       <>
         <div className="flex flex-col gap-4">
-          {order ? <StatusPlate status={plateStatusFor("paymentFailed")} label={t("plates.failed")} className="self-start" /> : null}
+          {order ? <StatusFlag status={plateStatusFor("paymentFailed")} label={t("plates.failed")} className="self-start" /> : null}
           {heading(t("failed.title"))}
           <p className="measure m-0 text-step-1 text-ink-muted">{t("failed.body")}</p>
         </div>
@@ -235,10 +235,10 @@ export function ConfirmedView() {
       <>
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center gap-3">
-            <StatusPlate status={plateStatusFor("awaitingPayment")} label={t("plates.awaiting")} />
-            <Plate variant="neutral" className="font-mono">
+            <StatusFlag status={plateStatusFor("awaitingPayment")} label={t("plates.awaiting")} />
+            <Flag variant="neutral" className="font-mono">
               {order.number}
-            </Plate>
+            </Flag>
           </div>
           {heading(t(`${key}.title`))}
           <p className="measure m-0 text-step-1 text-ink-muted">

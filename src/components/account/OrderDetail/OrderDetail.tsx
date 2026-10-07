@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Check, FileDown } from "lucide-react";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
+import { TrailLoader } from "@/components/ui/TrailLoader";
 import { Button } from "@/components/ui/Button";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { TotalsList } from "@/components/checkout/TotalsList";
 import { formatPrice } from "@/lib/utils/format-price";
@@ -36,7 +36,7 @@ export function OrderDetail({ id }: { id: string }) {
   const { data, error, loading, reload } = useAccountData<{ order: OrderView }>(`/api/account/orders/${encodeURIComponent(id)}`);
   const order = data?.order;
 
-  if (loading) return <ShelfLoader block label={t("loading")} />;
+  if (loading) return <TrailLoader block label={t("loading")} />;
   if (error || !order) {
     return (
       <div>
@@ -78,7 +78,7 @@ export function OrderDetail({ id }: { id: string }) {
             </li>
           ))}
         </ol>
-        <span aria-hidden="true" className="shelf-rule" />
+        <span aria-hidden="true" className="rule" />
         {order.trackingNumber ? (
           <p className="m-0 mt-4 text-ui-sm text-ink">
             {t("tracking")} <span className="font-mono">{order.trackingNumber}</span>
@@ -93,7 +93,7 @@ export function OrderDetail({ id }: { id: string }) {
         <ul className="m-0 flex list-none flex-col divide-y divide-line border-t border-line p-0">
           {order.lines.map((line) => (
             <li key={line.id} className="flex gap-4 py-4 sm:gap-6">
-              <Cubby src={line.imageUrl} alt="" size="compact" sizes="96px" className="w-[72px] shrink-0 sm:w-24" />
+              <Stage src={line.imageUrl} alt="" size="mini" sizes="96px" className="w-[72px] shrink-0 sm:w-24" />
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 {line.slug ? (
                   <Link href={`/product/${line.slug}`} className="line-clamp-2 text-ui-sm font-medium text-ink hover-device:hover:underline">
@@ -109,7 +109,7 @@ export function OrderDetail({ id }: { id: string }) {
             </li>
           ))}
         </ul>
-        <span aria-hidden="true" className="shelf-rule" />
+        <span aria-hidden="true" className="rule" />
       </section>
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">

@@ -3,8 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useCurrency } from "@/providers/CurrencyProvider";
 import { formatPrice } from "@/lib/utils/format-price";
-import { Plate } from "@/components/ui/Plate";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { Flag } from "@/components/ui/Flag";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 
 export interface CategoryOpenerProps {
   name: string;
@@ -46,9 +46,9 @@ export function CategoryOpener({ name, description, artUrl, count, inStock, subC
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <h1 className="text-step-4 leading-[1.05] text-ink">{name}</h1>
           {count > 0 ? (
-            <Plate variant="neutral" size="lg">
+            <Flag variant="neutral" size="lg">
               {t("items", { count })}
-            </Plate>
+            </Flag>
           ) : null}
         </div>
         {description ? <p className="measure mt-4 text-step-1 leading-[1.5] text-ink-muted">{description}</p> : null}
@@ -56,8 +56,8 @@ export function CategoryOpener({ name, description, artUrl, count, inStock, subC
       </div>
       {artUrl ? (
         <div data-depth="1" className="hidden w-full max-w-[220px] justify-self-end lg:col-span-4 lg:col-start-9 lg:block">
-          <span aria-hidden="true" className="shelf-rule-solid" />
-          <Cubby src={artUrl} alt="" size="tile" sizes="240px" priority className="border-x border-line" />
+          <span aria-hidden="true" className="rule-strong" />
+          <Stage src={artUrl} alt="" size="wide" sizes="240px" priority className="border-x border-line" />
         </div>
       ) : null}
     </header>

@@ -1,6 +1,6 @@
-# Brasmora
+# Wrenpaw
 
-Storefront and admin for Brasmora (brasmora.com), a kitchen, cookware and tableware store, built with Next.js 16. Includes product catalog, shopping cart, checkout, order management and analytics.
+Storefront and admin for Wrenpaw (wrenpaw.com), a pet supplies store, built with Next.js 16. Includes product catalog, shopping cart, checkout, order management and analytics.
 
 ## Tech Stack
 
@@ -52,7 +52,7 @@ Storefront and admin for Brasmora (brasmora.com), a kitchen, cookware and tablew
 ### Installation
 
 ```bash
-cd brasmora
+cd wrenpaw
 npm install
 ```
 
@@ -73,8 +73,8 @@ cp .env.example .env
 | `JWT_SECRET` | Secret key for JWT tokens | Yes |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL | Yes |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE` | SMTP server for transactional email (emails are skipped when unset) | Yes, for email |
-| `SMTP_USER`, `SMTP_PASSWORD` | Mailbox credentials on the brasmora.com domain | Yes, for email |
-| `SMTP_FROM`, `SMTP_REPLY_TO` | Sender and reply-to addresses on the brasmora.com domain | Yes, for email |
+| `SMTP_USER`, `SMTP_PASSWORD` | Mailbox credentials on the wrenpaw.com domain | Yes, for email |
+| `SMTP_FROM`, `SMTP_REPLY_TO` | Sender and reply-to addresses on the wrenpaw.com domain | Yes, for email |
 | `PAYBYLINK_BASE_URL` | OPPWA host (`https://eu-test.oppwa.com` sandbox, `https://eu-prod.oppwa.com` live) | Yes, for checkout |
 | `PAYBYLINK_ENTITY_ID` | OPPWA entity id | Yes, for checkout |
 | `PAYBYLINK_AUTH_TOKEN` | OPPWA bearer token | Yes, for checkout |
@@ -134,7 +134,7 @@ scripts/                   # Dev server orchestration, data generation
 
 ## Localization
 
-URLs carry no locale segment. The active locale is kept in `localStorage` (`brasmora.locale`) and mirrored into the `NEXT_LOCALE` cookie, which `src/i18n/request.ts` reads on the server. English is the only locale today. To add one, append its code to `locales` (and a label to `localeLabels`) in `src/i18n/config.ts` and add a `messages/<code>/` folder with one JSON file per namespace listed in `src/i18n/messages.ts` (copy `messages/en/` and translate); the language switcher appears automatically once more than one locale exists.
+URLs carry no locale segment. The active locale is kept in `localStorage` (`wrenpaw-locale`) and mirrored into the `NEXT_LOCALE` cookie, which `src/i18n/request.ts` reads on the server. English is the only locale today. To add one, append its code to `locales` (and a label to `localeLabels`) in `src/i18n/config.ts` and add a `messages/<code>/` folder with one JSON file per namespace listed in `src/i18n/messages.ts` (copy `messages/en/` and translate); the language switcher appears automatically once more than one locale exists.
 
 Brand values live in `src/lib/brand.ts` and legal entity details in `src/lib/company.ts`.
 
@@ -182,7 +182,7 @@ Notifications are AES-256-GCM encrypted; requests that do not decrypt with the k
 
 Product photos are served straight from Cloudflare R2 in sizes made at import time. Vercel image optimisation is switched off (`images.loader: "custom"` in `next.config.ts`), so it uses none of Vercel's image quota.
 
-**At import.** `npm run catalog:import` copies each product image to R2 as `brasmora/products/<slug>/<n>.<ext>`, unchanged, and keeps it as the fallback. It also uses sharp to make WebP copies named `brasmora/products/<slug>/<n>-w<width>.webp`:
+**At import.** `npm run catalog:import` copies each product image to R2 as `wrenpaw/products/<slug>/<n>.<ext>`, unchanged, and keeps it as the fallback. It also uses sharp to make WebP copies named `wrenpaw/products/<slug>/<n>-w<width>.webp`:
 
 - **Widths:** 320, 480, 640, 960 and 1280.
 - **No upscaling:** a photo narrower than 1280px gets one more copy at its own width. An 800px photo becomes 320, 480, 640 and 800.
@@ -193,7 +193,7 @@ The widths and quality are set in `catalogConfig.images.variants` (`src/config/c
 **How the site finds the copies.** `ProductImage.url` stays the original URL plus a `vw` query parameter that lists the widths uploaded for that photo, for example:
 
 ```
-https://img.example.com/brasmora/products/cast-iron-casserole-24/1.jpg?vw=320-480-640-960-1280
+https://img.example.com/wrenpaw/products/cast-iron-casserole-24/1.jpg?vw=320-480-640-960-1280
 ```
 
 R2 ignores the query string, so the URL still opens the original photo. That keeps feeds, the sitemap, JSON-LD, emails and the OG image routes working unchanged. The schema does not change.

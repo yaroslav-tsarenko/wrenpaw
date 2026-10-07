@@ -3,25 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
-import { Plate } from "@/components/ui/Plate";
+import { Trail } from "@/components/layout/BrandMark";
 import { NAV_CATEGORIES } from "@/config/navigation";
-
-function EmptyCubbies() {
-  return (
-    <svg viewBox="0 0 480 220" aria-hidden="true" className="h-auto w-full max-w-[480px] text-shelf" fill="none">
-      <rect x="0.75" y="0.75" width="478.5" height="196" stroke="var(--color-text-secondary)" strokeWidth="1.5" />
-      <path d="M160 1v196M320 1v196" stroke="var(--color-text-secondary)" strokeWidth="1.5" />
-      <path d="M58 70h44M62 70l-6 84a6 6 0 0 0 6 6h36a6 6 0 0 0 6-6l-6-84" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M104 92c14 0 18 10 18 22s-6 22-18 22" stroke="var(--color-text-secondary)" strokeWidth="1.5" />
-      <ellipse cx="80" cy="163" rx="34" ry="3.5" fill="var(--shadow-contact)" />
-      <path d="M352 150h96M356 141h88M360 132h80" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="square" />
-      <path d="M366 132c0-26 16-44 34-44s34 18 34 44" stroke="var(--color-text-secondary)" strokeWidth="1.5" />
-      <ellipse cx="400" cy="163" rx="40" ry="3.5" fill="var(--shadow-contact)" />
-      <rect x="0" y="197" width="480" height="2" fill="currentColor" />
-      <rect x="0" y="202" width="480" height="1" fill="var(--color-shelf-hairline)" />
-    </svg>
-  );
-}
 
 export default async function NotFound() {
   const t = await getTranslations("errors");
@@ -30,12 +13,14 @@ export default async function NotFound() {
   return (
     <div className="mx-auto max-w-container px-gutter pb-24 pt-12 lg:pt-20">
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-x-6">
-        <figure data-shelf="" className="m-0 lg:col-span-5 lg:pt-4">
-          <EmptyCubbies />
-          <figcaption className="mt-4 flex w-full max-w-[480px] justify-center">
-            <Plate variant="brass" size="lg" className="tabular">
-              404
-            </Plate>
+        <figure className="m-0 lg:col-span-5 lg:pt-2">
+          <p aria-hidden="true" className="index-numeral m-0 text-display-xl">
+            404
+          </p>
+          <span aria-hidden="true" className="mt-2 block h-px w-full bg-rule" />
+          <figcaption className="mt-5 flex items-center gap-4">
+            <Trail aria-hidden="true" className="block text-brand-2" style={{ width: 26, height: 26 }} />
+            <span className="eyebrow text-ink-subtle">{t("notFoundLabel")}</span>
           </figcaption>
         </figure>
 

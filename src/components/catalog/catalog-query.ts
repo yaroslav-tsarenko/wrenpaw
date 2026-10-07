@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { mentionsSupplier, publicBrand } from "@/lib/utils/supplier";
 import { isNewArrival, newArrivalCutoff } from "@/lib/new-arrivals";
-import type { ShelfProduct } from "@/components/product/ShelfTile/ShelfTile";
+import type { EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
 import { CATALOG_PAGE_SIZE, buildCatalogHref, type CatalogFacets, type CatalogParams, type CategoryOption, type SortKey } from "./catalog-url";
 
 export interface CategoryRecord {
@@ -74,7 +74,7 @@ export type CatalogScope =
   | { kind: "search"; query: string };
 
 export interface CatalogResult {
-  products: ShelfProduct[];
+  products: EntryProduct[];
   total: number;
   page: number;
   totalPages: number;
@@ -180,7 +180,7 @@ function leafCategory(categories: { category: { name: string; slug: string; pare
   return leaf?.category ?? null;
 }
 
-export async function loadShelfProducts(ids: string[]): Promise<ShelfProduct[]> {
+export async function loadEntryProducts(ids: string[]): Promise<EntryProduct[]> {
   if (ids.length === 0) return [];
   const [records, newSince] = await Promise.all([
     prisma.product.findMany({
@@ -316,7 +316,7 @@ export async function queryCatalog(
   const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
   const page = Math.min(params.page, totalPages);
   const pageIds = matched.slice((page - 1) * CATALOG_PAGE_SIZE, page * CATALOG_PAGE_SIZE).map((r) => r.id);
-  const products = await loadShelfProducts(pageIds);
+  const products = await loadEntryProducts(pageIds);
 
   return {
     products,

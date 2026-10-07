@@ -4,9 +4,8 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs/Breadcrumbs";
 import { CredentialPlaque } from "@/components/layout/Footer/Footer";
-import { ElevationDrawing } from "@/components/home/ElevationDrawing";
 import { LinkButton } from "@/components/home/LinkButton";
-import { SectionLink } from "@/components/home/Furniture";
+import { SectionLink } from "@/components/home/SectionLink";
 import { NAV_CATEGORIES } from "@/config/navigation";
 import { BRAND } from "@/lib/brand";
 import { POLICY_FACTS } from "@/lib/policy-facts";
@@ -20,11 +19,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const LISTING_KEYS = ["new", "photo", "stock", "prices"] as const;
-const NOT_SOLD_KEYS = ["electric", "knives", "food", "used"] as const;
+const NOT_SOLD_KEYS = ["animals", "medicines", "coldChain", "used"] as const;
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
   const f = POLICY_FACTS;
+
+  const heroFacts = [
+    { label: t("hero.factDispatch"), value: f.dispatchFrom },
+    { label: t("hero.factDelivery"), value: f.deliveryCountries },
+    { label: t("hero.factReturns"), value: t("hero.days", { count: f.withdrawalDays }) },
+    { label: t("hero.factWarranty"), value: t("hero.months", { count: f.warrantyMonths }) },
+    { label: t("hero.factCurrencies"), value: f.currencies },
+  ];
 
   const rows = [
     {
@@ -54,7 +61,7 @@ export default async function AboutPage() {
         <Breadcrumbs items={[{ label: t("breadcrumbHome"), href: "/" }, { label: t("breadcrumb") }]} />
       </div>
 
-      <section aria-labelledby="about-title" data-scene="elevation" className="mx-auto grid max-w-container items-end gap-x-6 gap-y-10 px-gutter pb-20 pt-6 lg:grid-cols-12 lg:pb-24 lg:pt-10">
+      <section aria-labelledby="about-title" className="mx-auto grid max-w-container items-end gap-x-6 gap-y-10 px-gutter pb-20 pt-6 lg:grid-cols-12 lg:pb-24 lg:pt-10">
         <div className="lg:col-span-6 lg:pb-16">
           <h1 id="about-title" data-anim="words" className="m-0 text-step-5 leading-[1.02]">
             {t("hero.title")
@@ -72,8 +79,17 @@ export default async function AboutPage() {
             {t("hero.lead", { brand: BRAND.name, countries: f.deliveryCountries })}
           </p>
         </div>
-        <div className="mx-auto w-full max-w-[420px] lg:col-span-5 lg:col-start-8 lg:max-w-none">
-          <ElevationDrawing />
+        <div className="w-full lg:col-span-5 lg:col-start-8">
+          <p className="eyebrow m-0 text-ink-subtle">{t("hero.factsLabel")}</p>
+          <dl className="m-0 mt-4 grid grid-cols-[auto_1fr] gap-x-8">
+            {heroFacts.map((fact) => (
+              <div key={fact.label} className="col-span-2 grid grid-cols-subgrid border-t border-rule py-3">
+                <dt className="eyebrow self-center text-ink-subtle">{fact.label}</dt>
+                <dd className="meta m-0 self-center text-right text-ink">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <span aria-hidden="true" className="block h-px w-full bg-line" />
         </div>
       </section>
 
@@ -101,7 +117,7 @@ export default async function AboutPage() {
               <ul className="m-0 mt-3 flex list-none flex-col gap-3 p-0">
                 {LISTING_KEYS.map((key) => (
                   <li key={key} className="relative pl-6 text-step-0 leading-[1.6] text-ink-muted">
-                    <span aria-hidden="true" className="bevel-xs absolute left-0 top-[0.6em] block size-2.5 before:bg-shelf" />
+                    <span aria-hidden="true" className="absolute left-0 top-[0.62em] block size-1.5 bg-brand-2" />
                     {t(`shelves.listing.${key}`, { currencies: f.currencies })}
                   </li>
                 ))}
@@ -167,7 +183,7 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
-            <CredentialPlaque stacked />
+            <CredentialPlaque stacked tone="ink" />
           </div>
           <div className="lg:hidden">
             <LinkButton href="/catalog" size="lg">

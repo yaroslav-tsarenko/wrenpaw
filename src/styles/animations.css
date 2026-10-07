@@ -1,22 +1,13 @@
-@keyframes shelf-settle {
-  0% {
-    transform: translateY(-6px);
+@keyframes settle {
+  from {
+    transform: translateY(-5px);
   }
-  100% {
+  to {
     transform: translateY(0);
   }
 }
 
-@keyframes shelf-settle-shadow {
-  0% {
-    transform: scaleX(0.85);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes drawer-out {
+@keyframes drop-in {
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -27,10 +18,10 @@
   }
 }
 
-@keyframes plate-in {
+@keyframes flag-in {
   from {
     opacity: 0;
-    transform: scaleX(0.9);
+    transform: scaleX(0.82);
   }
   to {
     opacity: 1;
@@ -58,58 +49,23 @@
   }
 }
 
-@keyframes door-open {
+@keyframes draw-rule {
   from {
-    opacity: 0;
-    transform: perspective(1600px) translateX(24px) rotateY(-12deg);
+    transform: scaleX(0);
   }
   to {
-    opacity: 1;
-    transform: perspective(1600px) translateX(0) rotateY(0deg);
+    transform: scaleX(1);
   }
 }
 
-@keyframes door-open-left {
-  from {
-    opacity: 0;
-    transform: perspective(1600px) translateX(-24px) rotateY(12deg);
-  }
-  to {
-    opacity: 1;
-    transform: perspective(1600px) translateX(0) rotateY(0deg);
-  }
-}
-
-@keyframes door-close {
-  from {
-    opacity: 1;
-    transform: perspective(1600px) translateX(0) rotateY(0deg);
-  }
-  to {
-    opacity: 0;
-    transform: perspective(1600px) translateX(24px) rotateY(-12deg);
-  }
-}
-
-@keyframes door-close-left {
-  from {
-    opacity: 1;
-    transform: perspective(1600px) translateX(0) rotateY(0deg);
-  }
-  to {
-    opacity: 0;
-    transform: perspective(1600px) translateX(-24px) rotateY(12deg);
-  }
-}
-
-@keyframes shelf-loader {
+@keyframes trail-step {
   0%,
   100% {
-    background-color: transparent;
+    opacity: 0.2;
   }
   20%,
-  60% {
-    background-color: var(--color-accent);
+  55% {
+    opacity: 1;
   }
 }
 
@@ -119,29 +75,29 @@
   }
 }
 
-@utility animate-shelf-settle {
-  animation: shelf-settle var(--dur-ui) var(--ease-furniture);
+@utility animate-settle {
+  animation: settle var(--dur-ui) var(--ease-press);
   @media (prefers-reduced-motion: reduce) {
     animation: fade-in var(--dur-reduced) linear both;
   }
 }
 
-@utility animate-drawer-out {
-  animation: drawer-out var(--dur-ui) var(--ease-furniture) both;
+@utility animate-drop-in {
+  animation: drop-in var(--dur-ui) var(--ease-press) both;
   @media (prefers-reduced-motion: reduce) {
     animation: fade-in var(--dur-reduced) linear both;
   }
 }
 
-@utility animate-plate-in {
-  animation: plate-in var(--dur-micro) var(--ease-furniture) both;
+@utility animate-flag-in {
+  animation: flag-in var(--dur-micro) var(--ease-press) both;
   @media (prefers-reduced-motion: reduce) {
     animation: fade-in var(--dur-reduced) linear both;
   }
 }
 
 @utility animate-rise-in {
-  animation: rise-in var(--dur-panel) var(--ease-furniture) both;
+  animation: rise-in var(--dur-panel) var(--ease-press) both;
   @media (prefers-reduced-motion: reduce) {
     animation: fade-in var(--dur-reduced) linear both;
   }
@@ -151,34 +107,9 @@
   animation: fade-in var(--dur-micro) var(--ease-std) both;
 }
 
-@utility animate-door-open {
-  animation: door-open var(--dur-panel) var(--ease-furniture) both;
-  transform-origin: right center;
+@utility animate-draw-rule {
+  animation: draw-rule var(--dur-rule) var(--ease-press) both;
   @media (prefers-reduced-motion: reduce) {
-    animation: fade-in var(--dur-reduced) linear both;
-  }
-}
-
-@utility animate-door-open-left {
-  animation: door-open-left var(--dur-panel) var(--ease-furniture) both;
-  transform-origin: left center;
-  @media (prefers-reduced-motion: reduce) {
-    animation: fade-in var(--dur-reduced) linear both;
-  }
-}
-
-@utility animate-door-close {
-  animation: door-close var(--dur-panel-close) var(--ease-furniture) both;
-  transform-origin: right center;
-  @media (prefers-reduced-motion: reduce) {
-    animation: fade-in var(--dur-reduced) linear reverse both;
-  }
-}
-
-@utility animate-door-close-left {
-  animation: door-close-left var(--dur-panel-close) var(--ease-furniture) both;
-  transform-origin: left center;
-  @media (prefers-reduced-motion: reduce) {
-    animation: fade-in var(--dur-reduced) linear reverse both;
+    animation: none;
   }
 }

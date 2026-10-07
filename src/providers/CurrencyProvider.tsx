@@ -32,7 +32,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [rates, setRates] = useState<Rates>(DEFAULT_RATES);
 
   useEffect(() => {
-    const stored = localStorage.getItem("currency") as Currency | null;
+    const stored = localStorage.getItem("wrenpaw-currency") as Currency | null;
     if (stored && ["GBP", "EUR", "USD"].includes(stored)) {
       setCurrencyState(stored);
     }
@@ -51,7 +51,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
   const setCurrency = (c: Currency) => {
     setCurrencyState(c);
-    localStorage.setItem("currency", c);
+    localStorage.setItem("wrenpaw-currency", c);
   };
 
   const convert = useCallback(

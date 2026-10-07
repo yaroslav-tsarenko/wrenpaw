@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/shared/SEO/JsonLd";
 import { getHomeData } from "@/components/home/data";
-import { DresserHero } from "@/components/home/DresserHero";
-import { DrawerChest } from "@/components/home/DrawerChest";
-import { TopShelf } from "@/components/home/TopShelf";
-import { PlateRack } from "@/components/home/PlateRack";
-import { HooksRow } from "@/components/home/HooksRow";
-import { ReducedBand } from "@/components/home/ReducedBand";
-import { NewOnShelf } from "@/components/home/NewOnShelf";
-import { CareCupboard } from "@/components/home/CareCupboard";
-import { NewsletterPlaque } from "@/components/home/NewsletterPlaque";
+import { MastheadOpener } from "@/components/home/MastheadOpener";
+import { CategoryIndex } from "@/components/home/CategoryIndex";
+import { LeadFeature } from "@/components/home/LeadFeature";
+import { ReducedStrip } from "@/components/home/ReducedStrip";
+import { ByAnimal } from "@/components/home/ByAnimal";
+import { NewIn } from "@/components/home/NewIn";
+import { KeepingNotes } from "@/components/home/KeepingNotes";
+import { Colophon } from "@/components/home/Colophon";
 import { BRAND } from "@/lib/brand";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/structured-data";
@@ -37,15 +36,14 @@ export default async function HomePage() {
     <div data-landing="home">
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={websiteJsonLd()} />
-      <DresserHero hero={data.hero} />
-      <DrawerChest drawers={data.drawers} totalProducts={data.totalProducts} />
-      <TopShelf ranked={data.topShelf.ranked} products={data.topShelf.products} />
-      <PlateRack category={data.rack.category} products={data.rack.products} />
-      <HooksRow categories={data.hooks.categories} products={data.hooks.products} />
-      <ReducedBand products={data.reduced} />
-      <NewOnShelf products={data.newest} />
-      <CareCupboard />
-      <NewsletterPlaque />
+      <MastheadOpener lead={data.masthead.lead} categories={data.masthead.categories} totalProducts={data.totalProducts} />
+      <CategoryIndex major={data.index.major} minor={data.index.minor} totalProducts={data.totalProducts} />
+      <LeadFeature lead={data.feature.lead} runnersUp={data.feature.runnersUp} ranked={data.feature.ranked} />
+      <ReducedStrip products={data.reduced} />
+      <ByAnimal blocks={data.animals} />
+      <NewIn products={data.newest} />
+      <KeepingNotes />
+      <Colophon />
     </div>
   );
 }

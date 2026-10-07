@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "@/providers/CartProvider";
 import { Button } from "@/components/ui/Button";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 
 interface CartToastProps {
   toastId?: string | number;
@@ -22,7 +22,7 @@ export function CartToast({ toastId, name, imageUrl, quantity }: CartToastProps)
 
   return (
     <div role="status" className="relative flex w-[min(380px,calc(100vw-32px))] gap-3 border border-line bg-raised p-4 pr-11 text-ink shadow-lg">
-      <Cubby src={imageUrl} alt="" size="toast" className="w-12 shrink-0" />
+      <Stage src={imageUrl} alt="" size="mini" className="w-12 shrink-0" />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <p className="eyebrow text-ink-muted">Added to bag{quantity > 1 ? ` · ${quantity}` : ""}</p>
         <p className="truncate text-ui-sm font-medium text-ink">{name}</p>

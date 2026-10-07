@@ -1,5 +1,5 @@
-import { ShelfGridSkeleton } from "@/components/product/ShelfTile/ShelfTile";
+import { EntryGridSkeleton } from "@/components/product/ProductEntry/ProductEntry";
 
 export function ProductSkeleton({ count = 12, dense = false }: { count?: number; dense?: boolean }) {
-  return <ShelfGridSkeleton count={count} dense={dense} />;
+  return <EntryGridSkeleton count={count} dense={dense} />;
 }

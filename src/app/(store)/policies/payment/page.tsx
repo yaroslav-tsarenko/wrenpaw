@@ -4,37 +4,37 @@ import { POLICY_FACTS as F } from "@/lib/policy-facts";
 
 export const generateMetadata = policyMetadata(
   "payment",
-  `${F.brand} accepts ${F.cardMethods} cards on a PCI DSS compliant hosted payment page. Prices in ${F.currencies}. We never see your full card number.`,
+  `Card payment at ${F.brand} runs on a PCI DSS compliant hosted page and takes ${F.cardMethods}. Prices read in ${F.currencies}, and your full card number never reaches us.`,
 );
 
 const sections: PolicySection[] = [
   {
     id: "methods",
-    title: "How you can pay",
+    title: "What we take",
     body: (
       <>
-        <p>We accept {F.cardMethods} credit and debit cards. We do not accept other payment methods.</p>
+        <p>Credit and debit cards from {F.cardMethods} are the only way to pay here. Nothing else is accepted.</p>
         <p>
-          You pay on the hosted payment page of {F.paymentProviderNamed ? `${F.paymentProviderNamed}, a PCI DSS compliant payment provider` : "our PCI DSS compliant payment provider"}. When you select Pay at checkout,
-          you are taken to that page to enter your card details, and brought back to {F.brand} once the payment is complete.
+          The card details themselves are entered on the hosted page belonging to{" "}
+          {F.paymentProviderNamed ? `${F.paymentProviderNamed}, a PCI DSS compliant payment provider` : "our PCI DSS compliant payment provider"}. Pressing Pay at checkout
+          hands you over to that page, and you come back to {F.brand} once the payment has gone through.
         </p>
       </>
     ),
   },
   {
     id: "security",
-    title: "Card security",
+    title: "How your card is kept safe",
     body: (
       <>
         <p>
-          <strong>We do not store or process full payment card data.</strong>{" "}
-          Your card number, expiry date and security code are entered on
-          the payment provider&rsquo;s page and never pass through our website. We receive only the result of the payment and a transaction
-          reference.
+          <strong>Full card data is never stored or processed by us.</strong> The number, the expiry date and the security code are typed
+          into the provider&rsquo;s page, not ours, and they do not travel through this website at any point. What comes back to us is the
+          outcome of the payment plus a transaction reference.
         </p>
         <p>
-          Payments use 3-D Secure and Strong Customer Authentication. Your bank may ask you to confirm the payment, for example in your banking
-          app or with a one-time code. If you do not complete that step, the payment is not taken.
+          3-D Secure and Strong Customer Authentication are applied to every payment. That is why your bank may want confirmation — a prompt
+          in its app, or a one-time code. Skip that step and the money is not taken.
         </p>
       </>
     ),
@@ -45,10 +45,13 @@ const sections: PolicySection[] = [
     body: (
       <>
         <p>
-          You can view prices and pay in {F.currencies}. Our prices are set in {F.baseCurrency}; the other currencies are converted at our
-          current exchange rate. The total at checkout, in the currency you selected, is the amount we charge.
+          Prices can be read and paid in {F.currencies}. We set them in {F.baseCurrency} and convert into the others at our current rate.
+          Whatever total the checkout shows in your chosen currency is the figure we charge.
         </p>
-        <p>If your card is in a different currency, your card issuer may convert the amount and add its own fee. We do not control that fee.</p>
+        <p>
+          Hold a card in some other currency and your issuer may do its own conversion and add a fee for doing so. That fee is theirs, not
+          ours, and is outside our control.
+        </p>
       </>
     ),
   },
@@ -56,26 +59,26 @@ const sections: PolicySection[] = [
     id: "tax",
     title: "Tax",
     body: F.vatRegistered ? (
-      <p>Prices include VAT at the rate that applies to your order. Your invoice shows the VAT amount.</p>
+      <p>VAT at the rate applying to your order is already inside the price, and your invoice breaks the VAT out as a separate line.</p>
     ) : (
       <p>
-        {F.company} is not registered for VAT. We do not charge VAT, and no VAT is shown at checkout or on your order confirmation or
-        invoice. For UK deliveries, see the note on import charges in our <Link href="/policies/shipping">Delivery policy</Link>.
+        VAT registration does not apply to {F.company}. No VAT is added, and none appears at checkout, on your order confirmation or on your
+        invoice. UK deliveries have a separate note on import charges in the <Link href="/policies/shipping">Delivery policy</Link>.
       </p>
     ),
   },
   {
     id: "when-charged",
-    title: "When your card is charged",
+    title: "The moment you are charged",
     body: (
       <>
         <p>
-          Your card is charged when you complete payment on the provider&rsquo;s page. We create your order and send a confirmation email only
-          after the provider confirms the payment to us. If the payment is declined or cancelled, no order is created and nothing is charged.
+          The charge happens when you finish the payment on the provider&rsquo;s page. Only once the provider has confirmed that to us do we
+          create the order and send the confirmation email. A declined or abandoned payment creates no order and takes no money.
         </p>
         <p>
-          If a payment fails, check the card details and that your bank has approved the payment, then try again. If it still fails, contact
-          your bank or email us at {F.email}.
+          When a payment will not go through, check the card details and whether your bank has approved it, then have another go. Still
+          stuck, and it is a question for your bank — or write to us at {F.email}.
         </p>
       </>
     ),
@@ -85,28 +88,29 @@ const sections: PolicySection[] = [
     title: "Refunds",
     body: (
       <p>
-        Refunds go back to the card used for the order, in the same currency, within {F.refundDays} days as described in our{" "}
-        <Link href="/policies/returns">Returns and refunds policy</Link>. We cannot refund to a different card or account.
+        A refund returns to the card that paid, in the currency it paid in, inside {F.refundDays} days, as the{" "}
+        <Link href="/policies/returns">Returns and refunds policy</Link> sets out. Sending it to a different card or account is not something
+        we are able to do.
       </p>
     ),
   },
   {
     id: "statement",
-    title: "On your statement",
+    title: "What appears on your statement",
     body: (
       <p>
-        The charge appears under the name of {F.company} or {F.brand}, depending on your bank. If you do not recognise a charge, email{" "}
-        {F.email} before contacting your bank and we will find the order.
+        Depending on your bank, the entry reads either {F.company} or {F.brand}. If a line looks unfamiliar, email {F.email} before you raise
+        it with the bank and we will track down the order for you.
       </p>
     ),
   },
   {
     id: "disputes",
-    title: "Disputes",
+    title: "If something goes wrong",
     body: (
       <p>
-        If something is wrong with an order, please contact us first; we can usually solve it faster than a card dispute. How we handle
-        chargebacks is set out in our <Link href="/policies/terms#chargebacks">Terms and conditions</Link>.
+        Come to us first when an order is not right — we can almost always settle it more quickly than a card dispute will. Our approach to
+        chargebacks sits in the <Link href="/policies/terms#chargebacks">Terms and conditions</Link>.
       </p>
     ),
   },

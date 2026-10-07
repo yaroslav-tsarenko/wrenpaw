@@ -128,7 +128,7 @@ export function Modal({ open, onClose, title, children, footer, size = "md", des
       className={cn(
         "m-auto max-h-[calc(100dvh-32px)] w-[calc(100%-32px)] bg-raised shadow-xl",
         size === "lg" ? "max-w-[720px]" : "max-w-[560px]",
-        "data-[phase=open]:animate-rise-in data-[phase=closing]:translate-y-3 data-[phase=closing]:opacity-0 transition-[opacity,transform] duration-[260ms] ease-[var(--ease-furniture)]",
+        "data-[phase=open]:animate-rise-in data-[phase=closing]:translate-y-3 data-[phase=closing]:opacity-0 transition-[opacity,transform] duration-[260ms] ease-[var(--ease-press)]",
         className,
       )}
     >
@@ -165,16 +165,15 @@ export interface SheetProps {
   children: ReactNode;
   className?: string;
   initialFocus?: RefObject<HTMLElement | null>;
-  motion?: string;
 }
 
-export function Sheet({ open, onClose, side, label, labelledBy, children, className, initialFocus, motion }: SheetProps) {
+export function Sheet({ open, onClose, side, label, labelledBy, children, className, initialFocus }: SheetProps) {
   const sideClass =
     side === "right"
       ? "ml-auto mr-0 h-dvh max-h-none w-full max-w-[440px] shadow-panel data-[phase=open]:animate-door-open data-[phase=closing]:animate-door-close"
       : side === "left"
         ? "ml-0 mr-auto h-dvh max-h-none w-[min(100%,400px)] max-w-none shadow-panel-left data-[phase=open]:animate-door-open-left data-[phase=closing]:animate-door-close-left"
-        : "mt-0 mb-auto w-full max-w-none max-h-[80vh] shadow-lg data-[phase=open]:animate-drawer-out data-[phase=closing]:-translate-y-2 data-[phase=closing]:opacity-0";
+        : "mt-0 mb-auto w-full max-w-none max-h-[80vh] shadow-lg data-[phase=open]:animate-drop-in data-[phase=closing]:-translate-y-2 data-[phase=closing]:opacity-0";
   return (
     <DialogShell
       open={open}
@@ -183,9 +182,8 @@ export function Sheet({ open, onClose, side, label, labelledBy, children, classN
       labelledBy={labelledBy}
       closeMs={260}
       initialFocus={initialFocus}
-      dataAttrs={motion ? { "data-motion": motion } : undefined}
       className={cn(
-        "inset-y-0 bg-raised transition-[opacity,transform] duration-[260ms] ease-[var(--ease-furniture)]",
+        "inset-y-0 bg-raised transition-[opacity,transform] duration-[260ms] ease-[var(--ease-press)]",
         sideClass,
         className,
       )}

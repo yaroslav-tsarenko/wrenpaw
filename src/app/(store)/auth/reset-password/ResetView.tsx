@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordInput } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
-import { ShelfLoader } from "@/components/ui/ShelfLoader";
+import { TrailLoader } from "@/components/ui/TrailLoader";
 import { useFieldError } from "@/lib/hooks/useFieldError";
 import { resetPasswordSchema, type ResetPasswordFormData } from "@/lib/validators/auth";
 
@@ -66,7 +66,7 @@ export function ResetView() {
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-6 px-gutter pb-24 pt-10 lg:pt-16">
       <h1 className="m-0 text-step-4 leading-[1.05] text-ink">{state === "done" ? t("doneTitle") : t("title")}</h1>
-      {state === "checking" ? <ShelfLoader label={t("checking")} block /> : null}
+      {state === "checking" ? <TrailLoader label={t("checking")} block /> : null}
       {state === "invalid" ? (
         <>
           <Alert tone="danger" title={t("invalidTitle")}>

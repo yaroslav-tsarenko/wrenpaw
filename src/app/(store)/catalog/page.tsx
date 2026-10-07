@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { pageMetadata, pagedDescription } from "@/lib/seo/metadata";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs/Breadcrumbs";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { CatalogBrowser } from "@/components/catalog/CatalogBrowser";
 import { CategoryChest } from "@/components/catalog/CategoryChest";
 import { categoryCounts, getCategoryTree, queryCatalog } from "@/components/catalog/catalog-query";
@@ -56,9 +56,9 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
       <header className="pb-8 pt-2">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <h1 className="text-step-4 leading-[1.05] text-ink">{t("allCategoriesTitle")}</h1>
-          <Plate variant="neutral" size="lg">
+          <Flag variant="neutral" size="lg">
             {t("items", { count: total })}
-          </Plate>
+          </Flag>
         </div>
         <p className="measure mt-3 text-step-1 leading-[1.5] text-ink-muted">{t("catalogLead", { categories: drawers.length })}</p>
       </header>

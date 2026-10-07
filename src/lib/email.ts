@@ -40,25 +40,25 @@ function getReplyTo(): string | undefined {
 }
 
 const C = {
-  canvas: "#f1f3f2",
-  panel: "#fafbfa",
+  canvas: "#f4efe4",
+  panel: "#fbf9f4",
   stage: "#ffffff",
-  ink: "#2a1a15",
-  muted: "#5b4c47",
-  subtle: "#72625d",
-  paint: "#3b2620",
-  onPaint: "#f1f3f2",
-  onPaintMuted: "#c8bbb3",
-  brass: "#c9a04e",
-  brassTint: "#f2ead8",
-  line: "#d2d3cf",
-  success: "#2f6b45",
-  danger: "#a3262b",
+  ink: "#211b1c",
+  muted: "#554c48",
+  subtle: "#6b615b",
+  paint: "#211b1c",
+  onPaint: "#f4efe4",
+  onPaintMuted: "#bdb2a4",
+  accent: "#a33b12",
+  accentTint: "#f2e3da",
+  line: "#d8cfbe",
+  success: "#2c6b4f",
+  danger: "#a32218",
 } as const;
 
-const SERIF = "Gloock, Georgia, 'Times New Roman', serif";
-const SANS = "Commissioner, 'Segoe UI', Helvetica, Arial, sans-serif";
-const MONO = "ui-monospace, Menlo, Consolas, 'Courier New', monospace";
+const SERIF = "Piazzolla, Georgia, 'Times New Roman', serif";
+const SANS = "'Schibsted Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif";
+const MONO = "'Spline Sans Mono', ui-monospace, Menlo, Consolas, 'Courier New', monospace";
 
 interface SendArgs {
   to: string;
@@ -163,7 +163,7 @@ function label(text: string): string {
 }
 
 function plate(text: string): string {
-  return `<span style="display:inline-block;background:${C.brass};color:${C.ink};font-size:12px;font-weight:600;letter-spacing:0.08em;padding:6px 10px;font-family:${MONO};">${escape(text)}</span>`;
+  return `<span style="display:inline-block;background:${C.accent};color:${C.ink};font-size:12px;font-weight:600;letter-spacing:0.08em;padding:6px 10px;font-family:${MONO};">${escape(text)}</span>`;
 }
 
 function button(href: string, text: string): string {
@@ -537,7 +537,7 @@ export async function sendContactFormEmail(submission: ContactSubmission): Promi
             : ""
         }
       </table>
-      <div style="background:${C.brassTint};padding:16px;color:${C.ink};font-size:14px;line-height:1.6;white-space:pre-wrap;">${escape(submission.message)}</div>
+      <div style="background:${C.accentTint};padding:16px;color:${C.ink};font-size:14px;line-height:1.6;white-space:pre-wrap;">${escape(submission.message)}</div>
       <p style="color:${C.muted};font-size:12px;margin:16px 0 0;">
         Reply directly to this email to respond to ${escape(submission.email)}.
       </p>
@@ -554,7 +554,7 @@ export async function sendContactAutoReplyEmail(submission: ContactSubmission): 
       `
       ${heading("We have your message")}
       ${paragraph(`Hi ${escape(submission.name)}, thank you for writing to ${BRAND.name}. We reply ${STORE_POLICY.support.replyTime}. Support hours: ${escape(COMPANY.supportHours)}.`)}
-      <div style="background:${C.brassTint};padding:16px;margin:0 0 16px;">
+      <div style="background:${C.accentTint};padding:16px;margin:0 0 16px;">
         ${label("Your message")}
         <p style="margin:0 0 8px;font-size:14px;color:${C.ink};font-weight:600;">${escape(submission.subject)}${order ? ` · order <span style="font-family:${MONO};">${escape(order)}</span>` : ""}</p>
         <p style="margin:0;font-size:14px;color:${C.muted};line-height:1.6;white-space:pre-wrap;">${escape(submission.message)}</p>

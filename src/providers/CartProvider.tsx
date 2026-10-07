@@ -24,7 +24,7 @@ interface CartContextType {
   closeSheet: () => void;
 }
 
-const CART_STORAGE_KEY = "e-commerce-cart";
+const CART_STORAGE_KEY = "wrenpaw-cart";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

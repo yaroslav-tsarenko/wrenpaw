@@ -8,8 +8,8 @@ export function FilterChip({ label, onRemove, className }: { label: string; onRe
   return (
     <span
       className={cn(
-        "bevel-outline bevel-xs inline-flex h-8 items-center gap-1 pl-3 text-ui-sm text-ink",
-        "before:bg-control after:bg-raised has-[button:hover]:before:bg-brand",
+        "inline-flex h-8 items-center gap-1 border border-control bg-raised pl-3 text-ui-sm text-ink",
+        "transition-colors duration-[200ms] has-[button:hover]:border-brand",
         className,
       )}
     >
@@ -62,7 +62,7 @@ export function VariantOption({ label, selected = false, unavailable = false, sw
       className={cn(
         "relative inline-flex h-10 min-w-10 items-center justify-center gap-2 border px-4 text-ui-sm font-medium transition-colors duration-[160ms]",
         selected
-          ? "border-brand text-ink shadow-[inset_0_0_0_1px_var(--color-accent)] after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-[7px] after:h-[2px] after:bg-shelf"
+          ? "border-brand text-ink shadow-[inset_0_0_0_1px_var(--color-accent)] after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-[7px] after:h-[2px] after:bg-rule"
           : "border-control text-ink hover-device:hover:border-ink-muted",
         unavailable && "cursor-not-allowed overflow-hidden text-ink-subtle hover-device:hover:border-control",
         !unavailable && "cursor-pointer",

@@ -15,7 +15,7 @@ import { Alert } from "@/components/ui/Alert";
 import { AccordionItem } from "@/components/ui/Accordion";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { PaymentLogos } from "@/components/shared/PaymentLogos/PaymentLogos";
-import { Cubby } from "@/components/product/ShelfTile/ShelfTile";
+import { Stage } from "@/components/product/ProductEntry/ProductEntry";
 import { PhoneField } from "@/components/account/fields/PhoneField";
 import { AddressFields } from "@/components/account/fields/AddressFields";
 import { useCart } from "@/providers/CartProvider";
@@ -33,7 +33,7 @@ import { MerchantInfo } from "./MerchantInfo";
 import { TotalsList } from "./TotalsList";
 import { quotePayloadItems, useCheckoutQuote, type QuoteProblem } from "./useCheckoutQuote";
 
-const DRAFT_KEY = "brasmora-checkout-draft";
+const DRAFT_KEY = "wrenpaw-checkout-draft";
 
 type FieldName = FieldPath<CheckoutFormData>;
 
@@ -496,7 +496,7 @@ export function CheckoutView() {
         <ul className="m-0 flex list-none flex-col divide-y divide-line p-0">
           {(quote && quote.currency === currency ? quote.lines : cart.items.map((item, index) => ({ productId: item.productId, name: item.name, variantName: item.variantName ?? null, quantity: item.quantity, unit: totals.lines[index]?.unit ?? 0, total: totals.lines[index]?.total ?? 0 }))).map((line, index) => (
             <li key={`${line.productId}-${index}`} className="flex items-center gap-4 py-3">
-              <Cubby src={imageFor.get(line.productId) ?? null} alt="" size="compact" sizes="48px" className="w-12 shrink-0" />
+              <Stage src={imageFor.get(line.productId) ?? null} alt="" size="mini" sizes="48px" className="w-12 shrink-0" />
               <div className="min-w-0 flex-1">
                 <p className="m-0 line-clamp-2 text-ui-sm font-medium text-ink">{line.name}</p>
                 <p className="meta m-0 tabular text-ink-muted">

@@ -15,7 +15,8 @@ import { ProductTabs, type SpecRow } from "@/components/product/ProductTabs/Prod
 import { ProductReviews } from "@/components/product/ProductReviews/ProductReviews";
 import { RelatedProducts } from "@/components/product/RelatedProducts/RelatedProducts";
 import { productJsonLd, validGtin13 } from "@/components/product/product-structured-data";
-import { getCategoryTree, loadShelfProducts } from "@/components/catalog/catalog-query";
+import { productTitle } from "@/lib/product-name";
+import { getCategoryTree, loadEntryProducts } from "@/components/catalog/catalog-query";
 import type { ProductVariantOption } from "@/components/product/VariantSelector/VariantSelector";
 
 export const revalidate = 60;
@@ -111,7 +112,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProduct(slug);
   if (!product) return { title: "Product not found", robots: { index: false, follow: true } };
   return pageMetadata({
-    title: product.metaTitle || product.name,
+    title: product.metaTitle || productTitle(product.name),
     description: metaDescription(product),
     path: `/product/${product.slug}`,
     images: false,
@@ -189,7 +190,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     });
     relatedIds = [...relatedIds, ...more.map((m) => m.id)];
   }
-  const related = await loadShelfProducts(relatedIds.slice(0, 4));
+  const related = await loadEntryProducts(relatedIds.slice(0, 4));
 
   const reviews = product.reviews.map((r) => ({ id: r.id, rating: r.rating, comment: r.comment, author: r.user?.name ?? null, createdAt: r.createdAt }));
 
@@ -197,11 +198,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     { label: nav("home"), href: "/" },
     { label: nav("shop"), href: "/catalog" },
     ...chain.map((c) => ({ label: c.name, href: `/catalog/${c.slug}` })),
-    { label: product.name },
+    { label: productTitle(product.name) },
   ];
 
   const jsonLd = productJsonLd({
-    name: product.name,
+    name: productTitle(product.name),
     slug: product.slug,
     sku: product.sku,
     description: clampText(descriptionText || summaryOf(product), 5000),

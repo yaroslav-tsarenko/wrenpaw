@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { SkeletonBar } from "@/components/ui/ShelfLoader";
+import { SkeletonBar } from "@/components/ui/TrailLoader";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { formatPrice } from "@/lib/utils/format-price";
 import type { OrderView } from "@/lib/orders";
@@ -36,7 +36,7 @@ export function OrderHistory() {
           <table className="hidden w-full border-collapse text-left md:table">
             <caption className="sr-only">{t("caption")}</caption>
             <thead>
-              <tr className="border-b-2 border-shelf">
+              <tr className="border-b-2 border-rule">
                 {(["order", "date", "items", "status", "total"] as const).map((key) => (
                   <th key={key} scope="col" className={`eyebrow pb-3 font-semibold text-ink-muted ${key === "total" ? "text-right" : ""}`}>
                     {t(`columns.${key}`)}
@@ -78,7 +78,7 @@ export function OrderHistory() {
                   <span className="meta text-ink-muted">{t("mobileMeta", { date: formatOrderDate(order.createdAt), count: itemCount(order) })}</span>
                   <OrderStatus state={order.state} className="justify-self-end" />
                 </Link>
-                <span aria-hidden="true" className="shelf-rule" />
+                <span aria-hidden="true" className="rule" />
               </li>
             ))}
           </ul>

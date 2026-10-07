@@ -1,19 +1,20 @@
 {
-  "notFound": "This shelf is empty",
+  "notFound": "Nothing at this address",
   "notFoundTitle": "Page not found",
-  "notFoundSubtitle": "The page you were looking for has moved or never existed. Search the shop or pick a category below.",
+  "notFoundSubtitle": "Whatever used to be here has moved, or was never here at all. Search the shop, or start from one of the sections below.",
   "searchLabel": "Search the shop",
-  "searchPlaceholder": "Search pans, plates, glasses…",
+  "searchPlaceholder": "Search harnesses, litter, tanks…",
   "searchSubmit": "Search",
-  "categoriesTitle": "Categories",
+  "categoriesTitle": "Sections",
   "helpTitle": "Help",
   "backHome": "Back to home",
-  "serverError": "Something went wrong loading this page.",
+  "serverError": "This page did not load.",
   "serverErrorTitle": "Something went wrong",
-  "serverErrorBody": "This is a fault on our side. Try again, or come back in a few minutes. If it keeps happening, email {email}.",
+  "serverErrorBody": "That one is on us. Try again, or give it a few minutes. If it keeps happening, write to {email}.",
   "errorReference": "Reference: {digest}",
   "unauthorized": "Sign in to continue",
   "forbidden": "You don't have access to this page",
   "validationError": "Check the highlighted fields",
-  "networkError": "We couldn't reach the store. Check your connection and try again."
+  "networkError": "We could not reach the shop. Check your connection and try again.",
+  "notFoundLabel": "The trail stops here"
 }

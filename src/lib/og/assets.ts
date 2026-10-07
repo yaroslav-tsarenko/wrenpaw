@@ -7,32 +7,32 @@ import { isBlockedImageHost } from "@/lib/utils/supplier";
 export const OG_SIZE = { width: 1200, height: 630 };
 
 export const OG_PALETTE = {
-  paint: "#3b2620",
-  plinth: "#2e1d18",
-  chalk: "#f1f3f2",
-  chalkDeep: "#e5e8e6",
+  paint: "#211b1c",
+  plinth: "#211b1c",
+  paper: "#f4efe4",
+  paperDeep: "#eae3d4",
   stage: "#ffffff",
-  ink: "#2a1a15",
-  inkMuted: "#5b4c47",
-  onPaintMuted: "#c8bbb3",
-  onPaintLine: "rgba(241, 243, 242, 0.16)",
-  brass: "#c9a04e",
-  onBrass: "#2a1a15",
-  brassOnPaint: "#d6b064",
-  shelf: "#3b2620",
-  shelfHairline: "rgba(59, 38, 32, 0.28)",
-  contact: "rgba(42, 26, 21, 0.2)",
+  ink: "#211b1c",
+  inkMuted: "#554c48",
+  onPaint: "#f4efe4",
+  onPaintMuted: "#bdb2a4",
+  onPaintLine: "rgba(244, 239, 228, 0.18)",
+  accent: "#a33b12",
+  onAccent: "#fff8f2",
+  accentOnPaint: "#e8733f",
+  rule: "#211b1c",
+  line: "#d8cfbe",
 } as const;
 
-type FontSpec = { name: string; file: string; weight: 400 | 600; style: "normal" };
+type FontSpec = { name: string; file: string; weight: 400 | 500 | 600; style: "normal" };
 
 const FONT_FILES: FontSpec[] = [
-  { name: "Gloock", file: "gloock-latin-400-normal.woff", weight: 400, style: "normal" },
-  { name: "Commissioner", file: "commissioner-latin-400-normal.woff", weight: 400, style: "normal" },
-  { name: "Commissioner", file: "commissioner-latin-600-normal.woff", weight: 600, style: "normal" },
+  { name: "Piazzolla", file: "piazzolla-og-500.woff", weight: 500, style: "normal" },
+  { name: "Schibsted", file: "schibsted-og-400.woff", weight: 400, style: "normal" },
+  { name: "Schibsted", file: "schibsted-og-600.woff", weight: 600, style: "normal" },
 ];
 
-let fontCache: Promise<{ name: string; data: ArrayBuffer; weight: 400 | 600; style: "normal" }[]> | null = null;
+let fontCache: Promise<{ name: string; data: ArrayBuffer; weight: 400 | 500 | 600; style: "normal" }[]> | null = null;
 
 export function ogFonts() {
   fontCache ??= Promise.all(

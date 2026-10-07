@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Your bag",
-    "description": "Check the cookware, tableware and glassware in your bag before you check out."
+    "description": "Look over the food, bedding and kit in your bag before you pay."
   },
   "title": "Your bag",
   "itemCount": "{count, plural, one {# item} other {# items}}",
@@ -12,20 +12,20 @@
   "continueShopping": "Continue shopping",
   "saveForLater": "Save for later",
   "removed": "Removed from your bag",
-  "limitPerItem": "You can add up to {max} of each item to one order.",
+  "limitPerItem": "A single order takes at most {max} of this item.",
   "limitPerOrder": "One order can hold up to {max} items.",
-  "limits": "Up to {perItem} of each item and {perOrder} items per order.",
-  "freeDeliveryRemaining": "Spend {amount} more for free delivery (orders of {threshold} or more).",
+  "limits": "{perItem} of any one item, {perOrder} items in an order.",
+  "freeDeliveryRemaining": "Another {amount} and delivery is free — the threshold is {threshold}.",
   "freeDeliveryReached": "Your order qualifies for free delivery.",
-  "discountNote": "Discount codes can be added at checkout.",
+  "discountNote": "Discount codes go in at the checkout stage.",
   "empty": {
     "title": "Your bag is empty",
-    "subtitle": "Pans, plates and glasses you add will wait here until you check out.",
+    "subtitle": "Anything you add stays here until you pay, so you can come back to it.",
     "action": "Browse the shop",
     "links": {
-      "cookware": "Cookware",
-      "tableware": "Tableware",
-      "glassware": "Glassware & drinkware"
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "smallAnimals": "Small animals"
     }
   }
 }

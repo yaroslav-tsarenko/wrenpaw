@@ -1,77 +1,64 @@
 {
-  "metaTitle": "{brand} — Cookware, tableware and glassware for the UK and EU",
-  "metaDescription": "Pans, bakeware, plates, glasses, cutlery, coffee and bar tools from {brand}, shipped from {dispatchFrom} to the UK and EU. {withdrawalDays}-day returns and a {warrantyMonths}-month warranty.",
-  "hero": {
-    "title": "Cookware, tableware and glass for kitchens across the UK and EU",
-    "lead": "Pans, plates, glasses and the tools between them, chosen to be used every day.",
-    "open": "Open the cupboards",
-    "browse": "Browse all categories",
-    "shipsFrom": "Ships from {dispatchFrom} to the {countries}.",
-    "shelfLabel": "{category}, open shelf",
-    "cupboardLabel": "{category}, cupboard",
-    "drawersLabel": "Drawers"
+  "metaTitle": "{brand} — Pet supplies for dogs, cats, small animals and aquariums",
+  "metaDescription": "Food, bedding, harnesses, trays, cages, tanks and terrarium kit for dogs, cats, rabbits, birds, fish and reptiles. Dispatched from {dispatchFrom} to the UK and EU, with {withdrawalDays}-day returns and a {warrantyMonths}-month warranty.",
+  "masthead": {
+    "eyebrow": "{count, number} products in stock",
+    "title": "Everything the animals in your house actually need",
+    "lead": "Food, bedding, leads, trays, cages and tanks, with the measurements and materials written down so you can tell whether a thing will fit before you buy it.",
+    "shopAll": "Shop the whole range",
+    "biggest": "Straight to {name}"
   },
-  "drawers": {
-    "title": "Every drawer in the shop",
-    "lead": "All {products, plural, one {# product} other {# products}}, sorted into {drawers, plural, one {# drawer} other {# drawers}}.",
-    "count": "{count, plural, one {# item} other {# items}}"
+  "index": {
+    "label": "Contents",
+    "title": "Eight sections, one shop",
+    "lead": "{products, number} products arranged by the animal they are for, not by the brand that made them. Counts update as stock moves."
   },
-  "topShelf": {
-    "plate": "Top shelf",
-    "titleRanked": "Most chosen this month",
-    "title": "Picked for the top shelf"
-  },
-  "rack": {
-    "title": "Plates, bowls and serveware",
-    "all": "All {category}"
-  },
-  "hooks": {
-    "title": "From the hooks",
-    "lead": "Mugs, coffee pots and bar tools, hung within reach."
+  "feature": {
+    "label": "This week's pick",
+    "labelRanked": "Most ordered this month",
+    "title": "This week's pick",
+    "titleRanked": "Most ordered this month",
+    "specCategory": "Section",
+    "specAvailability": "Availability",
+    "specSize": "Size",
+    "inStock": "In stock",
+    "lowStock": "Low stock",
+    "alsoLabel": "Also moving",
+    "all": "See what else is selling"
   },
   "reduced": {
-    "title": "Reduced",
-    "lead": "Lowered prices on these pieces, with the previous price shown beside each.",
-    "plate": "Reduced −{percent}%",
-    "all": "See everything reduced"
+    "label": "Reduced",
+    "title": "Prices cut, previous price shown",
+    "all": "Everything reduced"
+  },
+  "animals": {
+    "label": "By animal",
+    "title": "Cats, small animals and birds",
+    "lead": "The three sections that get added to most often, and the subsections people reach for first."
   },
   "newest": {
-    "title": "New on the shelf",
+    "label": "New in",
     "link": "Newest first"
   },
-  "care": {
-    "title": "Looking after it",
-    "lead": "How to clean and store the materials you will find on our shelves.",
-    "castIron": {
-      "title": "Cast iron",
-      "body": "Wash with hot water and a brush, then dry it straight away and wipe a thin film of cooking oil over the surface while it is still warm. Left wet or soaked, bare cast iron rusts.",
-      "link": "Cast iron pieces"
-    },
-    "enamel": {
-      "title": "Enamel",
-      "body": "Use a soft sponge or a nylon brush. Metal scourers and abrasive powders scratch the glaze, so soak stubborn residue in warm soapy water instead.",
-      "link": "Enamelled pieces"
-    },
-    "nonStick": {
-      "title": "Non-stick",
-      "body": "Cook on low to medium heat and turn food with wooden or silicone tools. High heat and metal utensils wear the coating away.",
-      "link": "Non-stick pans"
-    },
-    "glass": {
-      "title": "Glass",
-      "body": "Avoid sudden temperature changes: don't pour boiling water into a cold glass or set a hot dish down on a cold, wet surface. Let it cool before washing.",
-      "link": "Glassware & drinkware"
-    }
+  "notes": {
+    "label": "Notes on keeping animals",
+    "title": "Four things worth knowing before you order",
+    "lead": "Written for the questions we are actually asked, and linked to the part of the shop each one concerns."
   },
-  "newsletter": {
-    "title": "New pieces, by email",
-    "lead": "A short note when new pieces go on the shelves.",
+  "colophon": {
+    "title": "A note when new stock lands",
+    "lead": "One short email when a section gets restocked or a new range arrives. Nothing else.",
     "label": "Email address",
     "cta": "Sign up",
-    "note": "Unsubscribe any time. We do not sell your personal data.",
+    "note": "Unsubscribe from any email. We do not sell your personal data.",
     "privacy": "How we use your email",
-    "success": "Thanks. We'll write to {email} when new pieces arrive.",
-    "invalid": "Enter an email address in the format name@domain.com",
-    "error": "We couldn't sign you up just now. Please try again."
+    "success": "Thank you. We will write to {email} when new stock lands.",
+    "invalid": "Use the form name@domain.com",
+    "error": "We could not sign you up just now. Please try again.",
+    "factDelivery": "Free delivery from",
+    "factReturns": "Change of mind",
+    "factWarranty": "Warranty",
+    "days": "{count} days",
+    "months": "{count} months"
   }
 }

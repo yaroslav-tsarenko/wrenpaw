@@ -11,7 +11,7 @@ import { COOKIE_CATEGORIES, COOKIE_TABLE, type CookieCategory } from "@/config/c
 import { onOpenCookieSettings, useConsent, writeConsent } from "@/lib/consent";
 
 const bannerButton = cn(
-  "bevel-outline bevel-sm inline-flex h-11 min-w-0 flex-1 cursor-pointer items-center justify-center px-4 text-ui-sm font-semibold text-on-paint sm:flex-none sm:px-5",
+  "inline-flex h-11 min-w-0 flex-1 cursor-pointer items-center justify-center border border-on-paint-line px-4 text-ui-sm font-semibold text-on-paint transition-colors duration-[200ms] hover-device:hover:border-brand-on-paint sm:flex-none sm:px-5",
   "before:bg-on-paint hover-device:hover:after:bg-on-paint-line active:translate-y-px",
 );
 
@@ -31,7 +31,7 @@ function CookieList({ category }: { category: CookieCategory }) {
         {open ? "Hide cookies" : "Show cookies"}
         <ChevronDown size={16} aria-hidden="true" className={cn("transition-transform duration-[260ms]", open && "rotate-180")} />
       </button>
-      <div id={`${id}-list`} inert={!open} className={cn("grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-furniture)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+      <div id={`${id}-list`} inert={!open} className={cn("grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-press)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
         <div className="min-h-0 overflow-hidden">
           {rows.length === 0 ? (
             <p className="meta pt-2 text-ink-muted">None in use. We will list them here before any are added.</p>
@@ -104,11 +104,11 @@ export function CookieConsent() {
           data-print-hide=""
           className="on-paint fixed inset-x-0 bottom-[var(--sticky-bar-offset,0px)] z-90 bg-paint text-on-paint animate-rise-in"
         >
-          <span aria-hidden="true" className="block h-[2px] bg-shelf" />
+          <span aria-hidden="true" className="block h-[2px] bg-rule" />
           <div className="mx-auto flex max-w-container flex-col gap-4 px-gutter py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
             <p className="max-w-[78ch] text-ui-sm leading-[1.5]">
               We use necessary cookies to run the store, and optional analytics and marketing cookies only if you allow them.{" "}
-              <Link href="/policies/cookies" className="font-semibold text-brass-on-paint underline underline-offset-4">
+              <Link href="/policies/cookies" className="font-semibold text-brand-on-paint underline underline-offset-4">
                 Cookie policy
               </Link>
             </p>

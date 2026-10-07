@@ -84,7 +84,7 @@ export function Tabs({ items, defaultId, value, onChange, label, accordionBelow 
               )}
             >
               {item.label}
-              {selected ? <span aria-hidden="true" className="shelf-rule-solid absolute inset-x-0 bottom-[3px]" /> : null}
+              {selected ? <span aria-hidden="true" className="rule-strong absolute inset-x-0 bottom-[3px]" /> : null}
             </button>
           );
         })}

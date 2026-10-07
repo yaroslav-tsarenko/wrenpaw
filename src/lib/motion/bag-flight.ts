@@ -17,9 +17,9 @@ export function flyToBag(detail: BagAddDetail | undefined) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (document.querySelector("[data-header-state=hidden]")) return;
   const source = detail?.source ?? null;
-  const cubby = source?.querySelector<HTMLElement>("[data-cubby]") ?? null;
+  const stage = source?.querySelector<HTMLElement>("[data-plate]") ?? null;
   const img = source?.querySelector<HTMLImageElement>("[data-packshot] img, img") ?? null;
-  const from = visibleRect(cubby ?? img);
+  const from = visibleRect(stage ?? img);
   const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-bag-target]"));
   const target = targets.map((el) => ({ el, rect: visibleRect(el) })).find((t) => t.rect);
   if (!from || !img || !target?.rect) return;
@@ -62,12 +62,12 @@ export function flyToBag(detail: BagAddDetail | undefined) {
       { transform: `translate(${dx * 0.45}px, ${dy * 0.45 - lift}px) scale(${(1 + scale) / 2})`, opacity: MOTION_LIMITS.bagGhostOpacity, offset: 0.45 },
       { transform: `translate(${dx}px, ${dy}px) scale(${scale})`, opacity: 0.35 },
     ],
-    { duration: MOTION_DURATION.bagFlight, easing: cssEase("furniture"), fill: "forwards" },
+    { duration: MOTION_DURATION.bagFlight, easing: cssEase("press"), fill: "forwards" },
   );
 
   const finish = () => {
     ghost.remove();
-    target.el.animate([{ transform: "translateY(2px)" }, { transform: "translateY(0)" }], { duration: MOTION_DURATION.micro, easing: cssEase("furniture") });
+    target.el.animate([{ transform: "translateY(2px)" }, { transform: "translateY(0)" }], { duration: MOTION_DURATION.micro, easing: cssEase("press") });
   };
   flight.finished.then(finish, () => ghost.remove());
 }

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
 import { Alert } from "@/components/ui/Alert";
-import { SkeletonBar } from "@/components/ui/ShelfLoader";
+import { SkeletonBar } from "@/components/ui/TrailLoader";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { formatPrice } from "@/lib/utils/format-price";
 import type { OrderView } from "@/lib/orders";
@@ -58,7 +58,7 @@ export function AccountOverview() {
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </div>
-            <span aria-hidden="true" className="shelf-rule" />
+            <span aria-hidden="true" className="rule" />
             {data && data.orders.length > 1 ? (
               <Link href="/account/orders" className="mt-4 inline-flex min-h-11 items-center text-ui-sm font-semibold text-ink underline decoration-1 underline-offset-4">
                 {t("allOrders", { count: data.orders.length })}

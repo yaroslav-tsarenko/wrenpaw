@@ -61,8 +61,8 @@ export function MotionRoot() {
       const detail = (event as CustomEvent<BagAddDetail>).detail;
       import("@/lib/motion/bag-flight").then(({ flyToBag }) => flyToBag(detail));
     };
-    window.addEventListener("brasmora:bag-add", onAdd);
-    return () => window.removeEventListener("brasmora:bag-add", onAdd);
+    window.addEventListener("wrenpaw:bag-add", onAdd);
+    return () => window.removeEventListener("wrenpaw:bag-add", onAdd);
   }, []);
 
   return null;

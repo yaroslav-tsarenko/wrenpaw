@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { useCurrency } from "@/providers/CurrencyProvider";
-import { Plate } from "@/components/ui/Plate";
+import { Flag } from "@/components/ui/Flag";
 import { Checkbox, Radio } from "@/components/ui/Choice";
 import { Input } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
@@ -49,11 +49,11 @@ export function FilterDrawer({
         >
           <span className="eyebrow flex-1">{title}</span>
           {selectedCount > 0 ? (
-            <Plate size="sm" aria-label={t("selectedCount", { count: selectedCount })}>
+            <Flag size="sm" aria-label={t("selectedCount", { count: selectedCount })}>
               {selectedCount}
-            </Plate>
+            </Flag>
           ) : null}
-          <ChevronDown size={16} aria-hidden="true" className={cn("text-ink-muted transition-transform duration-[260ms] ease-[var(--ease-furniture)]", open && "rotate-180")} />
+          <ChevronDown size={16} aria-hidden="true" className={cn("text-ink-muted transition-transform duration-[260ms] ease-[var(--ease-press)]", open && "rotate-180")} />
         </button>
       </h3>
       <div
@@ -61,7 +61,7 @@ export function FilterDrawer({
         role="region"
         aria-labelledby={`${id}-trigger`}
         inert={!open}
-        className={cn("grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-furniture)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
+        className={cn("grid transition-[grid-template-rows] duration-[260ms] ease-[var(--ease-press)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
       >
         <div className="min-h-0 overflow-hidden">
           <div className="border-t border-line bg-raised px-4 py-3">{children}</div>
@@ -146,15 +146,15 @@ export function PriceRange({ bounds, value, onCommit, format, step = 1 }: PriceR
         commit();
       }}
       style={{ left: `${pct(local[which])}%` }}
-      className="bevel-xs absolute top-1/2 z-[1] size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-grab touch-none before:bg-brand active:cursor-grabbing focus-visible:outline-offset-2"
+      className="absolute top-1/2 z-[1] size-[18px] -translate-x-1/2 -translate-y-1/2 cursor-grab touch-none bg-brand active:cursor-grabbing focus-visible:outline-offset-2"
     />
   );
 
   return (
     <div className="px-2 pb-2 pt-5">
       <div ref={trackRef} className="relative h-[18px]">
-        <span aria-hidden="true" className="shelf-rule absolute inset-x-0 top-[6px] opacity-40" />
-        <span aria-hidden="true" className="shelf-rule-solid absolute top-[6px]" style={{ left: `${pct(local.min)}%`, right: `${100 - pct(local.max)}%` }} />
+        <span aria-hidden="true" className="rule absolute inset-x-0 top-[6px] opacity-40" />
+        <span aria-hidden="true" className="rule-strong absolute top-[6px]" style={{ left: `${pct(local.min)}%`, right: `${100 - pct(local.max)}%` }} />
         {thumb("min")}
         {thumb("max")}
       </div>
@@ -304,7 +304,7 @@ export function ProductFilters({ facets, selection, onChange, onNavigate, classN
                 >
                   <span className="relative py-1">
                     {option.name}
-                    {option.active ? <span aria-hidden="true" className="shelf-rule-solid absolute inset-x-0 -bottom-0.5" /> : null}
+                    {option.active ? <span aria-hidden="true" className="rule-strong absolute inset-x-0 -bottom-0.5" /> : null}
                   </span>
                   <span className="tabular meta text-ink-subtle">{option.count}</span>
                 </Link>
@@ -395,7 +395,7 @@ export function ProductFiltersDrawer({
   const t = useTranslations("catalog");
   const titleId = useId();
   return (
-    <Sheet open={open} onClose={onClose} side="left" labelledBy={titleId} motion="drawer-left">
+    <Sheet open={open} onClose={onClose} side="left" labelledBy={titleId}>
       <div className="flex h-full flex-col">
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-line pl-4 pr-2">
           <h2 id={titleId} className="text-step-2 leading-none">

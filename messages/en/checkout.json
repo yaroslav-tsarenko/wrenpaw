@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Secure checkout",
-    "description": "Enter your contact and delivery details, review your order and pay on our payment provider's secure page."
+    "description": "Give us your contact and delivery details, read the order back, and pay on our provider's secure page."
   },
   "title": "Checkout",
   "stepsLabel": "Checkout steps",
@@ -17,18 +17,18 @@
   },
   "contact": {
     "title": "Contact",
-    "signInPrompt": "Already have an account? <link>Sign in</link> to use your saved details.",
-    "emailHint": "We send the order confirmation and invoice here."
+    "signInPrompt": "Already have an account? <link>Sign in</link> and your saved details fill this in.",
+    "emailHint": "This is where the confirmation and the invoice go."
   },
   "delivery": {
     "title": "Delivery",
     "summary": "Standard · {place}",
     "methodTitle": "Delivery method",
     "standard": "Standard tracked delivery",
-    "standardTime": "Packed within {processing}, then {transit}.",
+    "standardTime": "Packed inside {processing}, then {transit} in transit.",
     "dispatch": "Ships from {from}.",
-    "freeOver": "Spend {amount} more for free delivery (orders of {threshold} or more).",
-    "billingSame": "My billing address is the same as the delivery address",
+    "freeOver": "Another {amount} and delivery is free — the threshold is {threshold}.",
+    "billingSame": "Billing address is the same as the delivery address",
     "billingTitle": "Billing address"
   },
   "review": {
@@ -40,14 +40,14 @@
     "billingSame": "same as delivery",
     "itemsTitle": "Your items",
     "lineQty": "{count} × {unit}",
-    "accept": "I have read and agree to the <terms>Terms and Conditions</terms> and the <refunds>Returns & refunds policy</refunds>.",
-    "acceptLabelShort": "Terms and Conditions and Returns & refunds policy",
+    "accept": "I have read the <terms>Terms and Conditions</terms> and the <refunds>Returns & refunds policy</refunds>, and accept both.",
+    "acceptLabelShort": "the Terms and Conditions and the Returns & refunds policy",
     "pay": "Pay {amount}",
     "payPending": "Calculating total…",
-    "hosted": "When you press Pay, you go to our payment provider's secure page to enter your card details. Card numbers are never typed into this site.",
-    "processedBy": "Card payments are processed securely by {provider}. We never see or store your full card number.",
-    "processedByProvider": "Card payments are processed securely by our PCI DSS compliant payment provider. We never see or store your full card number.",
-    "threeDs": "Your bank may ask you to confirm the payment in your banking app (3-D Secure)."
+    "hosted": "Pressing Pay hands you to our provider's secure page, where the card details go in. No card number is ever typed into this site.",
+    "processedBy": "Card payments run through {provider}. Your full card number is neither seen nor kept by us.",
+    "processedByProvider": "Every card payment is handled by our PCI DSS compliant provider. Your full card number is neither seen nor kept by us.",
+    "threeDs": "Your bank may want you to confirm it in its app — that is 3-D Secure."
   },
   "totals": {
     "subtotal": "Subtotal",
@@ -75,9 +75,9 @@
     "apply": "Apply",
     "codeApplied": "{percent}% off applied",
     "removeCode": "Remove code",
-    "codeRejected": "This code isn't valid or has already been used.",
-    "welcomeApplied": "Your {percent}% welcome discount for a first order is applied.",
-    "newsletterApplied": "Your {percent}% newsletter discount is applied."
+    "codeRejected": "That code is either wrong or already spent.",
+    "welcomeApplied": "Your {percent}% first-order welcome discount has come off.",
+    "newsletterApplied": "Your {percent}% newsletter discount has come off."
   },
   "policies": {
     "terms": "Terms & conditions",
@@ -91,24 +91,24 @@
     "backToBag": "Back to bag",
     "policiesLabel": "Policies",
     "cookieSettings": "Cookie settings",
-    "credentials": "{brand} is a trading name of {company}, company number {number}, {address}. {email}",
+    "credentials": "{brand} trades as part of {company}, company number {number}, at {address}. {email}",
     "copyright": "© {year} {brand}. All rights reserved."
   },
   "paymentFailed": {
     "title": "Your payment didn't go through",
-    "body": "You haven't been charged. Your details are still filled in, so you can try again.",
+    "body": "You haven't been charged. Everything you entered is still here, so another attempt is easy.",
     "retry": "Try again"
   },
   "problems": {
     "title": "We couldn't take this order",
     "totalChangedTitle": "Your total has changed",
-    "PAYMENT_UNAVAILABLE": "Card payments are not available at the moment, so we can't take this order. Nothing has been charged. Please try again later or email {email}.",
-    "PAYMENT_LINK_FAILED": "We couldn't open the secure payment page. Nothing has been charged. Please try again in a few minutes.",
-    "TOTAL_CHANGED": "The exchange rate has been updated, so your total is now {total}. Check it and press Pay again.",
-    "OUT_OF_STOCK": "{name}: only {available} left. Lower the quantity in your bag to continue.",
-    "ITEM_LIMIT": "{name}: you can order up to {available} of this item in one order.",
-    "ORDER_LIMIT": "One order can hold up to {max} items. Remove some items from your bag to continue.",
-    "PRODUCT_UNAVAILABLE": "An item in your bag is no longer available. Remove it from your bag to continue.",
+    "PAYMENT_UNAVAILABLE": "Card payments are down at the moment, so this order cannot go through. Nothing has been charged. Try again shortly, or write to {email}.",
+    "PAYMENT_LINK_FAILED": "The secure payment page would not open. Nothing has been charged. Please try again in a few minutes.",
+    "TOTAL_CHANGED": "The rate has moved, so the total now stands at {total}. Check it and press Pay again.",
+    "OUT_OF_STOCK": "{name}: only {available} left. Reduce the quantity in the bag and you can carry on.",
+    "ITEM_LIMIT": "{name}: a single order takes at most {available} of this one.",
+    "ORDER_LIMIT": "One order can hold up to {max} items. Take a few items out of the bag and you can carry on.",
+    "PRODUCT_UNAVAILABLE": "Something in your bag has gone out of stock. Remove it from your bag to continue.",
     "CART_EMPTY": "Your bag is empty.",
     "INVALID_REQUEST": "Some details are missing or not valid. Check each step and try again.",
     "NETWORK": "We couldn't reach the store. Check your connection and try again.",
@@ -117,7 +117,7 @@
   "confirmed": {
     "meta": {
       "title": "Order confirmation",
-      "description": "The status of your Brasmora order and payment."
+      "description": "Where your Wrenpaw order and its payment currently stand."
     },
     "itemsTitle": "Your order",
     "lineQty": "{count} × {unit}",
@@ -133,7 +133,7 @@
     },
     "checking": {
       "title": "Checking your payment",
-      "body": "We're confirming the payment with our payment provider. This usually takes a few seconds. Please keep this page open."
+      "body": "We are waiting on our provider to confirm the payment. This usually takes a few seconds. Please keep this page open."
     },
     "confirmedState": {
       "title": "Thank you, {name}",
@@ -143,34 +143,34 @@
     },
     "failed": {
       "title": "Your payment didn't go through",
-      "body": "You haven't been charged. The items are still in your bag, so you can try again or use another card.",
+      "body": "You haven't been charged. Nothing has left the bag, so try again or reach for a different card.",
       "retry": "Try again",
       "bag": "Back to bag",
-      "help": "If money has left your account, email {email} and we'll look into it."
+      "help": "If the money has gone from your account, write to {email} and we will trace it."
     },
     "pending": {
       "title": "Your payment is still being confirmed",
-      "body": "Your bank hasn't confirmed the payment yet. Please don't pay again. We'll email {email} as soon as it's confirmed, or contact {support} if you don't hear from us.",
+      "body": "Your bank has not confirmed the payment yet. Please don't pay again. An email reaches {email} the moment it is confirmed; if nothing arrives, {support} will help.",
       "recheck": "Check again"
     },
     "review": {
       "title": "We're checking your payment",
-      "body": "The payment confirmed by our provider doesn't match this order, so we've paused it before packing anything. We'll contact you at {email} {replyTime}."
+      "body": "What our provider confirmed does not line up with this order, so we have held it before anything is packed. You will hear from us at {email} {replyTime}."
     },
     "unavailable": {
       "title": "We can't confirm this payment right now",
-      "body": "Our payment provider can't be reached at the moment, so we haven't marked the order as paid. We'll email {email} once it's confirmed, or contact {support}."
+      "body": "We cannot reach our payment provider right now, so the order has not been marked paid. We write to {email} once it is confirmed — otherwise, {support}."
     },
     "missing": {
       "title": "No order to show",
-      "body": "This page shows an order after you pay. If you've just paid, use the link in your confirmation email or check your orders.",
+      "body": "This page shows an order after you pay. Just paid? Follow the link in your confirmation email, or look under your orders.",
       "orders": "Your orders"
     },
     "error": {
       "title": "We couldn't load this order",
-      "notFound": "We can't find an order for this payment.",
-      "generic": "Something went wrong while checking the payment.",
-      "body": "Nothing is lost. Try again in a moment, or email {email} with the time of your payment."
+      "notFound": "No order matches this payment.",
+      "generic": "Checking the payment did not work.",
+      "body": "Nothing is lost. Give it a moment and try again, or send {email} the time you paid."
     }
   }
 }

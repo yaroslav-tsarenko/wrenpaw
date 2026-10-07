@@ -36,13 +36,13 @@ export function AccountSidebar() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex min-h-12 items-center text-step-0 transition-[transform,color] duration-[160ms] ease-[var(--ease-furniture)]",
+                  "flex min-h-12 items-center text-step-0 transition-[transform,color] duration-[160ms] ease-[var(--ease-press)]",
                   active ? "translate-x-1.5 font-medium text-ink" : "text-ink-muted hover-device:hover:text-ink",
                 )}
               >
                 {t(item.key)}
               </Link>
-              {active ? <span aria-hidden="true" className="shelf-rule -mb-px" /> : null}
+              {active ? <span aria-hidden="true" className="rule -mb-px" /> : null}
             </li>
           );
         })}
@@ -73,7 +73,7 @@ export function AccountTabs() {
               <Link href={item.href} aria-current={active ? "page" : undefined} className={cn("flex min-h-12 items-center whitespace-nowrap text-ui-md", active ? "font-medium text-ink" : "text-ink-muted")}>
                 {t(item.key)}
               </Link>
-              {active ? <span aria-hidden="true" className="shelf-rule absolute inset-x-0 bottom-0" /> : null}
+              {active ? <span aria-hidden="true" className="rule absolute inset-x-0 bottom-0" /> : null}
             </li>
           );
         })}
