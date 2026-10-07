@@ -170,7 +170,7 @@ export function validateConfig(config: CatalogConfig): string[] {
 }
 
 export function storefrontSku(sourceId: number): string {
-  return `BRS-${sourceId.toString(36).toUpperCase().padStart(5, "0")}`;
+  return `WRP-${sourceId.toString(36).toUpperCase().padStart(5, "0")}`;
 }
 
 function round2(n: number): number {
