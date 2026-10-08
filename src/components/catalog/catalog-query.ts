@@ -3,8 +3,18 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { mentionsSupplier, publicBrand } from "@/lib/utils/supplier";
 import { isNewArrival, newArrivalCutoff } from "@/lib/new-arrivals";
+import { ATTRIBUTE_KEYS, attributeValueRank, readProductAttributes, type AttributeKey, type ProductAttributes } from "@/lib/product-attributes";
 import type { EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
-import { CATALOG_PAGE_SIZE, buildCatalogHref, type CatalogFacets, type CatalogParams, type CategoryOption, type SortKey } from "./catalog-url";
+import {
+  CATALOG_PAGE_SIZE,
+  buildCatalogHref,
+  type AttributeFacet,
+  type CatalogFacets,
+  type CatalogParams,
+  type CategoryOption,
+  type SortKey,
+  type ValueOption,
+} from "./catalog-url";
 
 export interface CategoryRecord {
   id: string;
@@ -63,10 +73,11 @@ interface Row {
   createdAt: number;
   orders: number;
   cats: Set<string>;
+  attrs: ProductAttributes;
   score: number;
 }
 
-type Facet = "category" | "brand" | "price" | "inStock" | "onSale";
+type Facet = "category" | "brand" | "price" | "inStock" | "onSale" | AttributeKey;
 
 export type CatalogScope =
   | { kind: "all" }
@@ -120,6 +131,7 @@ async function loadRows(scope: CatalogScope, tree: CategoryTree): Promise<Row[]>
       quantity: true,
       trackInventory: true,
       brand: true,
+      characteristics: true,
       createdAt: true,
       categories: { select: { categoryId: true } },
       _count: { select: { orderItems: true } },
@@ -136,6 +148,7 @@ async function loadRows(scope: CatalogScope, tree: CategoryTree): Promise<Row[]>
     createdAt: r.createdAt.getTime(),
     orders: r._count.orderItems,
     cats: new Set(r.categories.map((c) => c.categoryId)),
+    attrs: readProductAttributes(r.characteristics),
     score: scope.kind === "search" ? scoreFor(r.name, scope.query) : 0,
   }));
 }
@@ -146,15 +159,32 @@ const reduced = (r: Row) => r.compare !== null && r.compare > r.price;
 function matcher(params: CatalogParams, categoryIds: Set<string> | null) {
   return (row: Row, except: Facet | null = null) => {
     if (except !== "category" && categoryIds && ![...row.cats].some((id) => categoryIds.has(id))) return false;
-    if (except !== "brand" && params.brand && row.brand !== params.brand) return false;
+    if (except !== "brand" && params.brands.length > 0 && (!row.brand || !params.brands.includes(row.brand))) return false;
     if (except !== "price") {
       if (params.minPrice !== null && row.price < params.minPrice) return false;
       if (params.maxPrice !== null && row.price > params.maxPrice) return false;
     }
     if (except !== "inStock" && params.inStock && !available(row)) return false;
     if (except !== "onSale" && params.onSale && !reduced(row)) return false;
+    // Values within one attribute are OR'd (Black or Grey), attributes are AND'd.
+    for (const key of ATTRIBUTE_KEYS) {
+      if (except === key) continue;
+      const selected = params.attributes[key];
+      if (selected.length === 0) continue;
+      const values = row.attrs[key];
+      if (!values || !values.some((v) => selected.includes(v))) return false;
+    }
     return true;
   };
+}
+
+/** Count every value of one facet against the rows that pass every *other* facet. */
+function countValues(rows: Row[], read: (row: Row) => string[], selected: string[]): ValueOption[] {
+  const counts = new Map<string, number>();
+  for (const row of rows) for (const value of new Set(read(row))) counts.set(value, (counts.get(value) ?? 0) + 1);
+  // A selected value that now counts zero still needs a row so it can be unticked.
+  for (const value of selected) if (!counts.has(value)) counts.set(value, 0);
+  return [...counts.entries()].map(([value, count]) => ({ value, count }));
 }
 
 function sorter(sort: SortKey) {
@@ -297,10 +327,20 @@ export async function queryCatalog(
       .filter((o) => o.count > 0 || o.active);
   }
 
-  const brandCounts = new Map<string, number>();
-  for (const r of rows) if (r.brand && passes(r, "brand")) brandCounts.set(r.brand, (brandCounts.get(r.brand) ?? 0) + 1);
-  const brands = [...brandCounts.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name, "en-GB"));
-  if (params.brand && !brandCounts.has(params.brand)) brands.push({ name: params.brand, count: 0 });
+  const brands = countValues(
+    rows.filter((r) => passes(r, "brand")),
+    (r) => (r.brand ? [r.brand] : []),
+    params.brands,
+  ).sort((a, b) => a.value.localeCompare(b.value, "en-GB"));
+
+  const attributes: AttributeFacet[] = ATTRIBUTE_KEYS.map((key) => ({
+    key,
+    values: countValues(
+      rows.filter((r) => passes(r, key)),
+      (r) => r.attrs[key] ?? [],
+      params.attributes[key],
+    ).sort((a, b) => attributeValueRank(key, a.value) - attributeValueRank(key, b.value) || a.value.localeCompare(b.value, "en-GB")),
+  })).filter((facet) => facet.values.length > 1 || params.attributes[facet.key].length > 0);
 
   const priceRows = rows.filter((r) => passes(r, "price"));
   const price = priceRows.length
@@ -330,6 +370,7 @@ export async function queryCatalog(
       categoryTitle,
       categories,
       brands,
+      attributes,
       price,
       inStockCount,
       onSaleCount,

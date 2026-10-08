@@ -1,26 +1,31 @@
 "use client";
 
-import { useId, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
+import { useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { useCurrency } from "@/providers/CurrencyProvider";
 import { Flag } from "@/components/ui/Flag";
-import { Checkbox, Radio } from "@/components/ui/Choice";
+import { Checkbox } from "@/components/ui/Choice";
 import { Input } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { Sheet } from "@/components/ui/Dialog";
 import { FilterChip, FilterChipRow } from "@/components/ui/Chip";
-import type { CatalogFacets } from "@/components/catalog/catalog-url";
+import type { AttributeKey } from "@/lib/product-attributes";
+import type { AttributeSelection, CatalogFacets, ValueOption } from "@/components/catalog/catalog-url";
 
 export interface FilterSelection {
-  brand: string | null;
+  brands: string[];
+  attributes: AttributeSelection;
   minPrice: number | null;
   maxPrice: number | null;
   inStock: boolean;
   onSale: boolean;
 }
+
+/** More options than this and the group gets its own search box. */
+const SEARCHABLE_FROM = 12;
 
 export function FilterDrawer({
   title,
@@ -267,6 +272,61 @@ function PriceGroup({
   );
 }
 
+/** A multi-select facet: checkbox per value, with a search box once the list gets long. */
+function ValueGroup({
+  label,
+  options,
+  selected,
+  onToggle,
+  searchLabel,
+}: {
+  label: string;
+  options: ValueOption[];
+  selected: string[];
+  onToggle: (value: string) => void;
+  searchLabel: string;
+}) {
+  const [term, setTerm] = useState("");
+  const searchable = options.length >= SEARCHABLE_FROM;
+  const visible = useMemo(() => {
+    const needle = term.trim().toLowerCase();
+    if (!needle) return options;
+    return options.filter((o) => o.value.toLowerCase().includes(needle) || selected.includes(o.value));
+  }, [options, term, selected]);
+
+  return (
+    <>
+      {searchable ? (
+        <div className="pb-1 pt-1">
+          <Input
+            size="sm"
+            type="search"
+            label={searchLabel}
+            labelHidden
+            placeholder={searchLabel}
+            prefix={<Search size={14} aria-hidden="true" />}
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+          />
+        </div>
+      ) : null}
+      <div role="group" aria-label={label} className="max-h-[240px] overflow-y-auto">
+        {visible.map((option) => (
+          <Checkbox
+            key={option.value}
+            dense
+            label={option.value}
+            count={option.count}
+            checked={selected.includes(option.value)}
+            onChange={() => onToggle(option.value)}
+          />
+        ))}
+        {visible.length === 0 ? <p className="meta m-0 py-2 text-ink-subtle">{searchLabel}</p> : null}
+      </div>
+    </>
+  );
+}
+
 export interface ProductFiltersProps {
   facets: CatalogFacets;
   selection: FilterSelection;
@@ -277,12 +337,22 @@ export interface ProductFiltersProps {
 
 export function ProductFilters({ facets, selection, onChange, onNavigate, className }: ProductFiltersProps) {
   const t = useTranslations("catalog");
-  const name = useId();
   const priceCount = (selection.minPrice !== null ? 1 : 0) + (selection.maxPrice !== null ? 1 : 0);
   const availabilityCount = (selection.inStock ? 1 : 0) + (selection.onSale ? 1 : 0);
-  const showBrands = facets.brands.length > 1 || Boolean(selection.brand);
+  const showBrands = facets.brands.length > 1 || selection.brands.length > 0;
   const showInStock = facets.narrowingInStock || selection.inStock;
   const showOnSale = facets.onSaleCount > 0 || selection.onSale;
+  const attributeLabel: Record<AttributeKey, string> = {
+    colour: t("groupColour"),
+    material: t("groupMaterial"),
+    size: t("groupSize"),
+    flavour: t("groupFlavour"),
+  };
+  const toggleAttribute = (key: AttributeKey, value: string) => {
+    const current = selection.attributes[key];
+    const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value];
+    onChange({ attributes: { ...selection.attributes, [key]: next } });
+  };
   const activeCategory = facets.categories.some((o) => o.active && o.depth === 1) || (facets.categoryTitle === "category" && facets.categories.some((o) => o.active));
 
   return (
@@ -321,23 +391,35 @@ export function ProductFilters({ facets, selection, onChange, onNavigate, classN
       ) : null}
 
       {showBrands ? (
-        <FilterDrawer title={t("groupBrand")} selectedCount={selection.brand ? 1 : 0} defaultOpen={Boolean(selection.brand)}>
-          <div role="radiogroup" aria-label={t("groupBrand")} className="max-h-[300px] overflow-y-auto">
-            <Radio name={`${name}-brand`} label={t("allBrands")} checked={!selection.brand} onChange={() => onChange({ brand: null })} wrapperClassName="py-1.5" />
-            {facets.brands.map((brand) => (
-              <Radio
-                key={brand.name}
-                name={`${name}-brand`}
-                label={brand.name}
-                count={brand.count}
-                checked={selection.brand === brand.name}
-                onChange={() => onChange({ brand: brand.name })}
-                wrapperClassName="py-1.5"
-              />
-            ))}
-          </div>
+        <FilterDrawer title={t("groupBrand")} selectedCount={selection.brands.length} defaultOpen>
+          <ValueGroup
+            label={t("groupBrand")}
+            options={facets.brands}
+            selected={selection.brands}
+            searchLabel={t("searchBrands")}
+            onToggle={(value) =>
+              onChange({ brands: selection.brands.includes(value) ? selection.brands.filter((b) => b !== value) : [...selection.brands, value] })
+            }
+          />
         </FilterDrawer>
       ) : null}
+
+      {facets.attributes.map((facet) => (
+        <FilterDrawer
+          key={facet.key}
+          title={attributeLabel[facet.key]}
+          selectedCount={selection.attributes[facet.key].length}
+          defaultOpen
+        >
+          <ValueGroup
+            label={attributeLabel[facet.key]}
+            options={facet.values}
+            selected={selection.attributes[facet.key]}
+            searchLabel={t("searchValues", { group: attributeLabel[facet.key].toLowerCase() })}
+            onToggle={(value) => toggleAttribute(facet.key, value)}
+          />
+        </FilterDrawer>
+      ))}
 
       {showInStock || showOnSale ? (
         <FilterDrawer title={t("groupAvailability")} selectedCount={availabilityCount} defaultOpen={availabilityCount > 0}>

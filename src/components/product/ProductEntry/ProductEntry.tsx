@@ -33,7 +33,8 @@ export interface EntryProduct {
 type StageSize = "lead" | "entry" | "row" | "mini" | "wide";
 
 const STAGE_ASPECT: Record<StageSize, string> = {
-  lead: "aspect-[4/5]",
+  // Catalogue photography is square (1200×1200), so a taller plate only adds dead bands.
+  lead: "aspect-square",
   entry: "aspect-square",
   wide: "aspect-[3/2]",
   row: "aspect-square",
@@ -86,6 +87,8 @@ export function Stage({
     >
       {showImage ? (
         <>
+          {/* Supplier packshots sit on #fff or #f8f8f8; the 4% lift takes the off-white
+              ones up to the plate's white so no photo edge shows. */}
           <div
             key={settleKey}
             data-packshot=""
@@ -103,7 +106,7 @@ export function Stage({
                 priority={priority}
                 sizes={sizes ?? (small ? "96px" : "(min-width: 1280px) 320px, (min-width: 1024px) 30vw, 50vw")}
                 className={cn(
-                  "object-contain object-center transition-opacity duration-[280ms] ease-[var(--ease-press)]",
+                  "object-contain object-center brightness-[1.04] transition-opacity duration-[280ms] ease-[var(--ease-press)]",
                   showAlt && "group-hover:opacity-0 group-focus-within:opacity-0",
                 )}
                 onError={() => setFailed(true)}
@@ -114,7 +117,7 @@ export function Stage({
                   alt=""
                   fill
                   sizes={sizes ?? "(min-width: 1280px) 320px, (min-width: 1024px) 30vw, 50vw"}
-                  className="object-contain object-center opacity-0 transition-opacity duration-[280ms] ease-[var(--ease-press)] group-hover:opacity-100 group-focus-within:opacity-100"
+                  className="object-contain object-center opacity-0 brightness-[1.04] transition-opacity duration-[280ms] ease-[var(--ease-press)] group-hover:opacity-100 group-focus-within:opacity-100"
                   onError={() => setAltFailed(true)}
                 />
               ) : null}
@@ -348,7 +351,7 @@ export function ProductEntry({ product, density = "entry", priority, sizes, spec
 export function EntrySkeleton({ density = "entry" }: { density?: "entry" | "lead" }) {
   return (
     <div aria-hidden="true" className="flex min-w-0 flex-col">
-      <div className={cn("plate plate-empty", density === "lead" ? "aspect-[4/5]" : "aspect-square")} />
+      <div className={cn("plate plate-empty", STAGE_ASPECT[density])} />
       <span className="mt-3 block h-px w-full bg-line" />
       <SkeletonBar className="mt-3 w-20" />
       <SkeletonBar className="mt-3 w-[85%]" />

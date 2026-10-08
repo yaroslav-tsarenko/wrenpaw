@@ -32,17 +32,30 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const data = await getHomeData();
 
+  // Sections drop out when they have no stock to show, so the printed numerals
+  // are handed out here rather than hard-coded — otherwise the sequence skips.
+  let printed = 1; // the masthead is 01 and carries no numeral
+  const numeral = (shown: boolean) => (shown ? String(++printed).padStart(2, "0") : "");
+  const numerals = {
+    index: numeral(data.index.major.length > 0 || data.index.minor.length > 0),
+    feature: numeral(Boolean(data.feature.lead)),
+    reduced: numeral(data.reduced.length > 0),
+    animals: numeral(data.animals.length > 0),
+    newest: numeral(data.newest.length >= 4),
+    notes: numeral(true),
+  };
+
   return (
     <div data-landing="home">
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={websiteJsonLd()} />
       <MastheadOpener lead={data.masthead.lead} categories={data.masthead.categories} totalProducts={data.totalProducts} />
-      <CategoryIndex major={data.index.major} minor={data.index.minor} totalProducts={data.totalProducts} />
-      <LeadFeature lead={data.feature.lead} runnersUp={data.feature.runnersUp} ranked={data.feature.ranked} />
-      <ReducedStrip products={data.reduced} />
-      <ByAnimal blocks={data.animals} />
-      <NewIn products={data.newest} />
-      <KeepingNotes />
+      <CategoryIndex index={numerals.index} major={data.index.major} minor={data.index.minor} totalProducts={data.totalProducts} />
+      <LeadFeature index={numerals.feature} lead={data.feature.lead} runnersUp={data.feature.runnersUp} ranked={data.feature.ranked} />
+      <ReducedStrip index={numerals.reduced} products={data.reduced} />
+      <ByAnimal index={numerals.animals} blocks={data.animals} />
+      <NewIn index={numerals.newest} products={data.newest} />
+      <KeepingNotes index={numerals.notes} />
       <Colophon />
     </div>
   );

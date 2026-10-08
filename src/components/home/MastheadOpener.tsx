@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { ProductEntry } from "@/components/product/ProductEntry/ProductEntry";
-import { productStandfirst } from "@/lib/product-name";
 import { LinkButton } from "./LinkButton";
 import type { HomeCategory, HomeProduct } from "./types";
 
@@ -45,8 +44,8 @@ export async function MastheadOpener({
 
   return (
     <section aria-labelledby="masthead-title" className="px-gutter pb-14 pt-6 lg:pb-20 lg:pt-10">
-      <div className="mx-auto grid max-w-container items-start gap-x-10 gap-y-12 lg:grid-cols-12">
-        <div data-draw="" data-reveal="" className="min-w-0 lg:col-span-7">
+      <div className="mx-auto grid max-w-container gap-x-10 gap-y-12 lg:grid-cols-12 lg:items-stretch">
+        <div data-draw="" data-reveal="" className="flex min-w-0 flex-col lg:col-span-7">
           <p data-reveal-item="" className="eyebrow m-0 tabular text-brand-2">
             {t("eyebrow", { count: totalProducts })}
           </p>
@@ -86,7 +85,7 @@ export async function MastheadOpener({
           </div>
 
           {categories.length > 0 ? (
-            <div className="mt-14 lg:mt-20">
+            <div className="mt-14 lg:mt-auto lg:pt-20">
               <span aria-hidden="true" className="rule" />
               <ul className="m-0 flex list-none flex-wrap items-baseline gap-x-8 gap-y-3 p-0 pt-4">
                 {categories.map((c, i) => (
@@ -108,7 +107,7 @@ export async function MastheadOpener({
         {lead ? (
           <div data-reveal="" className="min-w-0 lg:col-span-5 lg:pt-3">
             <div data-reveal-item="" style={{ "--i": 2 } as React.CSSProperties} className="mx-auto w-full max-w-[460px] lg:mx-0 lg:max-w-none">
-              <ProductEntry product={lead} density="lead" headingLevel={2} priority specLine={productStandfirst(lead.shortDescription) ?? undefined} sizes="(min-width: 1024px) 480px, 100vw" />
+              <ProductEntry product={lead} density="lead" headingLevel={2} priority sizes="(min-width: 1024px) 480px, 100vw" />
             </div>
           </div>
         ) : null}

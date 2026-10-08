@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { KEEPING_NOTES } from "@/config/care";
 import { Trail } from "@/components/layout/BrandMark";
 
-export async function KeepingNotes() {
+export async function KeepingNotes({ index }: { index: string }) {
   const t = await getTranslations("home.notes");
   const [pull, ...rest] = KEEPING_NOTES;
 
@@ -13,7 +13,7 @@ export async function KeepingNotes() {
       <div className="mx-auto grid max-w-container gap-x-12 gap-y-10 lg:grid-cols-12">
         <div data-reveal="" className="min-w-0 lg:col-span-4">
           <p data-reveal-item="" className="eyebrow m-0 text-ink-subtle">
-            <span className="index-numeral mr-3 inline-block align-middle text-[1.75rem] leading-none">07</span>
+            <span className="index-numeral mr-3 inline-block align-middle text-[1.75rem] leading-none">{index}</span>
             {t("label")}
           </p>
           <h2 id="notes-title" data-reveal-item="" style={{ "--i": 1 } as React.CSSProperties} className="m-0 mt-5 text-step-4 leading-[1.08] text-ink">

@@ -72,7 +72,7 @@ function MinorRow({ entry, index }: { entry: IndexEntry; index: string }) {
   );
 }
 
-export async function CategoryIndex({ major, minor, totalProducts }: { major: IndexEntry[]; minor: IndexEntry[]; totalProducts: number }) {
+export async function CategoryIndex({ index, major, minor, totalProducts }: { index: string; major: IndexEntry[]; minor: IndexEntry[]; totalProducts: number }) {
   const t = await getTranslations("home.index");
   if (major.length === 0 && minor.length === 0) return null;
   const all = [...major, ...minor];
@@ -81,7 +81,7 @@ export async function CategoryIndex({ major, minor, totalProducts }: { major: In
     <section aria-labelledby="index-title" className="bg-surface-1 px-gutter py-14 lg:py-24">
       <div className="mx-auto max-w-container">
         <SectionOpener
-          index="02"
+          index={index}
           label={t("label")}
           title={t("title")}
           titleId="index-title"

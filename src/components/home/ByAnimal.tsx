@@ -48,7 +48,7 @@ function Block({ block, large, limit }: { block: AnimalBlock; large: boolean; li
   );
 }
 
-export async function ByAnimal({ blocks }: { blocks: AnimalBlock[] }) {
+export async function ByAnimal({ index, blocks }: { index: string; blocks: AnimalBlock[] }) {
   const t = await getTranslations("home.animals");
   if (blocks.length === 0) return null;
   const [first, ...rest] = blocks;
@@ -56,7 +56,7 @@ export async function ByAnimal({ blocks }: { blocks: AnimalBlock[] }) {
   return (
     <section aria-labelledby="animals-title" className="px-gutter py-14 lg:py-20">
       <div className="mx-auto max-w-container">
-        <SectionOpener index="05" label={t("label")} title={t("title")} titleId="animals-title" standfirst={t("lead")} />
+        <SectionOpener index={index} label={t("label")} title={t("title")} titleId="animals-title" standfirst={t("lead")} />
         <div data-reveal="" className="mt-10 grid gap-x-10 gap-y-12 lg:mt-14 lg:grid-cols-12">
           <div data-reveal-item="" className="min-w-0 lg:col-span-6">
             <Block block={first} large limit={6} />

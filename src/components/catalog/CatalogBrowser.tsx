@@ -14,6 +14,7 @@ import { ProductGrid } from "@/components/product/ProductGrid/ProductGrid";
 import { ProductSort, CATALOG_SORTS } from "@/components/product/ProductSort/ProductSort";
 import { FilterSummary, ProductFilters, ProductFiltersDrawer, useDisplayPrice, type FilterSelection } from "@/components/product/ProductFilters/ProductFilters";
 import type { EntryProduct } from "@/components/product/ProductEntry/ProductEntry";
+import { ATTRIBUTE_KEYS } from "@/lib/product-attributes";
 import { CATALOG_PAGE_SIZE, buildCatalogHref, clearedParams, hasActiveFilters, type CatalogFacets, type CatalogParams, type SortKey } from "./catalog-url";
 
 export interface CatalogBrowserProps {
@@ -77,13 +78,31 @@ export function CatalogBrowser({
 
   const chips: { key: string; label: string; onRemove: () => void }[] = [];
   if (activeCategoryName) chips.push({ key: "category", label: activeCategoryName, onRemove: () => apply({ category: null }) });
-  if (params.brand) chips.push({ key: "brand", label: params.brand, onRemove: () => apply({ brand: null }) });
+  for (const brand of params.brands) {
+    chips.push({ key: `brand:${brand}`, label: brand, onRemove: () => apply({ brands: params.brands.filter((b) => b !== brand) }) });
+  }
+  for (const key of ATTRIBUTE_KEYS) {
+    for (const value of params.attributes[key]) {
+      chips.push({
+        key: `${key}:${value}`,
+        label: value,
+        onRemove: () => apply({ attributes: { ...params.attributes, [key]: params.attributes[key].filter((v) => v !== value) } }),
+      });
+    }
+  }
   if (priceLabel) chips.push({ key: "price", label: priceLabel, onRemove: () => apply({ minPrice: null, maxPrice: null }) });
   if (params.inStock) chips.push({ key: "inStock", label: t("chipInStock"), onRemove: () => apply({ inStock: false }) });
   if (params.onSale) chips.push({ key: "onSale", label: t("chipReduced"), onRemove: () => apply({ onSale: false }) });
 
   const parts = [contextLabel, ...chips.map((c) => c.label)].filter((p): p is string => Boolean(p));
-  const selection: FilterSelection = { brand: params.brand, minPrice: params.minPrice, maxPrice: params.maxPrice, inStock: params.inStock, onSale: params.onSale };
+  const selection: FilterSelection = {
+    brands: params.brands,
+    attributes: params.attributes,
+    minPrice: params.minPrice,
+    maxPrice: params.maxPrice,
+    inStock: params.inStock,
+    onSale: params.onSale,
+  };
   const filtering = hasActiveFilters(params);
   const filterCount = chips.length;
 

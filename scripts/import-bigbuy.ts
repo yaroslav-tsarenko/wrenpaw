@@ -4,6 +4,7 @@ import path from "path";
 import pg from "pg";
 import { catalogConfig } from "../src/config/catalog";
 import { getR2Object, hasR2PublicUrl, headR2Object, isR2Configured, putR2Object, r2PublicUrl } from "../src/lib/r2";
+import { parseProductAttributes } from "../src/lib/product-attributes";
 import { loadSource } from "./lib/bigbuy-source";
 import { syncImages, type ImageStore } from "./lib/catalog-images";
 import { buildCategoryNodes, buildPreview, finalizeTree, selectCatalog, validateConfig, type CategoryNode, type SelectedProduct } from "./lib/catalog-select";
@@ -173,16 +174,18 @@ async function writeCatalog(products: SelectedProduct[], categories: CategoryNod
     await query(`UPDATE "Product" SET slug = '__reslug__' || id WHERE sku = ANY($1::text[])`, [skus]);
 
     console.log("  products...");
-    const cols = ["id", "name", "slug", "sku", "description", "shortDescription", "price", "comparePrice", "costPrice", "quantity", "weight", "status", "brand", "gtin", "ean", "mpn", "condition", "metadata", "metaTitle", "metaDescription", "createdAt", "updatedAt"];
+    const cols = ["id", "name", "slug", "sku", "description", "shortDescription", "price", "comparePrice", "costPrice", "quantity", "weight", "status", "brand", "gtin", "ean", "mpn", "condition", "metadata", "characteristics", "metaTitle", "metaDescription", "createdAt", "updatedAt"];
     const rows = products.map((p) => [
       cuid(), p.name, p.slug, p.sku, p.descriptionHtml, p.shortDescription, p.price, null, p.costPrice, p.quantity, p.weight,
-      "ACTIVE", p.brand, p.ean, p.ean, null, "new", JSON.stringify({ sourceRef: p.sourceId, sourceSku: p.sourceSku }), null, null, now, now,
+      "ACTIVE", p.brand, p.ean, p.ean, null, "new", JSON.stringify({ sourceRef: p.sourceId, sourceSku: p.sourceSku }),
+      JSON.stringify(parseProductAttributes({ name: p.name, shortDescription: p.shortDescription })), null, null, now, now,
     ]);
     const upsert = `ON CONFLICT (sku) DO UPDATE SET
       name=EXCLUDED.name, slug=EXCLUDED.slug, description=EXCLUDED.description, "shortDescription"=EXCLUDED."shortDescription",
       price=EXCLUDED.price, "costPrice"=EXCLUDED."costPrice", quantity=EXCLUDED.quantity, weight=EXCLUDED.weight, status='ACTIVE',
       brand=EXCLUDED.brand, gtin=EXCLUDED.gtin, ean=EXCLUDED.ean, condition=EXCLUDED.condition,
-      metadata=COALESCE("Product".metadata, '{}'::jsonb) || EXCLUDED.metadata, "updatedAt"=EXCLUDED."updatedAt"
+      metadata=COALESCE("Product".metadata, '{}'::jsonb) || EXCLUDED.metadata, characteristics=EXCLUDED.characteristics,
+      "updatedAt"=EXCLUDED."updatedAt"
       RETURNING id, sku`;
     const results = await insertBatched("Product", cols, rows, upsert);
     const idBySku = new Map<string, string>();

@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ProductEntry } from "@/components/product/ProductEntry/ProductEntry";
 import type { HomeProduct } from "./types";
 
-export async function NewIn({ products }: { products: HomeProduct[] }) {
+export async function NewIn({ index, products }: { index: string; products: HomeProduct[] }) {
   const t = await getTranslations("home.newest");
   if (products.length < 4) return null;
 
@@ -12,7 +12,7 @@ export async function NewIn({ products }: { products: HomeProduct[] }) {
       <div className="mx-auto max-w-container">
         <div data-reveal="" className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
           <h2 id="newest-title" data-reveal-item="" className="ruled-label m-0 flex-1 font-sans text-ui-md font-semibold tracking-normal text-ink">
-            <span className="index-numeral text-[1.5rem] leading-none">06</span>
+            <span className="index-numeral text-[1.5rem] leading-none">{index}</span>
             <span className="eyebrow">{t("label")}</span>
           </h2>
           <Link

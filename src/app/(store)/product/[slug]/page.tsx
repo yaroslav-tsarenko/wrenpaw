@@ -88,6 +88,10 @@ async function categoryPath(product: ProductRecord) {
   return { chain, tree };
 }
 
+function sentenceCase(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 function characteristicRows(value: unknown): SpecRow[] {
   if (!value || typeof value !== "object" || Array.isArray(value)) return [];
   const rows: SpecRow[] = [];
@@ -96,8 +100,12 @@ function characteristicRows(value: unknown): SpecRow[] {
       for (const [label, v] of Object.entries(entries as Record<string, unknown>)) {
         if (typeof v === "string" || typeof v === "number") rows.push({ label, value: String(v) });
       }
+    } else if (Array.isArray(entries)) {
+      // Parsed facet attributes land here as `{ colour: ["Black", "Grey"] }`.
+      const values = entries.filter((v): v is string | number => typeof v === "string" || typeof v === "number");
+      if (values.length) rows.push({ label: sentenceCase(group), value: values.join(", ") });
     } else if (typeof entries === "string" || typeof entries === "number") {
-      rows.push({ label: group, value: String(entries) });
+      rows.push({ label: sentenceCase(group), value: String(entries) });
     }
   }
   return rows;

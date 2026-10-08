@@ -108,7 +108,7 @@ function ZoomDialog({ open, onClose, images, index, onIndex, productName }: { op
                 className="absolute inset-4 transition-transform duration-[260ms] ease-[var(--ease-press)] sm:inset-10"
                 style={{ transform: magnified ? "scale(2.25)" : "scale(1)", transformOrigin: `${origin.x}% ${origin.y}%` }}
               >
-                <Image src={image.url} alt={image.alt || productName} fill sizes="100vw" className="object-contain mix-blend-multiply dark:mix-blend-normal" />
+                <Image src={image.url} alt={image.alt || productName} fill sizes="100vw" className="object-contain brightness-[1.04]" />
               </div>
             ) : null}
           </div>

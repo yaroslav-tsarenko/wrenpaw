@@ -6,7 +6,7 @@ import { PriceDisplay, discountPercent } from "@/components/shared/PriceDisplay/
 import { productDisplay } from "@/lib/product-name";
 import type { HomeProduct } from "./types";
 
-export async function ReducedStrip({ products }: { products: HomeProduct[] }) {
+export async function ReducedStrip({ index, products }: { index: string; products: HomeProduct[] }) {
   const t = await getTranslations("home.reduced");
   if (products.length === 0) return null;
 
@@ -16,7 +16,7 @@ export async function ReducedStrip({ products }: { products: HomeProduct[] }) {
         <div data-reveal="" className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4">
           <div data-reveal-item="" className="min-w-0">
             <p className="ruled-label m-0 text-on-paint-muted [&::after]:bg-[var(--color-on-paint)]">
-              <span className="index-numeral text-[1.75rem] leading-none">04</span>
+              <span className="index-numeral text-[1.75rem] leading-none">{index}</span>
               <span className="eyebrow">{t("label")}</span>
             </p>
             <h2 id="reduced-title" className="m-0 mt-5 text-step-4 leading-[1.08] text-on-paint">

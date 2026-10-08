@@ -16,7 +16,7 @@ function specsFor(product: HomeProduct, labels: { category: string; availability
   return rows;
 }
 
-export async function LeadFeature({ lead, runnersUp, ranked }: { lead: HomeProduct | null; runnersUp: HomeProduct[]; ranked: boolean }) {
+export async function LeadFeature({ index, lead, runnersUp, ranked }: { index: string; lead: HomeProduct | null; runnersUp: HomeProduct[]; ranked: boolean }) {
   const t = await getTranslations("home.feature");
   if (!lead) return null;
 
@@ -33,7 +33,7 @@ export async function LeadFeature({ lead, runnersUp, ranked }: { lead: HomeProdu
       <div className="mx-auto max-w-container">
         <p data-reveal="" className="ruled-label m-0 text-ink-subtle">
           <span data-reveal-item="" className="index-numeral text-[1.75rem] leading-none">
-            03
+            {index}
           </span>
           <span data-reveal-item="" className="eyebrow">
             {ranked ? t("labelRanked") : t("label")}
@@ -41,9 +41,9 @@ export async function LeadFeature({ lead, runnersUp, ranked }: { lead: HomeProdu
         </p>
       </div>
 
-      <div data-reveal="" className="mt-10 grid items-start gap-x-12 gap-y-10 lg:mt-12 lg:grid-cols-12">
+      <div data-reveal="" className="mx-auto mt-10 grid max-w-container items-start gap-x-12 gap-y-10 lg:mt-12 lg:grid-cols-12">
         <div data-reveal-item="" className="min-w-0 lg:col-span-6 lg:col-start-1">
-          <div className="lg:-ml-[max(0px,calc((100vw-1280px)/2+var(--gutter)))]">
+          <div className="lg:ml-[calc(-1*max(var(--gutter),(100vw-var(--max-width))/2))]">
             <Stage
               src={lead.images?.[0]?.url}
               hoverSrc={lead.images?.[1]?.url}
@@ -54,7 +54,7 @@ export async function LeadFeature({ lead, runnersUp, ranked }: { lead: HomeProdu
             />
           </div>
         </div>
-        <div data-reveal-item="" style={{ "--i": 1 } as React.CSSProperties} className="mx-auto min-w-0 w-full max-w-container px-gutter lg:col-span-5 lg:col-start-8 lg:px-0">
+        <div data-reveal-item="" style={{ "--i": 1 } as React.CSSProperties} className="min-w-0 lg:col-span-5 lg:col-start-8">
           <h2 id="feature-title" className="sr-only">
             {ranked ? t("titleRanked") : t("title")}
           </h2>
@@ -70,7 +70,7 @@ export async function LeadFeature({ lead, runnersUp, ranked }: { lead: HomeProdu
       </div>
 
       {runnersUp.length > 0 ? (
-        <div className="mx-auto mt-16 max-w-container px-gutter lg:mt-20 lg:px-0">
+        <div className="mx-auto mt-16 max-w-container lg:mt-20">
           <div data-reveal="">
             <p data-reveal-item="" className="eyebrow m-0 text-ink-subtle">
               {t("alsoLabel")}
