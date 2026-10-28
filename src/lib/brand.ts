@@ -1,6 +1,6 @@
 export const BRAND = {
   name: "Wrenpaw",
-  domain: "wrenpaw.com",
+  domain: "fawnandpaw.com",
   tagline: "Pet supplies for the whole household",
 } as const;
 
