@@ -19,7 +19,7 @@ import { productTitle } from "@/lib/product-name";
 import { getCategoryTree, loadEntryProducts } from "@/components/catalog/catalog-query";
 import type { ProductVariantOption } from "@/components/product/VariantSelector/VariantSelector";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
