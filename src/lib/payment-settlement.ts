@@ -19,7 +19,7 @@ export function loadOrder(where: { id: string } | { paymentId: string } | { orde
   return prisma.order.findFirst({ where, include: ORDER_VIEW_INCLUDE });
 }
 
-async function fulfil(order: LoadedOrder) {
+export async function fulfil(order: LoadedOrder) {
   for (const item of order.items) {
     await prisma.product.updateMany({
       where: { id: item.productId, trackInventory: true, quantity: { gte: item.quantity } },
@@ -40,7 +40,8 @@ async function fulfil(order: LoadedOrder) {
   const totals = orderTotals(order);
   const shipping = (order.shippingAddress ?? {}) as StoredAddress;
   const hubToken = process.env.HOROLSKA_HUB_TOKEN;
-  if (hubToken) {
+  // Orders paid from test balance are never forwarded to the order hub.
+  if (hubToken && order.paymentMethod !== "balance") {
     const payload = {
       site_name: BRAND.name,
       site_url: `${SITE_URL}/`,

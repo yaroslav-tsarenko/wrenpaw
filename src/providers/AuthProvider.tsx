@@ -10,6 +10,8 @@ interface AuthUser {
   lastName?: string | null;
   role: string;
   phone?: string | null;
+  /** Test credit; greater than zero only on test accounts. */
+  balance?: number;
 }
 
 interface AuthContextType {

@@ -62,7 +62,8 @@
         "title": "Orders",
         "body": "Every order and its status"
       }
-    }
+    },
+    "balance": "Account balance: {amount}"
   },
   "orders": {
     "title": "Orders",

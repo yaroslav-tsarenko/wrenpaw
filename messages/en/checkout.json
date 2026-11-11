@@ -112,7 +112,9 @@
     "CART_EMPTY": "Your bag is empty.",
     "INVALID_REQUEST": "Some details are missing or not valid. Check each step and try again.",
     "NETWORK": "We couldn't reach the store. Check your connection and try again.",
-    "SERVER_ERROR": "Something went wrong on our side. Nothing has been charged. Please try again."
+    "SERVER_ERROR": "Something went wrong on our side. Nothing has been charged. Please try again.",
+    "INSUFFICIENT_BALANCE": "Your account balance does not cover this order.",
+    "UNAUTHORISED": "Please sign in again to pay with your balance."
   },
   "confirmed": {
     "meta": {
@@ -172,5 +174,11 @@
       "generic": "Checking the payment did not work.",
       "body": "Nothing is lost. Give it a moment and try again, or send {email} the time you paid."
     }
+  },
+  "balanceOption": {
+    "label": "Pay with account balance",
+    "available": "{amount} available",
+    "short": "Not enough balance for this order ({amount} available).",
+    "button": "Pay with balance"
   }
 }

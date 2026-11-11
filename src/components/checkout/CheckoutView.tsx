@@ -238,6 +238,11 @@ export function CheckoutView() {
     goTo(Math.min(step + 1, 2));
   };
 
+  const balance = user?.balance ?? 0;
+  const [payWith, setPayWith] = useState<"card" | "balance">("card");
+  const balanceCovers = Boolean(quote && balance >= quote.baseTotal);
+  const useBalance = payWith === "balance" && balance > 0;
+
   const pay = form.handleSubmit(
     async (data) => {
       if (!quote || !quoteReady) return;
@@ -248,7 +253,7 @@ export function CheckoutView() {
         const res = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: quotePayloadItems(cart.items), currency, discountCode, form: data, expectedTotal: quote.totals.total }),
+          body: JSON.stringify({ items: quotePayloadItems(cart.items), currency, discountCode, form: data, expectedTotal: quote.totals.total, ...(useBalance ? { payWith: "balance" } : {}) }),
         });
         const body = await res.json().catch(() => ({ code: "SERVER_ERROR" }));
         if (res.ok && typeof body.paymentLink === "string" && (/^https:\/\//.test(body.paymentLink) || (process.env.NODE_ENV !== "production" && /^http:\/\/localhost[:/]/.test(body.paymentLink)))) {
@@ -278,7 +283,7 @@ export function CheckoutView() {
 
   const problemText = (p: SubmitProblem | QuoteProblem | null) => {
     if (!p) return null;
-    const known = ["PAYMENT_UNAVAILABLE", "PAYMENT_LINK_FAILED", "TOTAL_CHANGED", "OUT_OF_STOCK", "ITEM_LIMIT", "ORDER_LIMIT", "PRODUCT_UNAVAILABLE", "CART_EMPTY", "INVALID_REQUEST", "NETWORK"];
+    const known = ["INSUFFICIENT_BALANCE", "UNAUTHORISED", "PAYMENT_UNAVAILABLE", "PAYMENT_LINK_FAILED", "TOTAL_CHANGED", "OUT_OF_STOCK", "ITEM_LIMIT", "ORDER_LIMIT", "PRODUCT_UNAVAILABLE", "CART_EMPTY", "INVALID_REQUEST", "NETWORK"];
     const code = known.includes(p.code) ? p.code : "SERVER_ERROR";
     return t(`problems.${code}`, {
       name: p.name ?? "",
@@ -539,13 +544,28 @@ export function CheckoutView() {
       ) : null}
       {problem ? <Alert tone="danger" title={t("problems.title")}>{problemText(problem)}</Alert> : null}
 
+      {balance > 0 ? (
+        <fieldset className="m-0 flex flex-col gap-2 border border-line p-4" data-testid="balance-option">
+          <legend className="px-1 font-semibold text-ink">{t("balanceOption.label")}</legend>
+          <label className="flex items-center gap-3 text-ink">
+            <input type="radio" name="payWith" value="card" checked={payWith === "card"} onChange={() => setPayWith("card")} />
+            {payLabel}
+          </label>
+          <label className={`flex items-center gap-3 ${balanceCovers ? "text-ink" : "text-ink-muted"}`}>
+            <input type="radio" name="payWith" value="balance" checked={payWith === "balance"} disabled={!balanceCovers} onChange={() => setPayWith("balance")} />
+            {t("balanceOption.button")} · {t("balanceOption.available", { amount: formatPrice(balance, STORE_POLICY.currency) })}
+          </label>
+          {!balanceCovers && quote ? <p className="meta m-0 text-ink-muted">{t("balanceOption.short", { amount: formatPrice(balance, STORE_POLICY.currency) })}</p> : null}
+        </fieldset>
+      ) : null}
+
       <div className="flex flex-col gap-5">
         <div className="flex flex-wrap-reverse items-center justify-between gap-4">
           <Button variant="ghost" onPress={() => goTo(1)}>
             {t("back")}
           </Button>
           <Button type="submit" size="lg" isDisabled={!accepted || !quoteReady} isLoading={submitting} startContent={<Lock size={18} aria-hidden="true" />} className="max-sm:w-full">
-            {payLabel}
+            {useBalance && balanceCovers ? t("balanceOption.button") : payLabel}
           </Button>
         </div>
         <div className="flex flex-col gap-3 border-t border-line pt-5">

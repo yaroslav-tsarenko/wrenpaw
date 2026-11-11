@@ -113,6 +113,7 @@ export function publicQuote(quote: Quote) {
     codeRejected: quote.codeRejected,
     lines: quote.lines.map(({ productId, name, variantName, quantity, unit, total }) => ({ productId, name, variantName, quantity, unit, total })),
     totals: quote.charge,
+    baseTotal: quote.base.total,
   };
 }
 

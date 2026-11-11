@@ -20,6 +20,8 @@ model User {
   role         UserRole  @default(CUSTOMER)
   phone        String?
   termsAcceptedAt DateTime?
+  /// Test credit for checkout (payWith "balance"); only shown when > 0.
+  balance      Decimal   @default(0) @db.Decimal(12, 2)
 
   welcomeDiscountUsed    Boolean @default(false)
   newsletterDiscountUsed Boolean @default(false)

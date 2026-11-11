@@ -3,21 +3,27 @@ import { ZodError } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
 import { SITE_URL } from "@/lib/brand";
+import { STORE_POLICY } from "@/config/store-policy";
 import { buildQuote, CheckoutError, publicQuote } from "@/lib/checkout";
 import { checkoutRequestSchema } from "@/lib/validators/checkout";
 import { composePhone } from "@/lib/validators/fields";
 import { dialCodeFor } from "@/lib/countries";
 import { createPaymentLink, getPayByLinkConfig } from "@/lib/paybylink";
+import { fulfil, loadOrder } from "@/lib/payment-settlement";
 
 export async function POST(request: NextRequest) {
   try {
     const body = checkoutRequestSchema.parse(await request.json());
+    const payWithBalance = body.payWith === "balance";
     const payment = getPayByLinkConfig();
-    if (!payment) {
+    if (!payment && !payWithBalance) {
       return NextResponse.json({ code: "PAYMENT_UNAVAILABLE" }, { status: 503 });
     }
 
     const user = await getSessionUser();
+    if (payWithBalance && !user) {
+      return NextResponse.json({ code: "UNAUTHORISED" }, { status: 401 });
+    }
     const { form } = body;
     const email = form.contact.email.toLowerCase();
     const quote = await buildQuote({ ...body, userId: user?.id ?? null, email });
@@ -48,8 +54,7 @@ export async function POST(request: NextRequest) {
           country: (form.billing.country ?? "").toUpperCase(),
         };
 
-    const order = await prisma.order.create({
-      data: {
+    const orderData = {
         user: user?.id ? { connect: { id: user.id } } : undefined,
         customerName: `${form.contact.firstName} ${form.contact.lastName}`,
         customerEmail: email,
@@ -68,7 +73,7 @@ export async function POST(request: NextRequest) {
         exchangeRate: quote.rate,
         chargeTotal: quote.charge.total,
         termsAcceptedAt: new Date(),
-        paymentMethod: "card",
+        paymentMethod: payWithBalance ? "balance" : "card",
         items: {
           create: quote.lines.map((line, index) => ({
             productId: line.productId,
@@ -80,11 +85,42 @@ export async function POST(request: NextRequest) {
             total: quote.base.lines[index].total,
           })),
         },
-      },
-    });
+    };
+
+    if (payWithBalance) {
+      // Test balance: debit atomically in the base currency, then record a paid order.
+      const amount = quote.base.total;
+      const debited = await prisma.$executeRaw`UPDATE "User" SET balance = balance - ${amount} WHERE id = ${user!.id} AND balance >= ${amount}`;
+      if (debited !== 1) {
+        return NextResponse.json({ code: "INSUFFICIENT_BALANCE" }, { status: 402 });
+      }
+      let created;
+      try {
+        const paidAt = new Date();
+        created = await prisma.order.create({
+          data: {
+            ...orderData,
+            status: "CONFIRMED",
+            paymentStatus: "PAID",
+            paidAt,
+            notes: `TEST ORDER: paid from test account balance (${amount.toFixed(2)} ${STORE_POLICY.currency}). Not forwarded to any supplier.`,
+          },
+        });
+        await prisma.order.update({ where: { id: created.id }, data: { paymentId: `balance_${created.id}` } });
+      } catch (error) {
+        await prisma.$executeRaw`UPDATE "User" SET balance = balance + ${amount} WHERE id = ${user!.id}`;
+        throw error;
+      }
+      const paid = await loadOrder({ id: created.id });
+      if (paid) await fulfil(paid);
+      const confirmUrl = new URL(`/order/confirmed?id=balance_${created.id}&checkoutId=balance`, request.nextUrl.origin).toString();
+      return NextResponse.json({ orderId: created.id, paymentLink: confirmUrl }, { status: 201 });
+    }
+
+    const order = await prisma.order.create({ data: orderData });
 
     try {
-      const link = await createPaymentLink(payment, {
+      const link = await createPaymentLink(payment!, {
         amount: quote.charge.total,
         currency: quote.currency,
         merchantTransactionId: order.orderNumber,

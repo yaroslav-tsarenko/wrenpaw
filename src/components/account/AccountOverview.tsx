@@ -9,6 +9,7 @@ import { Alert } from "@/components/ui/Alert";
 import { SkeletonBar } from "@/components/ui/TrailLoader";
 import { EmptyState } from "@/components/shared/EmptyState/EmptyState";
 import { formatPrice } from "@/lib/utils/format-price";
+import { STORE_POLICY } from "@/config/store-policy";
 import type { OrderView } from "@/lib/orders";
 import { AccountPageHeader } from "./AccountSidebar/AccountSidebar";
 import { OrderStatus } from "./OrderHistory/OrderStatus";
@@ -28,6 +29,11 @@ export function AccountOverview() {
     <div>
       <AccountPageHeader title={firstName ? t("title", { name: firstName }) : t("titleNoName")}>
         <p className="m-0 text-ink-muted">{t("signedInAs", { email: user?.email ?? "" })}</p>
+        {user?.balance ? (
+          <p className="m-0 mt-2 text-ink" data-testid="account-balance">
+            {t("balance", { amount: formatPrice(user.balance, STORE_POLICY.currency) })}
+          </p>
+        ) : null}
       </AccountPageHeader>
 
       {welcome ? <Alert tone="success" title={t("welcomeTitle")} className="mb-8">{t("welcomeBody")}</Alert> : null}

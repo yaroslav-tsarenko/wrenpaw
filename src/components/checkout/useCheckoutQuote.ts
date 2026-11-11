@@ -10,6 +10,8 @@ export interface ClientQuote {
   codeRejected: boolean;
   lines: { productId: string; name: string; variantName: string | null; quantity: number; unit: number; total: number }[];
   totals: Totals;
+  /** Order total in the store base currency, what a balance payment debits. */
+  baseTotal: number;
 }
 
 export interface QuoteProblem {

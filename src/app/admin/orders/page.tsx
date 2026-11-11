@@ -16,6 +16,7 @@ interface Order {
   createdAt: string;
   user: { name: string | null; email: string };
   items: { id: string }[];
+  paymentMethod?: string | null;
 }
 
 const statusColors: Record<string, "default" | "accent" | "success" | "warning" | "danger"> = {
@@ -78,6 +79,7 @@ export default function AdminOrdersPage() {
                     <Link href={`/admin/orders/${order.id}`} style={{ fontWeight: 600, color: "var(--admin-accent)" }}>
                       #{order.orderNumber.slice(-8)}
                     </Link>
+                    {order.paymentMethod === "balance" ? <Chip size="sm" color="warning" style={{ marginLeft: 8 }}>TEST</Chip> : null}
                   </td>
                   <td>{order.user.name || order.user.email}</td>
                   <td style={{ textAlign: "center" }}>
