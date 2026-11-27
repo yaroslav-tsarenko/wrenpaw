@@ -26,7 +26,7 @@ const INTERVAL_MS = 3000;
 function OrderStamp({ number }: { number: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    const key = `wrenpaw-confirmed-${number}`;
+    const key = `fawnandpaw-confirmed-${number}`;
     try {
       if (window.sessionStorage.getItem(key)) return;
       window.sessionStorage.setItem(key, "1");
@@ -153,7 +153,7 @@ export function ConfirmedView() {
       cleared.current = true;
       clearCart();
       try {
-        sessionStorage.removeItem("wrenpaw-checkout-draft");
+        sessionStorage.removeItem("fawnandpaw-checkout-draft");
       } catch {}
     }
     if (state !== "checking") headingRef.current?.focus();

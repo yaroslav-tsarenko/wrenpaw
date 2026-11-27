@@ -2,12 +2,12 @@
 
 import { useSyncExternalStore } from "react";
 
-export const CONSENT_KEY = "wrenpaw-consent";
+export const CONSENT_KEY = "fawnandpaw-consent";
 export const CONSENT_VERSION = 1;
 export const CONSENT_MAX_AGE_DAYS = 365;
 
-const CHANGE_EVENT = "wrenpaw:consent-change";
-const OPEN_EVENT = "wrenpaw:cookie-settings";
+const CHANGE_EVENT = "fawnandpaw:consent-change";
+const OPEN_EVENT = "fawnandpaw:cookie-settings";
 
 export type OptionalConsent = "analytics" | "marketing";
 

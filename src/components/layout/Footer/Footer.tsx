@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CheckoutFooter } from "@/components/checkout/CheckoutFrame";
 import { BRAND } from "@/lib/brand";
+import { SOCIAL_LINKS } from "@/lib/social";
 import { COMPANY } from "@/lib/company";
 import { HELP_LINKS, NAV_CATEGORIES, POLICY_LINKS } from "@/config/navigation";
 import { openCookieSettings } from "@/lib/consent";
@@ -15,11 +16,7 @@ import { useAuth } from "@/providers/AuthProvider";
 const linkCls = "text-ui-sm text-on-paint underline-offset-4 decoration-1 hover-device:hover:underline";
 const titleCls = "eyebrow mb-5 text-on-paint-muted";
 
-const SOCIAL = [
-  { label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL },
-  { label: "LinkedIn", href: process.env.NEXT_PUBLIC_LINKEDIN_URL },
-  { label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL },
-].filter((s): s is { label: string; href: string } => Boolean(s.href));
+const SOCIAL = SOCIAL_LINKS;
 
 function ShopLinks() {
   return (

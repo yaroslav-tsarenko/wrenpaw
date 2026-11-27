@@ -199,7 +199,7 @@ export function ProductEntry({ product, density = "entry", priority, sizes, spec
       maxQuantity: itemQuantityCap(product.quantity),
     });
     setSettleKey((k) => k + 1);
-    window.dispatchEvent(new CustomEvent("wrenpaw:bag-add", { detail: { productId: product.id, source: event.currentTarget.closest("[data-entry]") } }));
+    window.dispatchEvent(new CustomEvent("fawnandpaw:bag-add", { detail: { productId: product.id, source: event.currentTarget.closest("[data-entry]") } }));
   };
 
   if (density === "mini") {

@@ -29,10 +29,10 @@ function getTransporter(): Transporter | null {
 }
 
 function getFrom(): string {
-  return (
-    process.env.SMTP_FROM ||
-    (process.env.SMTP_USER ? `${BRAND.name} <${process.env.SMTP_USER}>` : `${BRAND.name} <noreply@${BRAND.domain}>`)
-  );
+  // The display name always comes from BRAND so a stale name in SMTP_FROM never reaches customers.
+  const configured = process.env.SMTP_FROM?.trim();
+  const address = configured?.match(/<([^>]+)>/)?.[1] ?? configured ?? process.env.SMTP_USER ?? `noreply@${BRAND.domain}`;
+  return `"${BRAND.name}" <${address}>`;
 }
 
 function getReplyTo(): string | undefined {

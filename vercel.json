@@ -1,4 +1,39 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "crons": [{ "path": "/api/cron/image-health", "schedule": "0 4 * * *" }]
+  "crons": [
+    {
+      "path": "/api/cron/image-health",
+      "schedule": "0 4 * * *"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path((?!api/|\\.well-known/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "wrenpaw.vercel.app"
+        }
+      ],
+      "destination": "https://www.fawnandpaw.com/:path",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "wrenpaw.vercel.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ]
 }

@@ -1,6 +1,6 @@
-# Wrenpaw — Design Brief: "Hedgerow Press"
+# Fawn & Paw — Design Brief: "Hedgerow Press"
 
-Decision record and implementation spec for wrenpaw.com. Replaces the Brasmora brief ("The Dresser"), which is void: no bevels, no shelf rules, no brass plates, no chalk-and-chocolate palette, no Gloock/Commissioner, no furniture metaphor, no `glaze` WebGL scene. `.claude/knowledge/DESIGN-MASTER.md` and `CHECKLIST-QC.md` still govern; where this brief is more specific, follow this brief.
+Decision record and implementation spec for fawnandpaw.com. Replaces the Brasmora brief ("The Dresser"), which is void: no bevels, no shelf rules, no brass plates, no chalk-and-chocolate palette, no Gloock/Commissioner, no furniture metaphor, no `glaze` WebGL scene. `.claude/knowledge/DESIGN-MASTER.md` and `CHECKLIST-QC.md` still govern; where this brief is more specific, follow this brief.
 
 Scope: storefront (`src/app/(store)/**`, `src/components/**` except `admin`, `src/styles/*`, `src/app/layout.tsx`, `src/app/fonts.css`, brand assets in `public/`). Admin is restyled by tokens only — it is isolated on `--admin-*`.
 

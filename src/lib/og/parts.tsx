@@ -52,8 +52,9 @@ export function Label({ children, fontSize = 26, color = P.accent }: { children:
 export function Wordmark({ size, color, accent }: { size: number; color: string; accent: string }) {
   return (
     <div style={{ display: "flex", fontFamily: "Piazzolla", fontWeight: 500, fontSize: size, lineHeight: 1, letterSpacing: -size * 0.02, color }}>
-      <span>Wrenpa</span>
-      <span style={{ color: accent }}>w</span>
+      <span>Fawn</span>
+      <span style={{ color: accent, margin: `0 ${size * 0.22}px` }}>&amp;</span>
+      <span>Paw</span>
       <span style={{ display: "none" }}>{BRAND.name}</span>
     </div>
   );

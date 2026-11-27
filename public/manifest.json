@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "Wrenpaw — Pet supplies for the whole household",
-  "short_name": "Wrenpaw",
+  "name": "Fawn & Paw — Pet supplies for the whole household",
+  "short_name": "Fawn & Paw",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F4EFE4",

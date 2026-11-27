@@ -1,6 +1,6 @@
-# Wrenpaw
+# Fawn & Paw
 
-Storefront and admin for Wrenpaw (wrenpaw.com), a pet supplies store, built with Next.js 16. Includes product catalog, shopping cart, checkout, order management and analytics.
+Storefront and admin for Fawn & Paw (fawnandpaw.com), a pet supplies store, built with Next.js 16. Includes product catalog, shopping cart, checkout, order management and analytics.
 
 ## Tech Stack
 
@@ -73,8 +73,8 @@ cp .env.example .env
 | `JWT_SECRET` | Secret key for JWT tokens | Yes |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL | Yes |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE` | SMTP server for transactional email (emails are skipped when unset) | Yes, for email |
-| `SMTP_USER`, `SMTP_PASSWORD` | Mailbox credentials on the wrenpaw.com domain | Yes, for email |
-| `SMTP_FROM`, `SMTP_REPLY_TO` | Sender and reply-to addresses on the wrenpaw.com domain | Yes, for email |
+| `SMTP_USER`, `SMTP_PASSWORD` | Mailbox credentials on the fawnandpaw.com domain | Yes, for email |
+| `SMTP_FROM`, `SMTP_REPLY_TO` | Sender and reply-to addresses on the fawnandpaw.com domain | Yes, for email |
 | `PAYBYLINK_BASE_URL` | OPPWA host (`https://eu-test.oppwa.com` sandbox, `https://eu-prod.oppwa.com` live) | Yes, for checkout |
 | `PAYBYLINK_ENTITY_ID` | OPPWA entity id | Yes, for checkout |
 | `PAYBYLINK_AUTH_TOKEN` | OPPWA bearer token | Yes, for checkout |
@@ -134,7 +134,7 @@ scripts/                   # Dev server orchestration, data generation
 
 ## Localization
 
-URLs carry no locale segment. The active locale is kept in `localStorage` (`wrenpaw-locale`) and mirrored into the `NEXT_LOCALE` cookie, which `src/i18n/request.ts` reads on the server. English is the only locale today. To add one, append its code to `locales` (and a label to `localeLabels`) in `src/i18n/config.ts` and add a `messages/<code>/` folder with one JSON file per namespace listed in `src/i18n/messages.ts` (copy `messages/en/` and translate); the language switcher appears automatically once more than one locale exists.
+URLs carry no locale segment. The active locale is kept in `localStorage` (`fawnandpaw-locale`) and mirrored into the `NEXT_LOCALE` cookie, which `src/i18n/request.ts` reads on the server. English is the only locale today. To add one, append its code to `locales` (and a label to `localeLabels`) in `src/i18n/config.ts` and add a `messages/<code>/` folder with one JSON file per namespace listed in `src/i18n/messages.ts` (copy `messages/en/` and translate); the language switcher appears automatically once more than one locale exists.
 
 Brand values live in `src/lib/brand.ts` and legal entity details in `src/lib/company.ts`.
 

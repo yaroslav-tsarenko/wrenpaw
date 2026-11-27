@@ -66,8 +66,7 @@ export function Wordmark({ tone = "ink", className }: { tone?: "ink" | "on-paint
         className,
       )}
     >
-      Wrenpa
-      <span className={tone === "on-paint" ? "text-brand-on-paint" : "text-brand-2"}>w</span>
+      Fawn <span className={tone === "on-paint" ? "text-brand-on-paint" : "text-brand-2"}>&amp;</span> Paw
     </span>
   );
 }

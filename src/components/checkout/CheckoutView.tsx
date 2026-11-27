@@ -33,7 +33,7 @@ import { MerchantInfo } from "./MerchantInfo";
 import { TotalsList } from "./TotalsList";
 import { quotePayloadItems, useCheckoutQuote, type QuoteProblem } from "./useCheckoutQuote";
 
-const DRAFT_KEY = "wrenpaw-checkout-draft";
+const DRAFT_KEY = "fawnandpaw-checkout-draft";
 
 type FieldName = FieldPath<CheckoutFormData>;
 

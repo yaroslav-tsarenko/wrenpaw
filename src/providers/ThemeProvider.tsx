@@ -18,7 +18,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("wrenpaw-theme") as Theme | null;
+    const stored = localStorage.getItem("fawnandpaw-theme") as Theme | null;
     if (stored) {
       setThemeState(stored);
     } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (mounted) {
       document.documentElement.setAttribute("data-theme", theme);
       document.documentElement.classList.toggle("dark", theme === "dark");
-      localStorage.setItem("wrenpaw-theme", theme);
+      localStorage.setItem("fawnandpaw-theme", theme);
     }
   }, [theme, mounted]);
 

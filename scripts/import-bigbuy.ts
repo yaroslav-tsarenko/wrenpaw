@@ -256,7 +256,7 @@ async function writeCatalog(products: SelectedProduct[], categories: CategoryNod
 
 async function main() {
   const mode = cli.dryRun ? "preview (dry run)" : "import";
-  console.log(`\n=== Wrenpaw catalog ${mode} — source: ${cli.fixturesDir ? `fixtures ${cli.fixturesDir}` : "supplier API"}, isoCode=${ISO_CODE} ===\n`);
+  console.log(`\n=== Fawn & Paw catalog ${mode} — source: ${cli.fixturesDir ? `fixtures ${cli.fixturesDir}` : "supplier API"}, isoCode=${ISO_CODE} ===\n`);
 
   const problems = validateConfig(catalogConfig);
   if (problems.length) throw new Error(`catalog config invalid:\n  - ${problems.join("\n  - ")}`);

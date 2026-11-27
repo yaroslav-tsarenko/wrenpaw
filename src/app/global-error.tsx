@@ -9,7 +9,7 @@ import { COMPANY } from "@/lib/company";
 import messages from "../../messages/en/errors.json";
 import common from "../../messages/en/common.json";
 
-const THEME_INIT = `(function(){try{var t=localStorage.getItem("wrenpaw-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.setAttribute("data-theme",t);d.classList.toggle("dark",t==="dark")}catch(e){}})();`;
+const THEME_INIT = `(function(){try{var t=localStorage.getItem("fawnandpaw-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.setAttribute("data-theme",t);d.classList.toggle("dark",t==="dark")}catch(e){}})();`;
 
 export default function GlobalError({
   error,

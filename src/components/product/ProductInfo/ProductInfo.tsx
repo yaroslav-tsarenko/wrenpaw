@@ -119,7 +119,7 @@ export function ProductInfo({
       variantName: variant?.name,
       maxQuantity: max,
     });
-    window.dispatchEvent(new CustomEvent("wrenpaw:bag-add", { detail: { productId: id, source: source ?? document.querySelector("[data-gallery]") } }));
+    window.dispatchEvent(new CustomEvent("fawnandpaw:bag-add", { detail: { productId: id, source: source ?? document.querySelector("[data-gallery]") } }));
   };
 
   const display = productDisplay(name);

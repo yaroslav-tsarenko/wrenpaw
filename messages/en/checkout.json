@@ -119,7 +119,7 @@
   "confirmed": {
     "meta": {
       "title": "Order confirmation",
-      "description": "Where your Wrenpaw order and its payment currently stand."
+      "description": "Where your Fawn & Paw order and its payment currently stand."
     },
     "itemsTitle": "Your order",
     "lineQty": "{count} × {unit}",
